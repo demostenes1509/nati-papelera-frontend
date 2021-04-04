@@ -8,7 +8,7 @@ import NavBar from '../NavBar/NavBar';
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 interface LayoutProps extends RouteProps {
-  components: any;
+  components: Array<any>;
   exact: boolean;
   path: string;
 }

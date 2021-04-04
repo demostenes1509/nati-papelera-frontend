@@ -19,14 +19,6 @@ class App extends Component {
           <Layout exact path="/:category/:product" components={[SideBar,Product]}/> */}
         </Switch>
       </Router>
-
-      // <section className="main-wrapper">
-      //   <Header />
-      //   <Error />
-      //   <NavBar />
-      //   <PageContainer />
-      //   <Footer />
-      // </section>
     );
   }
 }
