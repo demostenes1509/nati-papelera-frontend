@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import deliveryVan from "../../../images/delivery-van.png";
-import deliveryVan2 from "../../../images/delivery-van2.png";
-import discountProduct from "../../../images/discount-product.jpg";
-import paymentOptions from "../../../images/payment-options.png";
+import React, { Component } from 'react';
+import deliveryVan from '../../../images/delivery-van.png';
+import deliveryVan2 from '../../../images/delivery-van2.png';
+import discountProduct from '../../../images/discount-product.jpg';
+import paymentOptions from '../../../images/payment-options.png';
 
 class MainContent extends Component {
   render() {

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import telTab from "../../images/tel-tab.png";
-import headerImage from "../../images/header-image.png";
+import React, { Component } from 'react';
+import telTab from '../../images/tel-tab.png';
+import headerImage from '../../images/header-image.png';
 
 class Header extends Component {
   render() {

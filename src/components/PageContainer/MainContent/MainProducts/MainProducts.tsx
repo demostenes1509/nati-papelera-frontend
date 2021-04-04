@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import productImg1 from "../../../../images/product-img1.jpg";
-import productImg2 from "../../../../images/product-img2.jpg";
-import productImg3 from "../../../../images/product-img3.jpg";
-import productImg4 from "../../../../images/product-img4.jpg";
-import productImg5 from "../../../../images/product-img5.jpg";
-import productImg6 from "../../../../images/product-img6.jpg";
-import productImg7 from "../../../../images/product-img7.jpg";
-import productImg8 from "../../../../images/product-img8.jpg";
-import productImg9 from "../../../../images/product-img9.jpg";
+import React, { Component } from 'react';
+import productImg1 from '../../../../images/product-img1.jpg';
+import productImg2 from '../../../../images/product-img2.jpg';
+import productImg3 from '../../../../images/product-img3.jpg';
+import productImg4 from '../../../../images/product-img4.jpg';
+import productImg5 from '../../../../images/product-img5.jpg';
+import productImg6 from '../../../../images/product-img6.jpg';
+import productImg7 from '../../../../images/product-img7.jpg';
+import productImg8 from '../../../../images/product-img8.jpg';
+import productImg9 from '../../../../images/product-img9.jpg';
 
 class ManProducts extends Component {
   render() {
@@ -25,8 +25,8 @@ class ManProducts extends Component {
               </h3>
               <p className="main-product-description">
                 <a href="#">
-                  Do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem...
+                  Do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed ut perspiciatis unde omnis iste
+                  natus error sit voluptatem...
                 </a>
               </p>
               <div className="product-prices">
@@ -45,8 +45,8 @@ class ManProducts extends Component {
               </h3>
               <p className="main-product-description">
                 <a href="#">
-                  Totam rem aperiam. Esse cillum dolore eu fugiat nulla pariatur. Nihil molestiae consequatur, vel illum qui dolorem
-                  eum...
+                  Totam rem aperiam. Esse cillum dolore eu fugiat nulla pariatur. Nihil molestiae consequatur, vel illum
+                  qui dolorem eum...
                 </a>
               </p>
               <div className="product-prices">
@@ -65,7 +65,8 @@ class ManProducts extends Component {
               </h3>
               <p className="main-product-description">
                 <a href="#">
-                  Eaque ipsa quae ab illo inventore veritatis et quasi. Totam rem aperiam. Nihil molestiae consequatur...
+                  Eaque ipsa quae ab illo inventore veritatis et quasi. Totam rem aperiam. Nihil molestiae
+                  consequatur...
                 </a>
               </p>
               <div className="product-prices">
@@ -86,8 +87,8 @@ class ManProducts extends Component {
               </h3>
               <p className="main-product-description">
                 <a href="#">
-                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. Ut enim ad minim veniam, quis nostrud
-                  exercitation...
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. Ut enim ad minim veniam,
+                  quis nostrud exercitation...
                 </a>
               </p>
               <div className="product-prices">
@@ -106,8 +107,8 @@ class ManProducts extends Component {
               </h3>
               <p className="main-product-description">
                 <a href="#">
-                  Nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
-                  quam...
+                  Nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate
+                  velit esse quam...
                 </a>
               </p>
               <div className="product-prices">
@@ -144,7 +145,9 @@ class ManProducts extends Component {
                 <a href="#">Laboris nisi ut aliquip ex ea commodo</a>
               </h3>
               <p className="main-product-description">
-                <a href="#">Totam rem aperiam. Itaque earum rerum hic tenetur a sapiente delectus. At vero eos et accusamus...</a>
+                <a href="#">
+                  Totam rem aperiam. Itaque earum rerum hic tenetur a sapiente delectus. At vero eos et accusamus...
+                </a>
               </p>
               <div className="product-prices">
                 <p>
@@ -162,8 +165,8 @@ class ManProducts extends Component {
               </h3>
               <p className="main-product-description">
                 <a href="#">
-                  Quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Totam rem aperiam. Architecto beatae
-                  vitae dicta...
+                  Quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Totam rem aperiam.
+                  Architecto beatae vitae dicta...
                 </a>
               </p>
               <div className="product-prices">
@@ -182,7 +185,8 @@ class ManProducts extends Component {
               </h3>
               <p className="main-product-description">
                 <a href="#">
-                  Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat...
+                  Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
+                  repellat...
                 </a>
               </p>
               <div className="product-prices">

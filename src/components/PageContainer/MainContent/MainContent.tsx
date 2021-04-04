@@ -1,7 +1,6 @@
-import React, { Component } from "react";
-import MainProducts from "./MainProducts/MainProducts";
-import MainSlider from "./MainSlider/MainSlider";
-import Product from "./Product/Product";
+import React, { Component } from 'react';
+import MainProducts from './MainProducts/MainProducts';
+import MainSlider from './MainSlider/MainSlider';
 
 class MainContent extends Component {
   render() {
@@ -9,7 +8,6 @@ class MainContent extends Component {
       <section className="main-content clear-fix">
         <MainSlider />
         <MainProducts />
-        {/* <Product /> */}
       </section>
     );
   }

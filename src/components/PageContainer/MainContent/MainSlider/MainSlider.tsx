@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import slideImg from "../../../../images/slide-img.png";
+import React, { Component } from 'react';
+import slideImg from '../../../../images/slide-img.png';
 
 class MainSlider extends Component {
   render() {

@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import MainSideBar from "./MainSideBar/MainSideBar";
-import MainContent from "./MainContent/MainContent";
+import React, { Component } from 'react';
 
 class PageContainer extends Component {
   render() {
     return (
       <section className="page-container clear-fix">
         {/* <Authentication /> */}
-        <MainSideBar />
-        <MainContent />
+        {/* <MainSideBar />
+        <MainContent /> */}
       </section>
     );
   }

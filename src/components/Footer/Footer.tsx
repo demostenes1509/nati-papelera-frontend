@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import fbIcon from "../../images/fb-icon.png";
-import twitterIcon from "../../images/twitter-icon.png";
+import React, { Component } from 'react';
+import fbIcon from '../../images/fb-icon.png';
+import twitterIcon from '../../images/twitter-icon.png';
 
 class Footer extends Component {
   render() {
