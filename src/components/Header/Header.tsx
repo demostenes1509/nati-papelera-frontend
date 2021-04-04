@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import telTab from "../../images/tel-tab.png";
+import headerImage from "../../images/header-image.png";
 
 class Header extends Component {
   render() {
@@ -9,10 +11,12 @@ class Header extends Component {
             <a href="#">Plastico Mania</a>
           </h1>
         </div>
+
         <div className="header-labels">
-          <img src="/images/tel-tab.png" alt="" />
-          <img src="/images/header-image.png" alt="" />
+          <img src={telTab} alt="" />
+          <img src={headerImage} alt="" />
         </div>
+
         <div className="header-details">
           <ul>
             <li>
