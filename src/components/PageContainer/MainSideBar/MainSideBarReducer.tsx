@@ -9,6 +9,6 @@ const initialState: State<SidebarPayload> = {
   error: null,
 };
 
-export default (state = initialState, action: Action<SidebarPayload>) => {
+export default (state = initialState, action: Action<SidebarPayload>): State<SidebarPayload> => {
   return ReducersUtil.defaultFetch(initialState, state, action, SidebarTypes);
 };

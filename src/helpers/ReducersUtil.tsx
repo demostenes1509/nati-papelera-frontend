@@ -12,13 +12,13 @@ const defaultFetch = <P,>(initialState: State<P>, state: State<P>, action: Actio
     case types.FETCH_SUCCESS:
       return {
         loading: false,
-        payload: action.payload,
+        payload: action.payload || initialState.payload, // action.payload will always have value
         error: null,
       };
     case types.FETCH_ERROR:
       return {
         loading: false,
-        error: action.error,
+        error: action.error || null, // action.error will always have value
         payload: initialState.payload,
       };
     default:

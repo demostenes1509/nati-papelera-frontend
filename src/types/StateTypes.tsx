@@ -1,5 +1,5 @@
 export interface State<P> {
   loading: boolean;
-  payload?: P | null;
-  error?: string | null;
+  payload: P;
+  error: string | null;
 }

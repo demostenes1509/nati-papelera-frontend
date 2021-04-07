@@ -1,4 +1,4 @@
-import { Action, ActionTypes } from '../../../types/ActionsTypes';
+import { Action, ActionTypes, FetchActions } from '../../../types/ActionsTypes';
 
 export const SidebarTypes: ActionTypes = {
   FETCH: 'FETCH_SIDEBAR',
@@ -11,17 +11,11 @@ export class SidebarPayload {
   categories: Array<string> = [];
 }
 
-const fetch = (): Action<SidebarPayload> => ({ type: SidebarTypes.FETCH });
-const fetchLoading = (): Action<SidebarPayload> => ({ type: SidebarTypes.FETCH_LOADING });
-const fetchSuccess = (payload: SidebarPayload): Action<SidebarPayload> => ({
-  type: SidebarTypes.FETCH_SUCCESS,
-  payload,
-});
-const fetchError = (error: string): Action<SidebarPayload> => ({ type: SidebarTypes.FETCH_ERROR, error });
-
-export default {
-  fetch,
-  fetchLoading,
-  fetchSuccess,
-  fetchError,
+const SidebarFetchActions: FetchActions<SidebarPayload> = {
+  fetch: (): Action<SidebarPayload> => ({ type: SidebarTypes.FETCH }),
+  fetchLoading: (): Action<SidebarPayload> => ({ type: SidebarTypes.FETCH_LOADING }),
+  fetchSuccess: (p: SidebarPayload): Action<SidebarPayload> => ({ type: SidebarTypes.FETCH_SUCCESS, payload: p }),
+  fetchError: (e: string): Action<SidebarPayload> => ({ type: SidebarTypes.FETCH_ERROR, error: e }),
 };
+
+export default SidebarFetchActions;

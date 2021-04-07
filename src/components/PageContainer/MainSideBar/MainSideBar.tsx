@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import deliveryVan from '../../../images/delivery-van.png';
 import deliveryVan2 from '../../../images/delivery-van2.png';
 import discountProduct from '../../../images/discount-product.jpg';
 import paymentOptions from '../../../images/payment-options.png';
+import { FetchComponent } from '../../../types/ComponentTypes';
+import { State } from '../../../types/StateTypes';
+import SidebarFetchActions, { SidebarPayload } from './MainSideBarActions';
 
-class MainContent extends Component {
+class MainSideBar extends Component<FetchComponent<SidebarPayload>> {
   render() {
+    console.log('=================');
+    console.log(this.props);
+    console.log('=================');
+
     return (
       <aside className="main-sidebar">
         <section className="advertising-aside">
@@ -222,6 +232,28 @@ class MainContent extends Component {
       </aside>
     );
   }
+
+  componentDidMount() {
+    this.props.fetch();
+  }
 }
 
-export default MainContent;
+interface IExtraDispatchArguments {
+  dummy: number;
+}
+
+interface MapToStateProps {
+  mainSideBar: State<SidebarPayload>;
+}
+
+const mapStateToProps = (state: MapToStateProps) => ({
+  payload: state.mainSideBar.payload,
+  loading: state.mainSideBar.loading,
+  error: state.mainSideBar.error,
+});
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<State<SidebarPayload>, IExtraDispatchArguments, AnyAction>) => ({
+  fetch: () => dispatch(SidebarFetchActions.fetch()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainSideBar);
