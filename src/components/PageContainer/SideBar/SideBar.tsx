@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
+import { Link } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 import deliveryVan from '../../../images/delivery-van.png';
 import deliveryVan2 from '../../../images/delivery-van2.png';
@@ -8,13 +9,18 @@ import discountProduct from '../../../images/discount-product.jpg';
 import paymentOptions from '../../../images/payment-options.png';
 import { FetchComponent } from '../../../types/ComponentTypes';
 import { State } from '../../../types/StateTypes';
-import SidebarFetchActions, { SidebarPayload } from './MainSideBarActions';
+import SidebarFetchActions, { SidebarPayload } from './SideBarActions';
 
-class MainSideBar extends Component<FetchComponent<SidebarPayload>> {
+class SideBar extends Component<FetchComponent<SidebarPayload>> {
   render() {
+    const {
+      payload: { categories },
+    } = this.props;
     console.log('=================');
     console.log(this.props);
     console.log('=================');
+
+    console.log(categories);
 
     return (
       <aside className="main-sidebar">
@@ -25,6 +31,19 @@ class MainSideBar extends Component<FetchComponent<SidebarPayload>> {
         <section className="category-aside">
           <h2 className="aside-title">Categorias</h2>
           <ul className="aside-menu">
+            {categories.map((category) => (
+              <li key={category.id}>
+                <Link to={`/${category.url}`}>{category.name}</Link>
+                <ul className="aside-sub-menu">
+                  {category.products.map((product) => (
+                    <li key={product.id}>
+                      <Link to={`/${category.url}/${product.url}`}>{product.name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+
             <li>
               <a href="#" className="aside-active">
                 Vasos de Plastico
@@ -43,102 +62,6 @@ class MainSideBar extends Component<FetchComponent<SidebarPayload>> {
                   <a href="#">Sub Item 3</a>
                 </li>
               </ul>
-            </li>
-            <li>
-              <a href="#">Vasos Personalizados</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Cubata, Mojito y Sidra</a>
-            </li>
-            <li>
-              <a href="#">Copas de Plastico</a>
-            </li>
-            <li>
-              <a href="#">Chupitos de Plastico</a>
-            </li>
-            <li>
-              <a href="#">Jarras de Plastico</a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#">Sub Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos de Carton</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Plastico</a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#">Sub Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos Personalizados</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Cubata, Mojito y Sidra</a>
-            </li>
-            <li>
-              <a href="#">Copas de Plastico</a>
-            </li>
-            <li>
-              <a href="#">Chupitos de Plastico</a>
-            </li>
-            <li>
-              <a href="#">Jarras de Plastico</a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#">Sub Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos de Carton</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Plastico</a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#">Sub Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos Personalizados</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Cubata, Mojito y Sidra</a>
             </li>
           </ul>
         </section>
@@ -256,4 +179,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State<SidebarPayload>, IExtr
   fetch: () => dispatch(SidebarFetchActions.fetch()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainSideBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

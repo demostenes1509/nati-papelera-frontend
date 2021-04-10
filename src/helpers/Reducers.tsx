@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import MainSideBarReducer from '../components/PageContainer/MainSideBar/MainSideBarReducer';
+import MainSideBarReducer from '../components/PageContainer/SideBar/SideBarReducer';
 
 const rootReducers = combineReducers({
   mainSideBar: MainSideBarReducer,

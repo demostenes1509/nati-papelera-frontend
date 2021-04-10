@@ -7,8 +7,19 @@ export const SidebarTypes: ActionTypes = {
   FETCH_ERROR: 'FETCH_SIDEBAR_ERROR',
 };
 
+interface Category {
+  id: number;
+  name: string;
+  url: string;
+  products: Array<Product>;
+}
+interface Product {
+  id: number;
+  name: string;
+  url: string;
+}
 export class SidebarPayload {
-  categories: Array<string> = [];
+  categories: Array<Category> = [];
 }
 
 const SidebarFetchActions: FetchActions<SidebarPayload> = {

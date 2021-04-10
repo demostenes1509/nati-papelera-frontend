@@ -1,7 +1,7 @@
 import ReducersUtil from '../../../helpers/ReducersUtil';
 import { Action } from '../../../types/ActionsTypes';
 import { State } from '../../../types/StateTypes';
-import { SidebarPayload, SidebarTypes } from './MainSideBarActions';
+import { SidebarPayload, SidebarTypes } from './SideBarActions';
 
 const initialState: State<SidebarPayload> = {
   loading: false,
