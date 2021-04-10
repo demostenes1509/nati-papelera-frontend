@@ -1,27 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AnyAction } from 'redux';
 import { Link } from 'react-router-dom';
-import { ThunkDispatch } from 'redux-thunk';
+import sidebarActions from './SideBarActions';
 import deliveryVan from '../../../images/delivery-van.png';
 import deliveryVan2 from '../../../images/delivery-van2.png';
 import discountProduct from '../../../images/discount-product.jpg';
 import paymentOptions from '../../../images/payment-options.png';
-import { FetchComponent } from '../../../types/ComponentTypes';
-import { State } from '../../../types/StateTypes';
-import SidebarFetchActions, { SidebarPayload } from './SideBarActions';
 
-class SideBar extends Component<FetchComponent<SidebarPayload>> {
+interface Category {
+  id: string;
+  name: string;
+  url: string;
+  selected: boolean;
+  products: Array<Product>;
+}
+
+interface Product {
+  id: string;
+  name: string;
+  url: string;
+  selected: boolean;
+}
+
+interface SideBarProps {
+  fetch(): string;
+  select(id: string): string;
+  payload: {
+    categories: Array<Category>;
+  };
+}
+
+class SideBar extends Component<SideBarProps> {
   render() {
-    const {
-      payload: { categories },
-    } = this.props;
-    console.log('=================');
-    console.log(this.props);
-    console.log('=================');
-
-    console.log(categories);
-
+    const { categories } = this.props.payload;
     return (
       <aside className="main-sidebar">
         <section className="advertising-aside">
@@ -33,36 +44,28 @@ class SideBar extends Component<FetchComponent<SidebarPayload>> {
           <ul className="aside-menu">
             {categories.map((category) => (
               <li key={category.id}>
-                <Link to={`/${category.url}`}>{category.name}</Link>
+                <Link
+                  to={`/${category.url}`}
+                  onClick={() => this.handleClick(category.id)}
+                  className={category.selected ? 'aside-active' : ''}
+                >
+                  {category.name}
+                </Link>
                 <ul className="aside-sub-menu">
                   {category.products.map((product) => (
                     <li key={product.id}>
-                      <Link to={`/${category.url}/${product.url}`}>{product.name}</Link>
+                      <Link
+                        to={`/${category.url}/${product.url}`}
+                        onClick={() => this.handleClick(product.id)}
+                        className={product.selected ? 'aside-active' : ''}
+                      >
+                        {product.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
               </li>
             ))}
-
-            <li>
-              <a href="#" className="aside-active">
-                Vasos de Plastico
-              </a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#" className="aside-active">
-                    Sub Item 1
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
           </ul>
         </section>
         <section className="descuentos-aside clear-fix">
@@ -159,24 +162,24 @@ class SideBar extends Component<FetchComponent<SidebarPayload>> {
   componentDidMount() {
     this.props.fetch();
   }
+
+  handleClick = (id: string) => {
+    this.props.select(id);
+  };
 }
 
-interface IExtraDispatchArguments {
-  dummy: number;
-}
+const mapStateToProps = (state) => {
+  return {
+    payload: state.sidebarReducer.payload,
+    loading: state.sidebarReducer.loading,
+    error: state.sidebarReducer.error,
+    isadmin: state.sidebarReducer.isAdmin,
+  };
+};
 
-interface MapToStateProps {
-  mainSideBar: State<SidebarPayload>;
-}
-
-const mapStateToProps = (state: MapToStateProps) => ({
-  payload: state.mainSideBar.payload,
-  loading: state.mainSideBar.loading,
-  error: state.mainSideBar.error,
-});
-
-const mapDispatchToProps = (dispatch: ThunkDispatch<State<SidebarPayload>, IExtraDispatchArguments, AnyAction>) => ({
-  fetch: () => dispatch(SidebarFetchActions.fetch()),
+const mapDispatchToProps = (dispatch) => ({
+  fetch: () => dispatch(sidebarActions.fetch()),
+  select: (id) => dispatch(sidebarActions.select(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

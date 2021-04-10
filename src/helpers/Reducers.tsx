@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import MainSideBarReducer from '../components/PageContainer/SideBar/SideBarReducer';
+import SideBarReducer from '../components/Containers/SideBar/SideBarReducer';
 
 const rootReducers = combineReducers({
-  mainSideBar: MainSideBarReducer,
+  sidebarReducer: SideBarReducer,
 });
 
 export default rootReducers;

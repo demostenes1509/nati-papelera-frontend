@@ -1,7 +1,4 @@
-import { Action, ActionTypes } from '../types/ActionsTypes';
-import { State } from '../types/StateTypes';
-
-const defaultFetch = <P,>(initialState: State<P>, state: State<P>, action: Action<P>, types: ActionTypes): State<P> => {
+const defaultFetch = (initialState, state, action, types) => {
   switch (action.type) {
     case types.FETCH:
       return {
@@ -12,14 +9,40 @@ const defaultFetch = <P,>(initialState: State<P>, state: State<P>, action: Actio
     case types.FETCH_SUCCESS:
       return {
         loading: false,
-        payload: action.payload || initialState.payload, // action.payload will always have value
+        payload: action.payload,
         error: null,
       };
     case types.FETCH_ERROR:
       return {
         loading: false,
-        error: action.error || null, // action.error will always have value
+        error: action.error,
         payload: initialState.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const defaultPost = (initialState, state, action, types) => {
+  switch (action.type) {
+    case types.POST:
+      return {
+        waiting: true,
+        request: initialState.request,
+        response: initialState.response,
+        error: null,
+      };
+    case types.POST_SUCCESS:
+      return {
+        waiting: false,
+        response: action.response,
+        error: null,
+      };
+    case types.POST_ERROR:
+      return {
+        waiting: false,
+        error: action.error,
+        response: {},
       };
     default:
       return state;
@@ -28,4 +51,5 @@ const defaultFetch = <P,>(initialState: State<P>, state: State<P>, action: Actio
 
 export default {
   defaultFetch,
+  defaultPost,
 };

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
-import SideBar from './components/PageContainer/SideBar/SideBar';
-import MainContent from './components/PageContainer/MainContent/MainContent';
-import Authentication from './components/PageContainer/Authentication/Authentication';
-import CategoryContent from './components/PageContainer/CategoryContent/CategoryContent';
-import ProductContent from './components/PageContainer/ProductContent/ProductContent';
+import SideBar from './components/Containers/SideBar/SideBar';
+import MainContent from './components/Containers/MainContent/MainContent';
+import Authentication from './components/Containers/Authentication/Authentication';
+import CategoryContent from './components/Containers/CategoryContent/CategoryContent';
+import ProductContent from './components/Containers/ProductContent/ProductContent';
 
 class App extends Component {
   render() {
