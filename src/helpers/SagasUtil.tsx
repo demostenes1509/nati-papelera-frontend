@@ -1,9 +1,9 @@
 import { call, put } from 'redux-saga/effects';
 
-export function* defaultFetch(actions, api, path = null) {
+export function* defaultFetch(actions, api, data = null) {
   try {
     yield put(actions.fetchLoading());
-    const response = yield call(() => api.fetch(path));
+    const response = yield call(() => api.fetch(data));
 
     if (response.status === 200) {
       yield put(actions.fetchSuccess(response.data));

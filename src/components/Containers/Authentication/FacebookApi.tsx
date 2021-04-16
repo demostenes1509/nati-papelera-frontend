@@ -2,10 +2,14 @@ import { AxiosRequestConfig } from 'axios';
 import request from '../../../helpers/Api';
 
 export default {
-  fetch() {
+  fetch(data) {
+    const { provider, params } = data;
     const config: AxiosRequestConfig = {
-      url: 'sidebar/get-all',
+      url: `auth/${provider}`,
       method: 'GET',
+      params: {
+        access_token: params.accessToken,
+      },
     };
     return request(config);
   },

@@ -7,30 +7,33 @@ import deliveryVan2 from '../../../images/delivery-van2.png';
 import discountProduct from '../../../images/discount-product.jpg';
 import paymentOptions from '../../../images/payment-options.png';
 
-interface Category {
+interface ICategory {
   id: string;
   name: string;
   url: string;
   selected: boolean;
-  products: Array<Product>;
+  products: Array<IProduct>;
 }
 
-interface Product {
+interface IProduct {
   id: string;
   name: string;
   url: string;
   selected: boolean;
 }
 
-interface SideBarProps {
-  fetch(): string;
-  select(id: string): string;
+interface IStateProps {
   payload: {
-    categories: Array<Category>;
+    categories: Array<ICategory>;
   };
 }
 
-class SideBar extends Component<SideBarProps> {
+interface IPathProps {
+  fetch(): string;
+  select(id: string): string;
+}
+
+class SideBar extends Component<IStateProps & IPathProps> {
   render() {
     const { categories } = this.props.payload;
     return (
@@ -168,18 +171,18 @@ class SideBar extends Component<SideBarProps> {
   };
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state): IStateProps => {
+  console.log('MAPSTATETOPROPS SIDEBAR');
+  console.log(state);
+  console.log('MAPSTATETOPROPS SIDEBAR');
   return {
     payload: state.sidebarReducer.payload,
-    loading: state.sidebarReducer.loading,
-    error: state.sidebarReducer.error,
-    isadmin: state.sidebarReducer.isAdmin,
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch): IPathProps => ({
   fetch: () => dispatch(sidebarActions.fetch()),
   select: (id) => dispatch(sidebarActions.select(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
+export default connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(SideBar);

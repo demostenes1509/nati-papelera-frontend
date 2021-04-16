@@ -1,4 +1,4 @@
-import axios, { Method, AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 import getEnv from 'getenv';
 
 const API_URL = getEnv('REACT_APP_API_URL');
@@ -9,8 +9,8 @@ const client = axios.create({
   timeout: TIMEOUT,
 });
 
-const request = <P,>(url: string, method: Method, data?: string): Promise<AxiosResponse<P>> => {
-  return client.request({ url, method, headers: {}, data });
+const request = <P,>(config: AxiosRequestConfig): Promise<AxiosResponse<P>> => {
+  return client.request(config);
 };
 
 export default request;
