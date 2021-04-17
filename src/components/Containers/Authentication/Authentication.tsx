@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import getEnv from 'getenv';
 import { connect } from 'react-redux';
-import FacebookActions from './FacebookActions';
+import AuthenticationActions from './AuthenticationActions';
+import { Redirect } from 'react-router-dom';
 
 const FACEBOOK_APP_ID = getEnv('REACT_APP_FACEBOOK_APP_ID');
 
 interface IStateProps {
-  payload: {
-    accessToken: string;
-  };
+  isLoggedIn: boolean;
 }
 interface IPathProps {
   passportLogin(provider, params): string;
 }
 class Authentication extends Component<IPathProps & IStateProps> {
   render() {
+    if (this.props.isLoggedIn) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <section className="authentication-section">
         {/* <div className="breadcrumb-container">
@@ -40,7 +43,6 @@ class Authentication extends Component<IPathProps & IStateProps> {
               <FacebookLogin
                 appId={FACEBOOK_APP_ID}
                 fields="name,email,picture"
-                // callback={responseFacebook}
                 callback={(response) => this.facebookLogin(response)}
               />
             </form>
@@ -120,16 +122,15 @@ class Authentication extends Component<IPathProps & IStateProps> {
 }
 
 const mapStateToProps = (state): IStateProps => {
-  console.log('MAPSTATETOPROPS AUTHENTICATION');
-  console.log(state);
-  console.log('MAPSTATETOPROPS AUTHENTICATION');
   return {
-    payload: state.facebookReducer.payload,
+    isLoggedIn: state.sessionReducer.isLoggedIn,
   };
 };
 
-const mapDispatchToProps = (dispatch): IPathProps => ({
-  passportLogin: (provider, params) => dispatch(FacebookActions.fetch(provider, params)),
-});
+const mapDispatchToProps = (dispatch): IPathProps => {
+  return {
+    passportLogin: (provider, params) => dispatch(AuthenticationActions.fetch(provider, params)),
+  };
+};
 
 export default connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(Authentication);

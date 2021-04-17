@@ -1,7 +1,12 @@
 import { all, fork } from 'redux-saga/effects';
 import FetchSidebar from '../components/Containers/SideBar/SideBarSagas';
-import FetchFacebook from '../components/Containers/Authentication/FacebookSagas';
+import FetchAuthentication from '../components/Containers/Authentication/AuthenticationSagas';
+import SessionSagas from '../components/Containers/Authentication/SessionSagas';
 
 export default function* rootSaga() {
-  yield all([fork(FetchSidebar.watchFetchSidebar), fork(FetchFacebook.watchFetchFacebook)]);
+  yield all([
+    fork(FetchSidebar.watchFetchSidebar),
+    fork(FetchAuthentication.watchFetchAuthorization),
+    fork(SessionSagas.watchSession),
+  ]);
 }

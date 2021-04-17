@@ -1,5 +1,5 @@
 import ReducersUtil from '../../../helpers/ReducersUtil';
-import { FacebookActions } from './FacebookActions';
+import { AuthenticationActions } from './AuthenticationActions';
 
 const initialState = {
   loading: false,
@@ -8,5 +8,5 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  return ReducersUtil.defaultFetch(initialState, state, action, FacebookActions);
+  return ReducersUtil.defaultFetch(initialState, state, action, AuthenticationActions);
 };

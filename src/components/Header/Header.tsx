@@ -4,14 +4,9 @@ import { withRouter } from 'react-router-dom';
 // import telTab from '../../images/tel-tab.png';
 // import headerImage from '../../images/header-image.png';
 
-interface IUser {
-  firstName: string;
-  lastName: string;
-}
-
 interface IStateProps {
-  user?: IUser;
-  error?: string;
+  isLoggedIn?: boolean;
+  fullName: string;
 }
 
 interface IPathProps {
@@ -20,7 +15,7 @@ interface IPathProps {
 
 class Header extends Component<IStateProps & IPathProps> {
   render() {
-    const { user } = this.props;
+    const { isLoggedIn, fullName } = this.props;
 
     return (
       <header className="main-header clear-fix">
@@ -30,20 +25,20 @@ class Header extends Component<IStateProps & IPathProps> {
           </h1>
         </div>
 
-        <HeaderDetails user={user} />
+        <HeaderDetails isLoggedIn={isLoggedIn} fullName={fullName} />
       </header>
     );
   }
 }
 
 const HeaderDetails = (props: IStateProps) => {
-  const { user } = props;
-  if (user) {
+  const { isLoggedIn, fullName } = props;
+  if (isLoggedIn) {
     return (
       <div className="header-details">
         <ul>
           <li>
-            <a href="#">Bienvenido</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="#">Bienvenido</a>&nbsp;{fullName}&nbsp;|&nbsp;&nbsp;
             <a href="#" className="user-logout">
               Cerrar sesión
             </a>
@@ -74,7 +69,10 @@ const HeaderDetails = (props: IStateProps) => {
   }
 };
 
-const mapStateToProps = (): IStateProps => ({});
+const mapStateToProps = (state): IStateProps => ({
+  isLoggedIn: state.sessionReducer.isLoggedIn,
+  fullName: state.sessionReducer.fullName,
+});
 
 const mapDispatchToProps = (): IPathProps => ({
   login: () => {

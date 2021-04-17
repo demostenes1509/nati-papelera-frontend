@@ -6,7 +6,7 @@ export default {
     const { provider, params } = data;
     const config: AxiosRequestConfig = {
       url: `auth/${provider}`,
-      method: 'GET',
+      method: 'POST',
       params: {
         access_token: params.accessToken,
       },
