@@ -15,3 +15,7 @@ export const userLoggedOut = () => {
   localStorage.removeItem(SESSION_INFO);
   delete axios.defaults.headers.common['Authorization'];
 };
+
+export const getToken = () => {
+  return localStorage.getItem(SESSION_INFO);
+};

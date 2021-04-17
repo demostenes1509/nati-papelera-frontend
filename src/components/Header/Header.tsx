@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 // import telTab from '../../images/tel-tab.png';
 // import headerImage from '../../images/header-image.png';
+import sessionActions from '../Containers/Authentication/SessionActions';
 
 interface IStateProps {
   isLoggedIn?: boolean;
@@ -10,7 +11,7 @@ interface IStateProps {
 }
 
 interface IPathProps {
-  login(): string;
+  logout(): void;
 }
 
 class Header extends Component<IStateProps & IPathProps> {
@@ -25,23 +26,30 @@ class Header extends Component<IStateProps & IPathProps> {
           </h1>
         </div>
 
-        <HeaderDetails isLoggedIn={isLoggedIn} fullName={fullName} />
+        <HeaderDetails isLoggedIn={isLoggedIn} fullName={fullName} onClick={() => this.handleClick()} />
       </header>
     );
   }
+
+  handleClick = () => {
+    this.props.logout();
+  };
 }
 
-const HeaderDetails = (props: IStateProps) => {
-  const { isLoggedIn, fullName } = props;
+const HeaderDetails = (props) => {
+  const { isLoggedIn, fullName, onClick } = props;
   if (isLoggedIn) {
     return (
       <div className="header-details">
         <ul>
           <li>
             <a href="#">Bienvenido</a>&nbsp;{fullName}&nbsp;|&nbsp;&nbsp;
-            <a href="#" className="user-logout">
+            <Link to="/" onClick={onClick} className="user-logout">
               Cerrar sesión
-            </a>
+            </Link>
+            {/* <a href="#" className="user-logout">
+              Cerrar sesión
+            </a> */}
           </li>
         </ul>
       </div>
@@ -74,11 +82,8 @@ const mapStateToProps = (state): IStateProps => ({
   fullName: state.sessionReducer.fullName,
 });
 
-const mapDispatchToProps = (): IPathProps => ({
-  login: () => {
-    console.log('LOGIN');
-    return 'A';
-  },
+const mapDispatchToProps = (dispatch): IPathProps => ({
+  logout: () => dispatch(sessionActions.notLoggedIn()),
 });
 
 // Typescript issue

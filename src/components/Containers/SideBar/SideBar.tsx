@@ -172,9 +172,6 @@ class SideBar extends Component<IStateProps & IPathProps> {
 }
 
 const mapStateToProps = (state): IStateProps => {
-  console.log('MAPSTATETOPROPS SIDEBAR');
-  console.log(state);
-  console.log('MAPSTATETOPROPS SIDEBAR');
   return {
     payload: state.sidebarReducer.payload,
   };

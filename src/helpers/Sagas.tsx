@@ -7,6 +7,7 @@ export default function* rootSaga() {
   yield all([
     fork(FetchSidebar.watchFetchSidebar),
     fork(FetchAuthentication.watchFetchAuthorization),
-    fork(SessionSagas.watchSession),
+    fork(SessionSagas.watchSuccessfulLogin),
+    fork(SessionSagas.watchLogout),
   ]);
 }

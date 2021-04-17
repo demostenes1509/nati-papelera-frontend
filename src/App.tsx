@@ -6,9 +6,24 @@ import MainContent from './components/Containers/MainContent/MainContent';
 import Authentication from './components/Containers/Authentication/Authentication';
 import CategoryContent from './components/Containers/CategoryContent/CategoryContent';
 import ProductContent from './components/Containers/ProductContent/ProductContent';
+import { getToken } from './components/Containers/Authentication/SessionApi';
+import sessionActions from './components/Containers/Authentication/SessionActions';
+import { userLoggedIn } from './components/Containers/Authentication/SessionApi';
+import { connect } from 'react-redux';
 
-class App extends Component {
+interface IPathProps {
+  loggedIn(token: string);
+}
+
+interface IStateProps {
+  isLoggedIn: boolean;
+}
+
+class App extends Component<IPathProps & IStateProps> {
   render() {
+    const { isLoggedIn } = this.props;
+    if (isLoggedIn === null) return <></>;
+
     return (
       <Router>
         <Switch>
@@ -24,6 +39,21 @@ class App extends Component {
       </Router>
     );
   }
+
+  componentWillMount() {
+    const token = getToken();
+    if (token) {
+      this.props.loggedIn(userLoggedIn(token));
+    }
+  }
 }
 
-export default App;
+const mapStateToProps = (state): IStateProps => ({
+  isLoggedIn: state.sessionReducer.isLoggedIn,
+});
+
+const mapDispatchToProps = (dispatch): IPathProps => ({
+  loggedIn: (token) => dispatch(sessionActions.loggedIn(token)),
+});
+
+export default connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(App);
