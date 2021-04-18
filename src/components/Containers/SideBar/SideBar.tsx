@@ -1,11 +1,41 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import sidebarActions from './SideBarActions';
 import deliveryVan from '../../../images/delivery-van.png';
 import deliveryVan2 from '../../../images/delivery-van2.png';
 import discountProduct from '../../../images/discount-product.jpg';
 import paymentOptions from '../../../images/payment-options.png';
 
-class MainContent extends Component {
+interface ICategory {
+  id: string;
+  name: string;
+  url: string;
+  selected: boolean;
+  products: Array<IProduct>;
+}
+
+interface IProduct {
+  id: string;
+  name: string;
+  url: string;
+  selected: boolean;
+}
+
+interface IStateProps {
+  payload: {
+    categories: Array<ICategory>;
+  };
+}
+
+interface IPathProps {
+  fetch(): string;
+  select(id: string): string;
+}
+
+class SideBar extends Component<IStateProps & IPathProps> {
   render() {
+    const { categories } = this.props.payload;
     return (
       <aside className="main-sidebar">
         <section className="advertising-aside">
@@ -15,121 +45,30 @@ class MainContent extends Component {
         <section className="category-aside">
           <h2 className="aside-title">Categorias</h2>
           <ul className="aside-menu">
-            <li>
-              <a href="#" className="aside-active">
-                Vasos de Plastico
-              </a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#" className="aside-active">
-                    Sub Item 1
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos Personalizados</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Cubata, Mojito y Sidra</a>
-            </li>
-            <li>
-              <a href="#">Copas de Plastico</a>
-            </li>
-            <li>
-              <a href="#">Chupitos de Plastico</a>
-            </li>
-            <li>
-              <a href="#">Jarras de Plastico</a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#">Sub Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos de Carton</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Plastico</a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#">Sub Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos Personalizados</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Cubata, Mojito y Sidra</a>
-            </li>
-            <li>
-              <a href="#">Copas de Plastico</a>
-            </li>
-            <li>
-              <a href="#">Chupitos de Plastico</a>
-            </li>
-            <li>
-              <a href="#">Jarras de Plastico</a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#">Sub Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos de Carton</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Plastico</a>
-              <span className="expand"></span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <a href="#">Sub Item 1</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 2</a>
-                </li>
-                <li>
-                  <a href="#">Sub Item 3</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Vasos Personalizados</a>
-            </li>
-            <li>
-              <a href="#">Vasos de Cubata, Mojito y Sidra</a>
-            </li>
+            {categories.map((category) => (
+              <li key={category.id}>
+                <Link
+                  to={`/${category.url}`}
+                  onClick={() => this.handleClick(category.id)}
+                  className={category.selected ? 'aside-active' : ''}
+                >
+                  {category.name}
+                </Link>
+                <ul className="aside-sub-menu">
+                  {category.products.map((product) => (
+                    <li key={product.id}>
+                      <Link
+                        to={`/${category.url}/${product.url}`}
+                        onClick={() => this.handleClick(product.id)}
+                        className={product.selected ? 'aside-active' : ''}
+                      >
+                        {product.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
           </ul>
         </section>
         <section className="descuentos-aside clear-fix">
@@ -222,6 +161,25 @@ class MainContent extends Component {
       </aside>
     );
   }
+
+  componentDidMount() {
+    this.props.fetch();
+  }
+
+  handleClick = (id: string) => {
+    this.props.select(id);
+  };
 }
 
-export default MainContent;
+const mapStateToProps = (state): IStateProps => {
+  return {
+    payload: state.sidebarReducer.payload,
+  };
+};
+
+const mapDispatchToProps = (dispatch): IPathProps => ({
+  fetch: () => dispatch(sidebarActions.fetch()),
+  select: (id) => dispatch(sidebarActions.select(id)),
+});
+
+export default connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(SideBar);

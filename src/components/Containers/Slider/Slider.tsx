@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import slideImg from '../../../../images/slide-img.png';
+import slideImg from '../../../images/slide-img.png';
 
-class MainSlider extends Component {
+class Slider extends Component {
   render() {
     return (
       <div className="main-slider">
@@ -34,4 +34,4 @@ class MainSlider extends Component {
   }
 }
 
-export default MainSlider;
+export default Slider;

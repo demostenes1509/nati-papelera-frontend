@@ -1,46 +1,94 @@
 import React, { Component } from 'react';
-import telTab from '../../images/tel-tab.png';
-import headerImage from '../../images/header-image.png';
+import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
+// import telTab from '../../images/tel-tab.png';
+// import headerImage from '../../images/header-image.png';
+import sessionActions from '../Containers/Authentication/SessionActions';
 
-class Header extends Component {
+interface IStateProps {
+  isLoggedIn?: boolean;
+  fullName: string;
+}
+
+interface IPathProps {
+  logout(): void;
+}
+
+class Header extends Component<IStateProps & IPathProps> {
   render() {
+    const { isLoggedIn, fullName } = this.props;
+
     return (
       <header className="main-header clear-fix">
         <div className="logo-section">
           <h1 className="logo">
-            <a href="#">Plastico Mania</a>
+            <a href="/">Nati Papelera</a>
           </h1>
         </div>
 
-        <div className="header-labels">
-          <img src={telTab} alt="" />
-          <img src={headerImage} alt="" />
-        </div>
-
-        <div className="header-details">
-          <ul>
-            <li>
-              <a href="#">contacto</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">mapa sitio</a>
-            </li>
-            <li className="cart-box">
-              <a href="#" className="header-cart">
-                Carrito: vacio
-              </a>
-            </li>
-            <li>
-              <a href="#">Bienvenido</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-              <a href="#" className="user-login">
-                Entra
-              </a>
-              <a href="#" className="user-logout">
-                cerrar sesión
-              </a>
-            </li>
-          </ul>
-        </div>
+        <HeaderDetails isLoggedIn={isLoggedIn} fullName={fullName} onClick={() => this.handleClick()} />
       </header>
     );
   }
+
+  handleClick = () => {
+    this.props.logout();
+  };
 }
 
-export default Header;
+const HeaderDetails = (props) => {
+  const { isLoggedIn, fullName, onClick } = props;
+  if (isLoggedIn) {
+    return (
+      <div className="header-details">
+        <ul>
+          <li>
+            <a href="#">Bienvenido</a>&nbsp;{fullName}&nbsp;|&nbsp;&nbsp;
+            <Link to="/" onClick={onClick} className="user-logout">
+              Cerrar sesión
+            </Link>
+            {/* <a href="#" className="user-logout">
+              Cerrar sesión
+            </a> */}
+          </li>
+        </ul>
+      </div>
+    );
+  } else {
+    return (
+      <div className="header-details">
+        <ul>
+          <li>
+            <a href="#">Contacto</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Mapa del sitio</a>
+          </li>
+          {/* <li className="cart-box">
+            <a href="#" className="header-cart">
+              Carrito: vacio
+            </a>
+          </li> */}
+          <li>
+            <a href="/login" className="user-login">
+              Login
+            </a>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+};
+
+const mapStateToProps = (state): IStateProps => ({
+  isLoggedIn: state.sessionReducer.isLoggedIn,
+  fullName: state.sessionReducer.fullName,
+});
+
+const mapDispatchToProps = (dispatch): IPathProps => ({
+  logout: () => dispatch(sessionActions.notLoggedIn()),
+});
+
+// Typescript issue
+const addWithRouter = (conn) => {
+  return withRouter(conn);
+};
+
+export default addWithRouter(connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(Header));

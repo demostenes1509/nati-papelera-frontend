@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import MainProducts from './MainProducts/MainProducts';
-import MainSlider from './MainSlider/MainSlider';
+import ProductsList from './ProductsList/ProductsList';
+import Slider from '../Slider/Slider';
 
 class MainContent extends Component {
   render() {
     return (
       <section className="main-content clear-fix">
-        <MainSlider />
-        <MainProducts />
+        <Slider />
+        <ProductsList />
       </section>
     );
   }

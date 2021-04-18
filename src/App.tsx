@@ -1,26 +1,59 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
-import MainSideBar from './components/PageContainer/MainSideBar/MainSideBar';
-import MainContent from './components/PageContainer/MainContent/MainContent';
-import Authentication from './components/PageContainer/Authentication/Authentication';
+import SideBar from './components/Containers/SideBar/SideBar';
+import MainContent from './components/Containers/MainContent/MainContent';
+import Authentication from './components/Containers/Authentication/Authentication';
+import CategoryContent from './components/Containers/CategoryContent/CategoryContent';
+import ProductContent from './components/Containers/ProductContent/ProductContent';
+import { getToken } from './components/Containers/Authentication/SessionApi';
+import sessionActions from './components/Containers/Authentication/SessionActions';
+import { userLoggedIn } from './components/Containers/Authentication/SessionApi';
+import { connect } from 'react-redux';
 
-class App extends Component {
+interface IPathProps {
+  loggedIn(token: string);
+}
+
+interface IStateProps {
+  isLoggedIn: boolean;
+}
+
+class App extends Component<IPathProps & IStateProps> {
   render() {
+    const { isLoggedIn } = this.props;
+    if (isLoggedIn === null) return <></>;
+
     return (
       <Router>
         <Switch>
-          <Layout exact path="/" components={[MainSideBar, MainContent]} />
+          <Layout exact path="/" components={[SideBar, MainContent]} />
           <Layout exact path="/login" components={[Authentication]} />
+          <Layout exact path="/:category" components={[SideBar, CategoryContent]} />
+          <Layout exact path="/:category/:product" components={[SideBar, ProductContent]} />
           {/* 
           <Layout exact path="/search/:search" components={[SideBar,MainContent]}/>
-          <Layout exact path="/:category" components={[SideBar,MainContent]}/>
           <Layout exact path="/:category/crear-nuevo-producto" components={[SideBar,NewProduct]}/>
-          <Layout exact path="/:category/:product" components={[SideBar,Product]}/> */}
+          */}
         </Switch>
       </Router>
     );
   }
+
+  componentWillMount() {
+    const token = getToken();
+    if (token) {
+      this.props.loggedIn(userLoggedIn(token));
+    }
+  }
 }
 
-export default App;
+const mapStateToProps = (state): IStateProps => ({
+  isLoggedIn: state.sessionReducer.isLoggedIn,
+});
+
+const mapDispatchToProps = (dispatch): IPathProps => ({
+  loggedIn: (token) => dispatch(sessionActions.loggedIn(token)),
+});
+
+export default connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(App);
