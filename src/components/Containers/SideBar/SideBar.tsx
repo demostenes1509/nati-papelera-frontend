@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import sidebarActions from './SideBarActions';
 import deliveryVan from '../../../images/delivery-van.png';
 import deliveryVan2 from '../../../images/delivery-van2.png';
-import discountProduct from '../../../images/discount-product.jpg';
-import paymentOptions from '../../../images/payment-options.png';
+// import discountProduct from '../../../images/discount-product.jpg';
+// import paymentOptions from '../../../images/payment-options.png';
 
 interface ICategory {
   id: string;
@@ -13,6 +13,11 @@ interface ICategory {
   url: string;
   selected: boolean;
   products: Array<IProduct>;
+}
+
+interface IProvider {
+  id: string;
+  name: string;
 }
 
 interface IProduct {
@@ -23,9 +28,13 @@ interface IProduct {
 }
 
 interface IStateProps {
-  payload: {
+  sidebarPayload: {
     categories: Array<ICategory>;
   };
+  providersPayload: {
+    providers: Array<IProvider>;
+  };
+  isAdmin: boolean;
 }
 
 interface IPathProps {
@@ -35,7 +44,16 @@ interface IPathProps {
 
 class SideBar extends Component<IStateProps & IPathProps> {
   render() {
-    const { categories } = this.props.payload;
+    const {
+      sidebarPayload: { categories },
+      providersPayload: { providers },
+      isAdmin,
+    } = this.props;
+
+    console.log('PROPS');
+    console.log(this.props);
+    console.log('PROPS');
+
     return (
       <aside className="main-sidebar">
         <section className="advertising-aside">
@@ -71,6 +89,11 @@ class SideBar extends Component<IStateProps & IPathProps> {
             ))}
           </ul>
         </section>
+
+        <Providers isAdmin={isAdmin} providers={providers} />
+
+        {/* 
+
         <section className="descuentos-aside clear-fix">
           <h2 className="aside-title">Descuentos</h2>
           <div className="discount-container clear-fix">
@@ -157,7 +180,7 @@ class SideBar extends Component<IStateProps & IPathProps> {
               <a href="#">Preguntas Frecuentes</a>
             </li>
           </ul>
-        </section>
+        </section> */}
       </aside>
     );
   }
@@ -171,9 +194,31 @@ class SideBar extends Component<IStateProps & IPathProps> {
   };
 }
 
+const Providers = (props) => {
+  const { isAdmin, providers } = props;
+  if (isAdmin) {
+    return (
+      <section className="category-aside">
+        <h2 className="aside-title">Proveedores</h2>
+        <ul className="aside-menu">
+          {providers.map((provider) => (
+            <li key={provider.id}>
+              <Link to={`/${provider.url}`}>{provider.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  } else {
+    return <></>;
+  }
+};
+
 const mapStateToProps = (state): IStateProps => {
   return {
-    payload: state.sidebarReducer.payload,
+    sidebarPayload: state.sidebarReducer.payload,
+    isAdmin: state.sessionReducer.isAdmin,
+    providersPayload: state.providersReducer.payload,
   };
 };
 
