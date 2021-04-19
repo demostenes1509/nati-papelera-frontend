@@ -5,6 +5,7 @@ import SideBar from './components/Containers/SideBar/SideBar';
 import MainContent from './components/Containers/MainContent/MainContent';
 import Authentication from './components/Containers/Authentication/Authentication';
 import CategoryContent from './components/Containers/CategoryContent/CategoryContent';
+import ProviderContent from './components/Containers/ProviderContent/ProviderContent';
 import ProductContent from './components/Containers/ProductContent/ProductContent';
 import { getToken } from './components/Containers/Authentication/SessionApi';
 import sessionActions from './components/Containers/Authentication/SessionActions';
@@ -29,6 +30,7 @@ class App extends Component<IPathProps & IStateProps> {
         <Switch>
           <Layout exact path="/" components={[SideBar, MainContent]} />
           <Layout exact path="/login" components={[Authentication]} />
+          <Layout exact path="/providers/:provider" components={[SideBar, ProviderContent]} />
           <Layout exact path="/:category" components={[SideBar, CategoryContent]} />
           <Layout exact path="/:category/:product" components={[SideBar, ProductContent]} />
           {/* 

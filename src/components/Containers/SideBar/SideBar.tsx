@@ -18,6 +18,7 @@ interface ICategory {
 interface IProvider {
   id: string;
   name: string;
+  url: string;
 }
 
 interface IProduct {
@@ -203,7 +204,7 @@ const Providers = (props) => {
         <ul className="aside-menu">
           {providers.map((provider) => (
             <li key={provider.id}>
-              <Link to={`/${provider.url}`}>{provider.name}</Link>
+              <Link to={`/providers/${provider.url}`}>{provider.name}</Link>
             </li>
           ))}
         </ul>
