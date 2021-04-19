@@ -1,0 +1,100 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+
+interface IStateProps {
+  selectedFile: string;
+}
+interface IPathProps {
+  location: {
+    pathname: string;
+  };
+}
+
+class ProviderContent extends Component<IPathProps & IStateProps> {
+  state = {
+    // Initially, no file is selected
+    selectedFile: Blob,
+  };
+
+  onFileChange = (event) => {
+    console.log('&&&&&&&&&&&&&&&');
+    console.log(event.target.files[0]);
+    console.log('&&&&&&&&&&&&&&&');
+    // Update the state
+    this.setState({ selectedFile: event.target.files[0] });
+  };
+
+  onFileUpload = () => {
+    console.log('&&&&&&&&&&&&&&&');
+    console.log('FILE UPLOAD');
+    console.log('&&&&&&&&&&&&&&&');
+
+    // Create an object of formData
+    const formData = new FormData();
+
+    // Update the formData object
+    formData.append('file', this.state.selectedFile, this.state.selectedFile.name);
+
+    // Details of the uploaded file
+    console.log(this.state.selectedFile);
+
+    // Request made to the backend api
+    // Send formData object
+    axios.post('api/uploadfile', formData);
+  };
+
+  fileData = () => {
+    if (this.state.selectedFile) {
+      return (
+        <div>
+          <h2>File Details:</h2>
+          <p>File Name: {this.state.selectedFile.name}</p>
+          <p>File Type: {this.state.selectedFile.type}</p>
+          <p>Last Modified: {this.state.selectedFile.lastModifiedDate.toDateString()}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <br />
+          <h4>Choose before Pressing the Upload button</h4>
+        </div>
+      );
+    }
+  };
+
+  render() {
+    console.log('??????????????????');
+    console.log(this.props.location.pathname);
+    console.log('??????????????????');
+    return (
+      <section className="main-content clear-fix">
+        <div>
+          <h1>GeeksforGeeks</h1>
+          <h3>File Upload using React!</h3>
+          <div>
+            <input type="file" onChange={this.onFileChange} />
+            <button onClick={this.onFileUpload}>Upload!</button>
+          </div>
+          {this.fileData()}
+        </div>
+      </section>
+    );
+  }
+}
+
+/*
+const mapStateToProps = (state): IStateProps => ({
+  dummy: state.dummy
+});
+
+const mapDispatchToProps = (dispatch): IPathProps => ({});
+
+*/
+const withRout = (data) => {
+  return withRouter(data);
+};
+
+export default withRout(connect(null, null)(ProviderContent));
