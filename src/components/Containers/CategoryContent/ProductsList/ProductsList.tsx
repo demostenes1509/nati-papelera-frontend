@@ -8,9 +8,18 @@ import productImg6 from '../../../../images/product-img6.jpg';
 import productImg7 from '../../../../images/product-img7.jpg';
 import productImg8 from '../../../../images/product-img8.jpg';
 import productImg9 from '../../../../images/product-img9.jpg';
+import { connect } from 'react-redux';
+import { withRouterWrapper } from '../../../../helpers/UIUtil';
 
 class ProductsList extends Component {
   render() {
+    // const query = useLocation();
+    // const query2 = new URLSearchParams(query);
+
+    console.log('PRODUCTS LIST');
+    console.log(this.props);
+    console.log('PRODUCTS LIST');
+
     return (
       <div className="main-products">
         <h2 className="main-title">Productos destacados</h2>
@@ -203,4 +212,4 @@ class ProductsList extends Component {
   }
 }
 
-export default ProductsList;
+export default withRouterWrapper(connect(null, null)(ProductsList));

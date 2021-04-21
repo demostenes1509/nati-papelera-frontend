@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { withRouterWrapper } from '../../helpers/UIUtil';
 // import telTab from '../../images/tel-tab.png';
 // import headerImage from '../../images/header-image.png';
 import sessionActions from '../Containers/Authentication/SessionActions';
@@ -87,8 +88,4 @@ const mapDispatchToProps = (dispatch): IPathProps => ({
 });
 
 // Typescript issue
-const addWithRouter = (conn) => {
-  return withRouter(conn);
-};
-
-export default addWithRouter(connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(Header));
+export default withRouterWrapper(connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(Header));

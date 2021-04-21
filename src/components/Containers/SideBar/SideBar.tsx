@@ -51,10 +51,6 @@ class SideBar extends Component<IStateProps & IPathProps> {
       isAdmin,
     } = this.props;
 
-    console.log('PROPS');
-    console.log(this.props);
-    console.log('PROPS');
-
     return (
       <aside className="main-sidebar">
         <section className="advertising-aside">
