@@ -1,5 +1,5 @@
 import ReducersUtil from '../../../helpers/ReducersUtil';
-import { SidebarActions } from './SideBarActions';
+import { SideBarActions } from './SideBarActions';
 
 const initialState = {
   loading: false,
@@ -12,7 +12,7 @@ const fetchState = (state, action) => {
     payload: { categories },
     loading,
     error,
-  } = ReducersUtil.defaultFetch(initialState, state, action, SidebarActions);
+  } = ReducersUtil.defaultFetch(initialState, state, action, SideBarActions);
   for (const category of categories) {
     category.selected = false;
     for (const product of category.products) {
@@ -58,11 +58,11 @@ const selectState = (state, action) => {
 
 const SideBarReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SidebarActions.FETCH:
-    case SidebarActions.FETCH_SUCCESS:
-    case SidebarActions.FETCH_ERROR:
+    case SideBarActions.FETCH:
+    case SideBarActions.FETCH_SUCCESS:
+    case SideBarActions.FETCH_ERROR:
       return fetchState(state, action);
-    case SidebarActions.SELECT:
+    case SideBarActions.SELECT:
       return selectState(state, action);
     default:
       return state;

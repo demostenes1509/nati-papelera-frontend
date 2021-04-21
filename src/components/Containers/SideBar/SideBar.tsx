@@ -4,29 +4,9 @@ import { Link } from 'react-router-dom';
 import sidebarActions from './SideBarActions';
 import deliveryVan from '../../../images/delivery-van.png';
 import deliveryVan2 from '../../../images/delivery-van2.png';
+import { ICategory, IProvider } from '../../../interfaces/interfaces';
 // import discountProduct from '../../../images/discount-product.jpg';
 // import paymentOptions from '../../../images/payment-options.png';
-
-interface ICategory {
-  id: string;
-  name: string;
-  url: string;
-  selected: boolean;
-  products: Array<IProduct>;
-}
-
-interface IProvider {
-  id: string;
-  name: string;
-  url: string;
-}
-
-interface IProduct {
-  id: string;
-  name: string;
-  url: string;
-  selected: boolean;
-}
 
 interface IStateProps {
   sidebarPayload: {
@@ -224,4 +204,4 @@ const mapDispatchToProps = (dispatch): IPathProps => ({
   select: (id) => dispatch(sidebarActions.select(id)),
 });
 
-export default connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(SideBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

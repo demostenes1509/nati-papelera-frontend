@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import AuthenticationReducer from '../components/Containers/Authentication/AuthenticationReducer';
 import SessionReducer from '../components/Containers/Authentication/SessionReducer';
+import ProductsListReducer from '../components/Containers/ProductsList/ProductsListReducer';
 import ProvidersReducer from '../components/Containers/SideBar/ProvidersReducer';
 import SideBarReducer from '../components/Containers/SideBar/SideBarReducer';
 
@@ -9,6 +10,7 @@ const rootReducers = combineReducers({
   providersReducer: ProvidersReducer,
   authenticationReducer: AuthenticationReducer,
   sessionReducer: SessionReducer,
+  productsListReducer: ProductsListReducer,
 });
 
 export default rootReducers;
