@@ -4,6 +4,7 @@ import FetchSidebar from '../components/Containers/SideBar/SideBarSagas';
 import FetchAuthentication from '../components/Containers/Authentication/AuthenticationSagas';
 import SessionSagas from '../components/Containers/Authentication/SessionSagas';
 import ProductsListSagas from '../components/Containers/ProductsList/ProductsListSagas';
+import ProductGetSagas from '../components/Containers/ProductContent/Product/ProductGettSagas';
 
 export default function* rootSaga() {
   yield all([
@@ -13,5 +14,6 @@ export default function* rootSaga() {
     fork(SessionSagas.watchSuccessfulLogin),
     fork(SessionSagas.watchLogout),
     fork(ProductsListSagas.watchFetchProductsList),
+    fork(ProductGetSagas.watchFetchProductGet),
   ]);
 }

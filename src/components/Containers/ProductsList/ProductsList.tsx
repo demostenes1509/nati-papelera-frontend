@@ -3,11 +3,12 @@ import productImg1 from '../../../images/product-img1.jpg';
 import { connect } from 'react-redux';
 import { withRouterWrapper } from '../../../helpers/UIUtil';
 import { IProduct } from '../../../interfaces/interfaces';
-import productListActions from './ProductsListActions';
+import productsListActions from './ProductsListActions';
 
 interface IStateProps {
   payload: {
     categoryName: string;
+    categoryUrl: string;
     products: Array<IProduct>;
   };
 }
@@ -23,7 +24,7 @@ interface IProps {
 
 class ProductsList extends Component<IPathProps & IStateProps & IProps> {
   render() {
-    const { categoryName, products } = this.props.payload;
+    const { categoryName, categoryUrl, products } = this.props.payload;
 
     return (
       <div className="main-products">
@@ -36,16 +37,16 @@ class ProductsList extends Component<IPathProps & IStateProps & IProps> {
                   <img src={productImg1} alt="" />
                 </a>
                 <h3 className="main-product-title">
-                  <a href={`/${product.url}`}>{product.name}</a>
+                  <a href={`/${categoryUrl}/${product.url}`}>{product.name}</a>
                 </h3>
                 <p className="main-product-description">
-                  <a href="#">Descripcion</a>
+                  <a href={`/${categoryUrl}/${product.url}`}>{product.description}</a>
                 </p>
 
                 <div className="product-prices">
                   {product.packaging.map((pack) => (
-                    <p>
-                      {pack.name} <span className="price-con">{Math.ceil(pack.price)}.00</span>
+                    <p key={pack.id}>
+                      {pack.name} <span className="price-con">$ {Math.ceil(pack.price)}.00</span>
                     </p>
                   ))}
                 </div>
@@ -75,7 +76,7 @@ const mapStateToProps = (state): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
-  fetch: (categoryUrl) => dispatch(productListActions.fetch(categoryUrl)),
+  fetch: (categoryUrl) => dispatch(productsListActions.fetch(categoryUrl)),
 });
 
 export default withRouterWrapper(connect(mapStateToProps, mapDispatchToProps)(ProductsList));

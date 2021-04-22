@@ -15,6 +15,7 @@ export interface IProvider {
 export interface IProduct {
   id: string;
   name: string;
+  description: string;
   url: string;
   selected: boolean;
   packaging: Array<IPackaging>;

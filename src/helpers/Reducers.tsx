@@ -4,6 +4,7 @@ import SessionReducer from '../components/Containers/Authentication/SessionReduc
 import ProductsListReducer from '../components/Containers/ProductsList/ProductsListReducer';
 import ProvidersReducer from '../components/Containers/SideBar/ProvidersReducer';
 import SideBarReducer from '../components/Containers/SideBar/SideBarReducer';
+import ProductGetReducer from '../components/Containers/ProductContent/Product/ProductGettReducer';
 
 const rootReducers = combineReducers({
   sidebarReducer: SideBarReducer,
@@ -11,6 +12,7 @@ const rootReducers = combineReducers({
   authenticationReducer: AuthenticationReducer,
   sessionReducer: SessionReducer,
   productsListReducer: ProductsListReducer,
+  productGetReducer: ProductGetReducer,
 });
 
 export default rootReducers;

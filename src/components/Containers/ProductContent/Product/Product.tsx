@@ -5,11 +5,29 @@ import productThumbnail from '../../../../images/product-thumbnail.png';
 import rotatorProduct from '../../../../images/rotator-product.png';
 import { connect } from 'react-redux';
 import { withRouterWrapper } from '../../../../helpers/UIUtil';
-class Product extends Component {
+import { IProduct } from '../../../../interfaces/interfaces';
+import productGetActions from './ProductGetActions';
+
+interface IStateProps {
+  payload: IProduct;
+}
+
+interface IPathProps {
+  fetch(productUrl): string;
+}
+
+interface IProps {
+  location: {
+    pathname: string;
+  };
+}
+class Product extends Component<IPathProps & IProps & IStateProps> {
   render() {
-    console.log('&&&&&&&&&&&&&&&&');
+    const { name, description, packaging } = this.props.payload;
+
     console.log(this.props);
-    console.log('&&&&&&&&&&&&&&&&');
+    console.log(name);
+    console.log(packaging);
 
     return (
       <section className="main-content clear-fix">
@@ -29,58 +47,28 @@ class Product extends Component {
           </div>
         </section>
         <section className="product-details-col">
-          <h2>Bolsa de banditas elasticas</h2>
-          <p>Bolsa de banditas elasticas</p>
-          <p>
+          <h2>{name}</h2>
+          <p>{description}</p>
+          {/* <p>
             <span className="product-discount-text">AHORRO del 20% comprando la caja completa.</span>
-          </p>
-          <div className="product-info">
+          </p> */}
+          {/* <div className="product-info">
             <ul className="info-list">
               <li>Envio Gratis</li>
               <li>Entregas 24/72h</li>
               <li>Pago 100% Seguro</li>
             </ul>
-          </div>
+          </div> */}
           <div className="product-content-details">
             <ul>
-              <li>Bolsa 10 unid. De 100 grs a $10.00 c/u</li>
-              <li>1 Bolsas de $80.00 c/u a $80.00</li>
-              <li className="quantity">
-                Cantitdad <input type="text" />
-                <span className="product-price">1,78€</span>
-                <a href="" className="add-to-basket">
-                  carrito
-                </a>
-              </li>
+              {packaging.map((pack) => (
+                <li key={pack.id}>
+                  {pack.name} <span className="product-price">$ {Math.ceil(pack.price)}.00</span>
+                </li>
+              ))}
             </ul>
           </div>
-          <div className="product-content-details">
-            <ul>
-              <li>Bolsa 10 unid. De 100 grs a $10.00 c/u</li>
-              <li>1 Bolsas de $80.00 c/u a $80.00</li>
-              <li className="quantity">
-                Cantitdad <input type="text" />
-                <span className="product-price">1,78€</span>
-                <a href="" className="add-to-basket">
-                  carrito
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="product-content-details">
-            <ul>
-              <li>Bolsa 10 unid. De 100 grs a $10.00 c/u</li>
-              <li>1 Bolsas de $80.00 c/u a $80.00</li>
-              <li className="quantity">
-                Cantitdad <input type="text" />
-                <span className="product-price">1,78€</span>
-                <a href="" className="add-to-basket">
-                  carrito
-                </a>
-              </li>
-            </ul>
-          </div>
-          <p>IVA includio</p>
+          {/* <p>IVA includio</p> */}
         </section>
         <section className="product-details-section">
           <h2 className="main-title">Mas</h2>
@@ -155,6 +143,26 @@ class Product extends Component {
       </section>
     );
   }
+
+  componentDidMount() {
+    this.props.fetch(this.props.location.pathname);
+  }
+
+  componentWillReceiveProps(nextprops) {
+    if (this.props.location.pathname !== nextprops.location.pathname) {
+      this.props.fetch(nextprops.location.pathname);
+    }
+  }
 }
 
-export default withRouterWrapper(connect(null, null)(Product));
+const mapStateToProps = (state): IStateProps => {
+  return {
+    payload: state.productGetReducer.payload,
+  };
+};
+
+const mapDispatchToProps = (dispatch): IPathProps => ({
+  fetch: (productUrl) => dispatch(productGetActions.fetch(productUrl)),
+});
+
+export default withRouterWrapper(connect(mapStateToProps, mapDispatchToProps)(Product));
