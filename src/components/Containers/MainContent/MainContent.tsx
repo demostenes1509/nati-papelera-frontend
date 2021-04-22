@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProductsList from './ProductsList/ProductsList';
+import ProductsList from '../ProductsList/ProductsList';
 import Slider from '../Slider/Slider';
 
 class MainContent extends Component {

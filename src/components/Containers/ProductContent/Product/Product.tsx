@@ -3,9 +3,14 @@ import React, { Component } from 'react';
 import mainProductImg from '../../../../images/main-product-img.png';
 import productThumbnail from '../../../../images/product-thumbnail.png';
 import rotatorProduct from '../../../../images/rotator-product.png';
-
-class MainContent extends Component {
+import { connect } from 'react-redux';
+import { withRouterWrapper } from '../../../../helpers/UIUtil';
+class Product extends Component {
   render() {
+    console.log('&&&&&&&&&&&&&&&&');
+    console.log(this.props);
+    console.log('&&&&&&&&&&&&&&&&');
+
     return (
       <section className="main-content clear-fix">
         <section className="product-image-col">
@@ -152,4 +157,4 @@ class MainContent extends Component {
   }
 }
 
-export default MainContent;
+export default withRouterWrapper(connect(null, null)(Product));

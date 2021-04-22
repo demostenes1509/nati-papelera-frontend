@@ -1,4 +1,4 @@
-export const SidebarActions = {
+export const SideBarActions = {
   FETCH: 'FETCH_SIDEBAR',
   FETCH_LOADING: 'FETCH_SIDEBAR_LOADING',
   FETCH_SUCCESS: 'FETCH_SIDEBAR_SUCCESS',
@@ -6,11 +6,11 @@ export const SidebarActions = {
   SELECT: 'SELECT',
 };
 
-const fetch = () => ({ type: SidebarActions.FETCH });
-const fetchLoading = () => ({ type: SidebarActions.FETCH_LOADING });
-const fetchSuccess = (payload) => ({ type: SidebarActions.FETCH_SUCCESS, payload });
-const fetchError = (error) => ({ type: SidebarActions.FETCH_ERROR, error });
-const select = (id) => ({ type: SidebarActions.SELECT, id });
+const fetch = () => ({ type: SideBarActions.FETCH });
+const fetchLoading = () => ({ type: SideBarActions.FETCH_LOADING });
+const fetchSuccess = (payload) => ({ type: SideBarActions.FETCH_SUCCESS, payload });
+const fetchError = (error) => ({ type: SideBarActions.FETCH_ERROR, error });
+const select = (id) => ({ type: SideBarActions.SELECT, id });
 
 export default {
   fetch,
