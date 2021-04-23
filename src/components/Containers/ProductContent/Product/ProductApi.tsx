@@ -12,8 +12,8 @@ export default {
 
   post(data) {
     const config: AxiosRequestConfig = {
-      url: 'products/update',
-      method: 'POST',
+      url: 'products/',
+      method: 'PUT',
       data,
     };
     return request(config);
