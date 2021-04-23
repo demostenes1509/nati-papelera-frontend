@@ -8,7 +8,7 @@ import Packaging from './Packaging';
 import productActions from './ProductActions';
 interface IPathProps {
   fetch(productUrl): string;
-  post(id: string, name: string, description: string): string;
+  put(id: string, name: string, description: string): string;
 }
 
 interface IStateProps {
@@ -16,7 +16,7 @@ interface IStateProps {
   isAdmin: boolean;
 }
 
-const Product = ({ isAdmin, payload, fetch, post }: IStateProps & IPathProps) => {
+const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => {
   const { packaging } = payload;
 
   const [name, setName] = useState(payload.name);
@@ -34,7 +34,7 @@ const Product = ({ isAdmin, payload, fetch, post }: IStateProps & IPathProps) =>
   };
 
   const update = () => {
-    post(payload.id, name, description);
+    put(payload.id, name, description);
     setNameColor('white');
     setDescriptionColor('white');
   };
@@ -123,7 +123,7 @@ const mapStateToProps = (state): IStateProps => {
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
   fetch: (productUrl) => dispatch(productActions.fetch(productUrl)),
-  post: (id, name, description) => dispatch(productActions.post(id, name, description)),
+  put: (id, name, description) => dispatch(productActions.put(id, name, description)),
 });
 
 export default withRouterWrapper(connect(mapStateToProps, mapDispatchToProps)(Product));

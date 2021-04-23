@@ -33,3 +33,22 @@ export function* defaultPost(actions, api, request) {
     }
   }
 }
+
+export function* defaultPut(actions, api, request) {
+  try {
+    yield put(actions.putWaiting());
+    const response = yield call(() => api.put(request));
+
+    if (response.status === 200) {
+      yield put(actions.putSuccess(response.data));
+    } else {
+      yield put(actions.putError(response));
+    }
+  } catch (err) {
+    if (err.response && err.response.data) {
+      yield put(actions.putError(err.response.data.server_error));
+    } else {
+      yield put(actions.putError(err));
+    }
+  }
+}

@@ -1,21 +1,28 @@
 import { fork, take } from 'redux-saga/effects';
-import { defaultFetch, defaultPost } from '../../../../helpers/SagasUtil';
-import Actions, { ProductGetActions, ProductUpdateActions } from './ProductActions';
+import { defaultFetch, defaultPost, defaultPut } from '../../../../helpers/SagasUtil';
+import Actions, { ProductGetActions, ProductUpdateActions, ProductSaveActions } from './ProductActions';
 import ProductApi from './ProductApi';
 
 /* --------------------- Watchers ------------------ */
-const watchFetchProductGet = function* () {
+const watchProductGet = function* () {
   while (true) {
     const { params } = yield take(ProductGetActions.FETCH);
     yield fork(() => defaultFetch(Actions, ProductApi, params));
   }
 };
 
-const watchPostProductUpdate = function* () {
+const watchProductUpdate = function* () {
   while (true) {
-    const { params } = yield take(ProductUpdateActions.POST);
+    const { params } = yield take(ProductUpdateActions.PUT);
+    yield fork(() => defaultPut(Actions, ProductApi, params));
+  }
+};
+
+const watchProductSave = function* () {
+  while (true) {
+    const { params } = yield take(ProductSaveActions.POST);
     yield fork(() => defaultPost(Actions, ProductApi, params));
   }
 };
 
-export default { watchFetchProductGet, watchPostProductUpdate };
+export default { watchProductGet, watchProductUpdate, watchProductSave };

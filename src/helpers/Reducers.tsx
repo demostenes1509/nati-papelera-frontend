@@ -15,7 +15,7 @@ const rootReducers = combineReducers({
   productsListReducer: ProductsListReducer,
   productGetReducer: ProductReducer.fetch,
   packagingUpdateReducer: PackagingUpdateReducer,
-  productUpdateReducer: ProductReducer.post,
+  productUpdateReducer: ProductReducer.put,
 });
 
 export default rootReducers;

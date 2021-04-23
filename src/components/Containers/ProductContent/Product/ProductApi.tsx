@@ -10,10 +10,19 @@ export default {
     return request(config);
   },
 
-  post(data) {
+  put(data) {
     const config: AxiosRequestConfig = {
       url: 'products/',
       method: 'PUT',
+      data,
+    };
+    return request(config);
+  },
+
+  post(data) {
+    const config: AxiosRequestConfig = {
+      url: 'products/',
+      method: 'POST',
       data,
     };
     return request(config);
