@@ -48,9 +48,6 @@ const HeaderDetails = (props) => {
             <Link to="/" onClick={onClick} className="user-logout">
               Cerrar sesión
             </Link>
-            {/* <a href="#" className="user-logout">
-              Cerrar sesión
-            </a> */}
           </li>
         </ul>
       </div>
@@ -62,11 +59,6 @@ const HeaderDetails = (props) => {
           <li>
             <a href="#">Contacto</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Mapa del sitio</a>
           </li>
-          {/* <li className="cart-box">
-            <a href="#" className="header-cart">
-              Carrito: vacio
-            </a>
-          </li> */}
           <li>
             <a href="/login" className="user-login">
               Login

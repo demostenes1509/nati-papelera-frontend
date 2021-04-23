@@ -1086,6 +1086,23 @@ a.enlarge-product-btn {
   margin: 0 0 20px;
 }
 
+.product-details-col-name {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.product-details-col-description {
+  color: #2b2b2b;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.product-details-packaging {
+  display: flex;
+  justify-content: space-between;
+}
+
 .product-discount-text {
   color: #d41b29;
 }

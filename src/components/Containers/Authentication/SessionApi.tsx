@@ -5,7 +5,6 @@ const JWT_SECRET_KEY = getEnv('REACT_APP_JWT_SECRET_KEY');
 const SESSION_INFO = 'SESSION_INFO';
 
 export const userLoggedIn = (accessToken: string) => {
-  console.log('EN USER IN');
   localStorage.setItem(SESSION_INFO, accessToken);
   return jwt.verify(accessToken, JWT_SECRET_KEY);
 };
