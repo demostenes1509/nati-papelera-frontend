@@ -5,7 +5,8 @@ import FetchAuthentication from '../components/Containers/Authentication/Authent
 import SessionSagas from '../components/Containers/Authentication/SessionSagas';
 import ProductsListSagas from '../components/Containers/ProductsList/ProductsListSagas';
 import ProductGetSagas from '../components/Containers/ProductContent/Product/ProductGetSagas';
-import PackagingSaveSagas from '../components/Containers/ProductContent/Product/PackagingSaveSagas';
+import PackagingUpdateSagas from '../components/Containers/ProductContent/Product/PackagingUpdateSagas';
+import ProductUpdateSagas from '../components/Containers/ProductContent/Product/ProductUpdateSagas';
 
 export default function* rootSaga() {
   yield all([
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     fork(SessionSagas.watchLogout),
     fork(ProductsListSagas.watchFetchProductsList),
     fork(ProductGetSagas.watchFetchProductGet),
-    fork(PackagingSaveSagas.watchPostPackagingSave),
+    fork(PackagingUpdateSagas.watchPostPackagingUpdate),
+    fork(ProductUpdateSagas.watchPostProductUpdate),
   ]);
 }

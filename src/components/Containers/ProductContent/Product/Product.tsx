@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-
+import { connect } from 'react-redux';
+import { withRouterWrapper } from '../../../../helpers/UIUtil';
 import mainProductImg from '../../../../images/main-product-img.png';
 import productThumbnail from '../../../../images/product-thumbnail.png';
-import { connect } from 'react-redux';
 import { IProduct } from '../../../../interfaces/interfaces';
-import productGetActions from './ProductGetActions';
-import { withRouterWrapper } from '../../../../helpers/UIUtil';
 import Packaging from './Packaging';
-
+import productGetActions from './ProductGetActions';
+import productUpdateActions from './ProductUpdateActions';
 interface IPathProps {
   fetch(productUrl): string;
+  post(id: string, name: string, description: string): string;
 }
 
 interface IStateProps {
@@ -17,19 +17,27 @@ interface IStateProps {
   isAdmin: boolean;
 }
 
-const Product = ({ isAdmin, payload, fetch }: IStateProps & IPathProps) => {
+const Product = ({ isAdmin, payload, fetch, post }: IStateProps & IPathProps) => {
   const { packaging } = payload;
 
   const [name, setName] = useState(payload.name);
+  const [nameColor, setNameColor] = useState('white');
   const [description, setDescription] = useState(payload.description);
+  const [descriptionColor, setDescriptionColor] = useState('white');
 
-  const onChangeProp = (setProperty, event) => {
+  const onChangeProp = (property, setProperty, setPropertyColor, event) => {
     setProperty(event.target.value);
+    if (event.target.value.toString() !== payload[property].toString()) {
+      setPropertyColor('#ffcccb');
+    } else {
+      setPropertyColor('white');
+    }
   };
 
-  const save = () => {
-    console.log(name);
-    console.log(description);
+  const update = () => {
+    post(payload.id, name, description);
+    setNameColor('white');
+    setDescriptionColor('white');
   };
 
   useEffect(() => {
@@ -59,11 +67,17 @@ const Product = ({ isAdmin, payload, fetch }: IStateProps & IPathProps) => {
         </div>
       </section>
       <section className="product-details-col">
-        <H2OrInput isAdmin={isAdmin} name={name} onChangeName={(event) => onChangeProp(setName, event)}></H2OrInput>
+        <H2OrInput
+          isAdmin={isAdmin}
+          name={name}
+          onChangeName={(event) => onChangeProp('name', setName, setNameColor, event)}
+          style={{ backgroundColor: nameColor }}
+        ></H2OrInput>
         <POrInput
           isAdmin={isAdmin}
           description={description}
-          onChangeDescription={(event) => onChangeProp(setDescription, event)}
+          onChangeDescription={(event) => onChangeProp('description', setDescription, setDescriptionColor, event)}
+          style={{ backgroundColor: descriptionColor }}
         ></POrInput>
         <div className="product-content-details">
           <ul>
@@ -72,24 +86,29 @@ const Product = ({ isAdmin, payload, fetch }: IStateProps & IPathProps) => {
             ))}
           </ul>
         </div>
-        <button onClick={save}></button>
+        <button onClick={update}>Grabar</button>
       </section>
     </section>
   );
 };
 
-const H2OrInput = ({ isAdmin, onChangeName, name }) => {
+const H2OrInput = ({ isAdmin, onChangeName, name, style }) => {
   if (isAdmin) {
-    return <input value={name} onChange={onChangeName} className="product-details-col-name"></input>;
+    return <input value={name} onChange={onChangeName} className="product-details-col-name" style={style}></input>;
   } else {
     return <h2>{name}</h2>;
   }
 };
 
-const POrInput = ({ isAdmin, onChangeDescription, description }) => {
+const POrInput = ({ isAdmin, onChangeDescription, description, style }) => {
   if (isAdmin) {
     return (
-      <input value={description} onChange={onChangeDescription} className="product-details-col-description"></input>
+      <input
+        value={description}
+        onChange={onChangeDescription}
+        className="product-details-col-description"
+        style={style}
+      ></input>
     );
   } else {
     return <p>{description}</p>;
@@ -105,6 +124,7 @@ const mapStateToProps = (state): IStateProps => {
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
   fetch: (productUrl) => dispatch(productGetActions.fetch(productUrl)),
+  post: (id, name, description) => dispatch(productUpdateActions.post(id, name, description)),
 });
 
 export default withRouterWrapper(connect(mapStateToProps, mapDispatchToProps)(Product));

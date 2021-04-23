@@ -1,5 +1,5 @@
 import ReducersUtil from '../../../../helpers/ReducersUtil';
-import { PackagingSaveActions } from './PackagingSaveActions';
+import { ProductUpdateActions } from './ProductUpdateActions';
 
 const initialState = {
   waiting: false,
@@ -9,5 +9,5 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  return ReducersUtil.defaultPost(initialState, state, action, PackagingSaveActions);
+  return ReducersUtil.defaultPost(initialState, state, action, ProductUpdateActions);
 };

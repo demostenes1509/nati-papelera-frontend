@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { IPackaging } from '../../../../interfaces/interfaces';
-import packagingSaveActions from './PackagingSaveActions';
+import packagingUpdateActions from './PackagingUpdateActions';
 
 interface IStateInitialProps {
   pack: IPackaging;
@@ -59,7 +59,7 @@ const Packaging = ({ pack, isAdmin, post }: IStateInitialProps & IPathProps) => 
 };
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
-  post: (id, name, price) => dispatch(packagingSaveActions.post(id, name, price)),
+  post: (id, name, price) => dispatch(packagingUpdateActions.post(id, name, price)),
 });
 
 export default connect(null, mapDispatchToProps)(Packaging);
