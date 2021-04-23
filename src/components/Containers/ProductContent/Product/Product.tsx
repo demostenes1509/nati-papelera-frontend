@@ -5,8 +5,7 @@ import mainProductImg from '../../../../images/main-product-img.png';
 import productThumbnail from '../../../../images/product-thumbnail.png';
 import { IProduct } from '../../../../interfaces/interfaces';
 import Packaging from './Packaging';
-import productGetActions from './ProductGetActions';
-import productUpdateActions from './ProductUpdateActions';
+import productActions from './ProductActions';
 interface IPathProps {
   fetch(productUrl): string;
   post(id: string, name: string, description: string): string;
@@ -123,8 +122,8 @@ const mapStateToProps = (state): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
-  fetch: (productUrl) => dispatch(productGetActions.fetch(productUrl)),
-  post: (id, name, description) => dispatch(productUpdateActions.post(id, name, description)),
+  fetch: (productUrl) => dispatch(productActions.fetch(productUrl)),
+  post: (id, name, description) => dispatch(productActions.post(id, name, description)),
 });
 
 export default withRouterWrapper(connect(mapStateToProps, mapDispatchToProps)(Product));
