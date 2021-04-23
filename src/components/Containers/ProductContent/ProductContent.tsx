@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Product from './Product/Product';
 
-class CategoryContent extends Component {
-  render() {
-    return (
-      <section className="main-content clear-fix">
-        <Product />
-      </section>
-    );
-  }
-}
+const CategoryContent = () => {
+  return (
+    <section className="main-content clear-fix">
+      <Product />
+    </section>
+  );
+};
 
 export default CategoryContent;

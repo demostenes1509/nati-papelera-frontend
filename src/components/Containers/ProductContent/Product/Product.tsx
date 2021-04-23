@@ -68,7 +68,7 @@ const Product = ({ isAdmin, payload, fetch }: IStateProps & IPathProps) => {
         <div className="product-content-details">
           <ul>
             {packaging.map((pack) => (
-              <Packaging isAdmin={isAdmin} initialPack={pack} />
+              <Packaging key={pack.id} isAdmin={isAdmin} pack={pack} />
             ))}
           </ul>
         </div>

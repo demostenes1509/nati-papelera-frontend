@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouterWrapper } from '../../helpers/UIUtil';
-// import telTab from '../../images/tel-tab.png';
-// import headerImage from '../../images/header-image.png';
 import sessionActions from '../Containers/Authentication/SessionActions';
 
 interface IStateProps {
@@ -15,27 +13,23 @@ interface IPathProps {
   logout(): void;
 }
 
-class Header extends Component<IStateProps & IPathProps> {
-  render() {
-    const { isLoggedIn, fullName } = this.props;
-
-    return (
-      <header className="main-header clear-fix">
-        <div className="logo-section">
-          <h1 className="logo">
-            <a href="/">Nati Papelera</a>
-          </h1>
-        </div>
-
-        <HeaderDetails isLoggedIn={isLoggedIn} fullName={fullName} onClick={() => this.handleClick()} />
-      </header>
-    );
-  }
-
-  handleClick = () => {
-    this.props.logout();
+const Header = ({ isLoggedIn, fullName, logout }: IStateProps & IPathProps) => {
+  const handleClick = () => {
+    logout();
   };
-}
+
+  return (
+    <header className="main-header clear-fix">
+      <div className="logo-section">
+        <h1 className="logo">
+          <a href="/">Nati Papelera</a>
+        </h1>
+      </div>
+
+      <HeaderDetails isLoggedIn={isLoggedIn} fullName={fullName} onClick={() => handleClick()} />
+    </header>
+  );
+};
 
 const HeaderDetails = (props) => {
   const { isLoggedIn, fullName, onClick } = props;
@@ -79,5 +73,4 @@ const mapDispatchToProps = (dispatch): IPathProps => ({
   logout: () => dispatch(sessionActions.notLoggedIn()),
 });
 
-// Typescript issue
 export default withRouterWrapper(connect<IStateProps, IPathProps>(mapStateToProps, mapDispatchToProps)(Header));
