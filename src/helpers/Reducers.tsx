@@ -4,7 +4,7 @@ import SessionReducer from '../components/Containers/Authentication/SessionReduc
 import ProductsListReducer from '../components/Containers/ProductsList/ProductsListReducer';
 import ProvidersReducer from '../components/Containers/SideBar/ProvidersReducer';
 import SideBarReducer from '../components/Containers/SideBar/SideBarReducer';
-import PackagingUpdateReducer from '../components/Containers/ProductContent/Product/PackagingUpdateReducer';
+import PackagingReducer from '../components/Containers/ProductContent/Product/PackagingReducer';
 import ProductReducer from '../components/Containers/ProductContent/Product/ProductReducer';
 
 const rootReducers = combineReducers({
@@ -14,7 +14,7 @@ const rootReducers = combineReducers({
   sessionReducer: SessionReducer,
   productsListReducer: ProductsListReducer,
   productGetReducer: ProductReducer.fetch,
-  packagingUpdateReducer: PackagingUpdateReducer,
+  packagingUpdateReducer: PackagingReducer.put,
   productUpdateReducer: ProductReducer.put,
 });
 

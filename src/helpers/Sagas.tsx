@@ -4,7 +4,7 @@ import FetchSidebar from '../components/Containers/SideBar/SideBarSagas';
 import FetchAuthentication from '../components/Containers/Authentication/AuthenticationSagas';
 import SessionSagas from '../components/Containers/Authentication/SessionSagas';
 import ProductsListSagas from '../components/Containers/ProductsList/ProductsListSagas';
-import PackagingUpdateSagas from '../components/Containers/ProductContent/Product/PackagingUpdateSagas';
+import PackagingSagas from '../components/Containers/ProductContent/Product/PackagingSagas';
 import ProductSagas from '../components/Containers/ProductContent/Product/ProductSagas';
 
 export default function* rootSaga() {
@@ -18,6 +18,6 @@ export default function* rootSaga() {
     fork(ProductSagas.watchProductGet),
     fork(ProductSagas.watchProductSave),
     fork(ProductSagas.watchProductUpdate),
-    fork(PackagingUpdateSagas.watchPostPackagingUpdate),
+    fork(PackagingSagas.watchPackagingUpdate),
   ]);
 }

@@ -2,10 +2,10 @@ import { AxiosRequestConfig } from 'axios';
 import request from '../../../../helpers/Api';
 
 export default {
-  post(data) {
+  put(data) {
     const config: AxiosRequestConfig = {
-      url: 'packaging/update',
-      method: 'POST',
+      url: 'packaging/',
+      method: 'PUT',
       data,
     };
     return request(config);

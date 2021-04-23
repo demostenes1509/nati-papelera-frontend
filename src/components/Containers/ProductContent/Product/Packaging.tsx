@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { IPackaging } from '../../../../interfaces/interfaces';
-import packagingUpdateActions from './PackagingUpdateActions';
+import packagingUpdateActions from './PackagingActions';
 
 interface IStateInitialProps {
   pack: IPackaging;
@@ -9,10 +9,10 @@ interface IStateInitialProps {
 }
 
 interface IPathProps {
-  post(id: string, name: string, price: number): string;
+  put(id: string, name: string, price: number): string;
 }
 
-const Packaging = ({ pack, isAdmin, post }: IStateInitialProps & IPathProps) => {
+const Packaging = ({ pack, isAdmin, put }: IStateInitialProps & IPathProps) => {
   const [name, setName] = useState(pack.name);
   const [nameColor, setNameColor] = useState('white');
   const [price, setPrice] = useState(Math.ceil(pack.price));
@@ -28,7 +28,7 @@ const Packaging = ({ pack, isAdmin, post }: IStateInitialProps & IPathProps) => 
   };
 
   const onClick = () => {
-    post(pack.id, name, price);
+    put(pack.id, name, price);
     setNameColor('white');
     setPriceColor('white');
   };
@@ -59,7 +59,7 @@ const Packaging = ({ pack, isAdmin, post }: IStateInitialProps & IPathProps) => 
 };
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
-  post: (id, name, price) => dispatch(packagingUpdateActions.post(id, name, price)),
+  put: (id, name, price) => dispatch(packagingUpdateActions.put(id, name, price)),
 });
 
 export default connect(null, mapDispatchToProps)(Packaging);
