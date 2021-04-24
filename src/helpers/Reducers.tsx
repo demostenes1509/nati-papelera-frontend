@@ -8,11 +8,11 @@ import PackagingReducer from '../components/Containers/ProductContent/Product/Pa
 import ProductReducer from '../components/Containers/ProductContent/Product/ProductReducer';
 
 const rootReducers = combineReducers({
-  sidebarReducer: SideBarReducer,
-  providersReducer: ProvidersReducer,
-  authenticationReducer: AuthenticationReducer,
-  sessionReducer: SessionReducer,
-  productsListReducer: ProductsListReducer,
+  sidebarReducer: SideBarReducer.get,
+  providersReducer: ProvidersReducer.get,
+  authenticationReducer: AuthenticationReducer.get,
+  sessionReducer: SessionReducer.login,
+  productsListReducer: ProductsListReducer.get,
   productGetReducer: ProductReducer.fetch,
   packagingUpdateReducer: PackagingReducer.put,
   productUpdateReducer: ProductReducer.put,

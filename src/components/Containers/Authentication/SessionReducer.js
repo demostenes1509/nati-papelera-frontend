@@ -6,7 +6,7 @@ const initialState = {
   fullName: null,
 };
 
-export default (state = initialState, action) => {
+const login = (state = initialState, action) => {
   switch (action.type) {
     case UserSessionTypes.NOT_LOGGED_IN:
       return {
@@ -23,4 +23,8 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+export default {
+  login,
 };

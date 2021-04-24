@@ -56,7 +56,7 @@ const selectState = (state, action) => {
   return { payload: { categories }, loading, error };
 };
 
-const SideBarReducer = (state = initialState, action) => {
+const get = (state = initialState, action) => {
   switch (action.type) {
     case SideBarActions.FETCH:
     case SideBarActions.FETCH_SUCCESS:
@@ -69,4 +69,6 @@ const SideBarReducer = (state = initialState, action) => {
   }
 };
 
-export default SideBarReducer;
+export default {
+  get,
+};
