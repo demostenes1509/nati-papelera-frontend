@@ -1063,11 +1063,21 @@ a.forgot-password {
 a.enlarge-product-btn {
   color: #2b2b2b;
   display: inline-block;
-  padding: 10px 46px 10px 14px;
+  padding: 10px 44px 10px 14px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
   background: url(../images/enlarge-icon.png) no-repeat 140px center #ddd;
-  margin: 0 0 20px;
+  margin: 0 0px 20px;
+}
+
+a.enlarge-product-btn-admin {
+  color: #2b2b2b;
+  display: inline-block;
+  padding: 10px 38px 10px 14px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background: url(../images/enlarge-icon.png) no-repeat 140px center #ddd;
+  margin: 0 2px 20px;
 }
 
 .product-thumbnail-container {

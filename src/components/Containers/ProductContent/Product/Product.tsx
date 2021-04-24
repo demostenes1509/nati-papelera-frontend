@@ -55,9 +55,15 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
           <a href="">
             <img src={mainProductImg} />
           </a>
-          <a href="" className="enlarge-product-btn">
-            Ver más grande
-          </a>
+          <OneButtonOrTwo isAdmin={isAdmin} />
+          {/* <div>
+            <a href="" className="enlarge-product-btn">
+              Ver más grande1
+            </a>
+            <a href="" className="enlarge-product-btn">
+              Ver más grande2
+            </a>
+          </div> */}
         </div>
         <div className="product-thumbnail-container">
           <a href="" className="active-thumbnail">
@@ -115,6 +121,27 @@ const POrInput = ({ isAdmin, onChangeDescription, description, style }) => {
     );
   } else {
     return <p>{description}</p>;
+  }
+};
+
+const OneButtonOrTwo = ({ isAdmin }) => {
+  if (isAdmin) {
+    return (
+      <div>
+        <a href="" className="enlarge-product-btn-admin">
+          Ver más grande
+        </a>
+        <a href="" className="enlarge-product-btn-admin">
+          Agregar imagen
+        </a>
+      </div>
+    );
+  } else {
+    return (
+      <a href="" className="enlarge-product-btn">
+        Ver más grande
+      </a>
+    );
   }
 };
 
