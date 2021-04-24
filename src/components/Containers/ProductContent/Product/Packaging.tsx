@@ -36,17 +36,23 @@ const Packaging = ({ pack, isAdmin, put }: IStateInitialProps & IPathProps) => {
   if (isAdmin) {
     return (
       <li key={pack.id} className="product-details-packaging">
-        <input
-          value={name}
-          onChange={(event) => onChangeProp('name', setName, setNameColor, event)}
-          style={{ backgroundColor: nameColor }}
-        />
-        <input
-          value={price}
-          onChange={(event) => onChangeProp('price', setPrice, setPriceColor, event)}
-          style={{ backgroundColor: priceColor }}
-        />
-        <button onClick={onClick}>Grabar</button>
+        <div>
+          <input
+            value={name}
+            onChange={(event) => onChangeProp('name', setName, setNameColor, event)}
+            style={{ backgroundColor: nameColor }}
+            className="product-details-packaging-name"
+          />
+          <input
+            value={price}
+            onChange={(event) => onChangeProp('price', setPrice, setPriceColor, event)}
+            style={{ backgroundColor: priceColor }}
+            className="product-details-packaging-price"
+          />
+        </div>
+        <button onClick={onClick} className="small-form-btn">
+          Grabar
+        </button>
       </li>
     );
   } else {

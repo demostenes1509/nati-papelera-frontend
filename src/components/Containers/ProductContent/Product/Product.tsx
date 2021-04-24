@@ -85,7 +85,9 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
             ))}
           </ul>
         </div>
-        <button onClick={update}>Grabar</button>
+        <button onClick={update} className="form-btn">
+          Grabar
+        </button>
       </section>
     </section>
   );
@@ -102,12 +104,14 @@ const H2OrInput = ({ isAdmin, onChangeName, name, style }) => {
 const POrInput = ({ isAdmin, onChangeDescription, description, style }) => {
   if (isAdmin) {
     return (
-      <input
+      <textarea
+        rows={3}
+        cols={38}
         value={description}
         onChange={onChangeDescription}
         className="product-details-col-description"
         style={style}
-      ></input>
+      ></textarea>
     );
   } else {
     return <p>{description}</p>;
