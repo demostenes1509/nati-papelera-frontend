@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
 import SideBar from './components/Containers/SideBar/SideBar';
@@ -20,35 +20,32 @@ interface IStateProps {
   isLoggedIn: boolean;
 }
 
-class App extends Component<IPathProps & IStateProps> {
-  render() {
-    const { isLoggedIn } = this.props;
-    if (isLoggedIn === null) return <></>;
+const App = ({ isLoggedIn, loggedIn }: IStateProps & IPathProps) => {
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      loggedIn(userLoggedIn(token));
+    }
+  }, []);
 
-    return (
-      <Router>
-        <Switch>
-          <Layout exact path="/" components={[SideBar, MainContent]} />
-          <Layout exact path="/login" components={[Authentication]} />
-          <Layout exact path="/providers/:provider" components={[SideBar, ProviderContent]} />
-          <Layout exact path="/:category" components={[SideBar, CategoryContent]} />
-          <Layout exact path="/:category/:product" components={[SideBar, ProductContent]} />
-          {/* 
+  if (isLoggedIn === null) return <></>;
+
+  return (
+    <Router>
+      <Switch>
+        <Layout exact path="/" components={[SideBar, MainContent]} />
+        <Layout exact path="/login" components={[Authentication]} />
+        <Layout exact path="/providers/:provider" components={[SideBar, ProviderContent]} />
+        <Layout exact path="/:category" components={[SideBar, CategoryContent]} />
+        <Layout exact path="/:category/:product" components={[SideBar, ProductContent]} />
+        {/* 
           <Layout exact path="/search/:search" components={[SideBar,MainContent]}/>
           <Layout exact path="/:category/crear-nuevo-producto" components={[SideBar,NewProduct]}/>
           */}
-        </Switch>
-      </Router>
-    );
-  }
-
-  componentWillMount() {
-    const token = getToken();
-    if (token) {
-      this.props.loggedIn(userLoggedIn(token));
-    }
-  }
-}
+      </Switch>
+    </Router>
+  );
+};
 
 const mapStateToProps = (state): IStateProps => ({
   isLoggedIn: state.sessionReducer.isLoggedIn,

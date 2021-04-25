@@ -3,7 +3,7 @@ import { ProductGetActions, ProductUpdateActions, ProductSaveActions } from './P
 
 const initialFetchState = {
   loading: false,
-  payload: { name: null, description: null, packaging: [] },
+  payload: { name: '', description: '', packaging: [] },
   error: null,
 };
 

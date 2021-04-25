@@ -6,6 +6,9 @@ import productThumbnail from '../../../../images/product-thumbnail.png';
 import { IProduct } from '../../../../interfaces/interfaces';
 import Packaging from './Packaging';
 import productActions from './ProductActions';
+import Modal from 'react-modal';
+import ProductUploadImage from './ProductUploadImage';
+
 interface IPathProps {
   fetch(productUrl): string;
   put(id: string, name: string, description: string): string;
@@ -16,6 +19,19 @@ interface IStateProps {
   isAdmin: boolean;
 }
 
+// const customStyles = {
+//   content: {
+//     top: '50%',
+//     left: '50%',
+//     right: 'auto',
+//     bottom: 'auto',
+//     marginRight: '-50%',
+//     transform: 'translate(-50%, -50%)',
+//   },
+// };
+
+Modal.setAppElement('#root');
+
 const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => {
   const { packaging } = payload;
 
@@ -23,6 +39,11 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
   const [nameColor, setNameColor] = useState('white');
   const [description, setDescription] = useState(payload.description);
   const [descriptionColor, setDescriptionColor] = useState('white');
+  const [modalIsOpen, setModalIsOpen] = React.useState(false);
+
+  console.log('=================');
+  console.log(modalIsOpen);
+  console.log('=================');
 
   const onChangeProp = (property, setProperty, setPropertyColor, event) => {
     setProperty(event.target.value);
@@ -39,6 +60,20 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
     setDescriptionColor('white');
   };
 
+  const openModal = (event) => {
+    event.preventDefault();
+    setModalIsOpen(true);
+  };
+
+  const afterOpenModal = () => {
+    console.log('HOLA');
+  };
+
+  const closeModal = () => {
+    console.log('CLOSE MODAL');
+    setModalIsOpen(false);
+  };
+
   useEffect(() => {
     fetch(location.pathname);
   }, [location.pathname]);
@@ -50,20 +85,14 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
 
   return (
     <section className="main-content clear-fix">
+      <UploadPictureModal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} />
+
       <section className="product-image-col">
         <div className="product-image-container">
           <a href="">
             <img src={mainProductImg} />
           </a>
-          <OneButtonOrTwo isAdmin={isAdmin} />
-          {/* <div>
-            <a href="" className="enlarge-product-btn">
-              Ver más grande1
-            </a>
-            <a href="" className="enlarge-product-btn">
-              Ver más grande2
-            </a>
-          </div> */}
+          <OneButtonOrTwo isAdmin={isAdmin} openModal={(event) => openModal(event)} />
         </div>
         <div className="product-thumbnail-container">
           <a href="" className="active-thumbnail">
@@ -124,14 +153,14 @@ const POrInput = ({ isAdmin, onChangeDescription, description, style }) => {
   }
 };
 
-const OneButtonOrTwo = ({ isAdmin }) => {
+const OneButtonOrTwo = ({ isAdmin, openModal }) => {
   if (isAdmin) {
     return (
       <div>
         <a href="" className="enlarge-product-btn-admin">
           Ver más grande
         </a>
-        <a href="" className="enlarge-product-btn-admin">
+        <a href="" className="enlarge-product-btn-admin" onClick={openModal}>
           Agregar imagen
         </a>
       </div>
@@ -143,6 +172,14 @@ const OneButtonOrTwo = ({ isAdmin }) => {
       </a>
     );
   }
+};
+
+const UploadPictureModal = ({ isOpen, onAfterOpen, onRequestClose }) => {
+  return (
+    <Modal isOpen={isOpen} onAfterOpen={onAfterOpen} onRequestClose={onRequestClose} contentLabel="Example Modal">
+      <ProductUploadImage onRequestClose={onRequestClose} />
+    </Modal>
+  );
 };
 
 const mapStateToProps = (state): IStateProps => {
