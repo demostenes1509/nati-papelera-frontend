@@ -1,5 +1,5 @@
 import { fork, take } from 'redux-saga/effects';
-import { defaultPut } from '../../../../helpers/SagasUtil';
+import { defaultPut } from '../../../../../helpers/SagasUtil';
 import Actions, { PackagingUpdateActions } from './PackagingActions';
 import PackagingUpdateApi from './PackagingApi';
 

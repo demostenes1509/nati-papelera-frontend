@@ -4,10 +4,13 @@ import { withRouterWrapper } from '../../../../helpers/UIUtil';
 import mainProductImg from '../../../../images/main-product-img.png';
 import productThumbnail from '../../../../images/product-thumbnail.png';
 import { IProduct } from '../../../../interfaces/interfaces';
-import Packaging from './Packaging';
+import Packaging from './Packaging/Packaging';
 import productActions from './ProductActions';
 import Modal from 'react-modal';
-import ProductUploadImage from './ProductUploadImage';
+import ProductPicture from './Picture/ProductPicture';
+import getEnv from 'getenv';
+
+const API_URL = getEnv('REACT_APP_API_URL');
 
 interface IPathProps {
   fetch(productUrl): string;
@@ -33,17 +36,14 @@ interface IStateProps {
 Modal.setAppElement('#root');
 
 const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => {
-  const { packaging } = payload;
+  const { packaging, pictures } = payload;
+  console.log(pictures);
 
   const [name, setName] = useState(payload.name);
   const [nameColor, setNameColor] = useState('white');
   const [description, setDescription] = useState(payload.description);
   const [descriptionColor, setDescriptionColor] = useState('white');
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
-
-  console.log('=================');
-  console.log(modalIsOpen);
-  console.log('=================');
 
   const onChangeProp = (property, setProperty, setPropertyColor, event) => {
     setProperty(event.target.value);
@@ -85,7 +85,12 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
 
   return (
     <section className="main-content clear-fix">
-      <UploadPictureModal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} />
+      <UploadPictureModal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        productId={payload.id}
+      />
 
       <section className="product-image-col">
         <div className="product-image-container">
@@ -98,6 +103,11 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
           <a href="" className="active-thumbnail">
             <img src={productThumbnail} />
           </a>
+          {pictures.map((pic) => (
+            <a href="" key={pic.id}>
+              <img src={`${API_URL}/products-pictures/${pic.id}`} />
+            </a>
+          ))}
         </div>
       </section>
       <section className="product-details-col">
@@ -174,10 +184,10 @@ const OneButtonOrTwo = ({ isAdmin, openModal }) => {
   }
 };
 
-const UploadPictureModal = ({ isOpen, onAfterOpen, onRequestClose }) => {
+const UploadPictureModal = ({ isOpen, onAfterOpen, onRequestClose, productId }) => {
   return (
     <Modal isOpen={isOpen} onAfterOpen={onAfterOpen} onRequestClose={onRequestClose} contentLabel="Example Modal">
-      <ProductUploadImage onRequestClose={onRequestClose} />
+      <ProductPicture onRequestClose={onRequestClose} productId={productId} />
     </Modal>
   );
 };

@@ -1,4 +1,4 @@
-import ReducersUtil from '../../../../helpers/ReducersUtil';
+import ReducersUtil from '../../../../../helpers/ReducersUtil';
 import { PackagingUpdateActions } from './PackagingActions';
 
 const initialPutState = {

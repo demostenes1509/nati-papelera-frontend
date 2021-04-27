@@ -1087,7 +1087,9 @@ a.enlarge-product-btn-admin {
 
 .product-thumbnail-container a img {
   border: 1px solid #ddd;
-  height: auto !important;
+  height: 86px;
+  width: 110px;
+  float: left;
 }
 
 .product-thumbnail-container a.active-thumbnail img,
@@ -1095,13 +1097,13 @@ a.enlarge-product-btn-admin {
   border: 1px solid #444;
 }
 
-.product-thumbnail-container a:first-child img {
-  float: left;
-}
+// .product-thumbnail-container a:first-child img {
+//   float: left;
+// }
 
-.product-thumbnail-container a:last-child img {
-  float: left;
-}
+// .product-thumbnail-container a:last-child img {
+//   float: left;
+// }
 
 .product-details-col h2 {
   font-size: 22px;

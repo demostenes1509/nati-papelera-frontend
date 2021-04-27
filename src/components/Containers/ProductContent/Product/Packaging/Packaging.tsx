@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { IPackaging } from '../../../../interfaces/interfaces';
+import { IPackaging } from '../../../../../interfaces/interfaces';
 import packagingUpdateActions from './PackagingActions';
 
 interface IStateInitialProps {

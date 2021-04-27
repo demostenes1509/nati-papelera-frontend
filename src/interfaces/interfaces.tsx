@@ -12,6 +12,11 @@ export interface IProvider {
   url: string;
 }
 
+export interface IPicture {
+  id: string;
+  mimeType: string;
+}
+
 export interface IProduct {
   id: string;
   name: string;
@@ -19,6 +24,7 @@ export interface IProduct {
   url: string;
   selected: boolean;
   packaging: Array<IPackaging>;
+  pictures: Array<IPicture>;
 }
 
 export interface IPackaging {

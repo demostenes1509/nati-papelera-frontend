@@ -20,7 +20,7 @@ export function* defaultPost(actions, api, request) {
     yield put(actions.postWaiting());
     const response = yield call(() => api.post(request));
 
-    if (response.status === 200) {
+    if ([200, 201].includes(response.status)) {
       yield put(actions.postSuccess(response.data));
     } else {
       yield put(actions.postError(response));
@@ -39,7 +39,7 @@ export function* defaultPut(actions, api, request) {
     yield put(actions.putWaiting());
     const response = yield call(() => api.put(request));
 
-    if (response.status === 200) {
+    if ([200, 201].includes(response.status)) {
       yield put(actions.putSuccess(response.data));
     } else {
       yield put(actions.putError(response));
