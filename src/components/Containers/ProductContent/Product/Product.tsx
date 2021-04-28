@@ -21,6 +21,7 @@ interface IPathProps {
 interface IStateProps {
   payload: IProduct;
   isAdmin: boolean;
+  refreshPage: boolean;
 }
 
 // const customStyles = {
@@ -34,7 +35,7 @@ interface IStateProps {
 //   },
 // };
 
-const Product = ({ isAdmin, payload, fetch, put, openDialog }: IStateProps & IPathProps) => {
+const Product = ({ isAdmin, payload, fetch, put, openDialog, refreshPage }: IStateProps & IPathProps) => {
   const { packaging, pictures } = payload;
 
   const [name, setName] = useState(payload.name);
@@ -59,7 +60,7 @@ const Product = ({ isAdmin, payload, fetch, put, openDialog }: IStateProps & IPa
 
   useEffect(() => {
     fetch(location.pathname);
-  }, [location.pathname]);
+  }, [location.pathname, refreshPage]);
 
   useEffect(() => {
     setName(payload.name);
@@ -171,6 +172,7 @@ const mapStateToProps = (state): IStateProps => {
   return {
     payload: state.productGetReducer.payload,
     isAdmin: state.sessionReducer.isAdmin,
+    refreshPage: state.productPictureDialogReducer.refreshPage,
   };
 };
 
