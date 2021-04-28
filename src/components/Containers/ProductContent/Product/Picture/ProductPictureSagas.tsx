@@ -1,4 +1,4 @@
-import { fork, take } from 'redux-saga/effects';
+import { fork, put, take } from 'redux-saga/effects';
 import { defaultPost } from '../../../../../helpers/SagasUtil';
 import Actions, { ProductPictureSaveActions } from './ProductPictureActions';
 import ProductPictureApi from './ProductPictureApi';
@@ -11,4 +11,11 @@ const watchProductPictureSave = function* () {
   }
 };
 
-export default { watchProductPictureSave };
+const watchProductPictureSaveSuccess = function* () {
+  while (true) {
+    yield take(ProductPictureSaveActions.POST_SUCCESS);
+    yield put(Actions.closeDialog(true));
+  }
+};
+
+export default { watchProductPictureSave, watchProductPictureSaveSuccess };

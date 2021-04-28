@@ -21,5 +21,7 @@ export default function* rootSaga() {
     fork(ProductSagas.watchProductUpdate),
     fork(PackagingSagas.watchPackagingUpdate),
     fork(ProductPictureSagas.watchProductPictureSave),
+    fork(ProductPictureSagas.watchProductPictureSaveSuccess),
+    // fork(ProductPictureSagas.watchProductPictureClose),
   ]);
 }

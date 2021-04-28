@@ -1,3 +1,4 @@
+import getEnv from 'getenv';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouterWrapper } from '../../../../helpers/UIUtil';
@@ -5,15 +6,15 @@ import mainProductImg from '../../../../images/main-product-img.png';
 import productThumbnail from '../../../../images/product-thumbnail.png';
 import { IProduct } from '../../../../interfaces/interfaces';
 import Packaging from './Packaging/Packaging';
-import productActions from './ProductActions';
-import Modal from 'react-modal';
 import ProductPicture from './Picture/ProductPicture';
-import getEnv from 'getenv';
+import productActions from './ProductActions';
+import productPictureActions from './Picture/ProductPictureActions';
 
 const API_URL = getEnv('REACT_APP_API_URL');
 
 interface IPathProps {
-  fetch(productUrl): string;
+  fetch(productUrl: string): string;
+  openDialog(productId: string, productUrl: string): string;
   put(id: string, name: string, description: string): string;
 }
 
@@ -33,16 +34,13 @@ interface IStateProps {
 //   },
 // };
 
-Modal.setAppElement('#root');
-
-const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => {
+const Product = ({ isAdmin, payload, fetch, put, openDialog }: IStateProps & IPathProps) => {
   const { packaging, pictures } = payload;
 
   const [name, setName] = useState(payload.name);
   const [nameColor, setNameColor] = useState('white');
   const [description, setDescription] = useState(payload.description);
   const [descriptionColor, setDescriptionColor] = useState('white');
-  const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
   const onChangeProp = (property, setProperty, setPropertyColor, event) => {
     setProperty(event.target.value);
@@ -59,21 +57,6 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
     setDescriptionColor('white');
   };
 
-  const openModal = (event) => {
-    event.preventDefault();
-    setModalIsOpen(true);
-  };
-
-  const afterOpenModal = () => {
-    console.log('HOLA');
-  };
-
-  const closeModal = () => {
-    console.log('CLOSE MODAL');
-    setModalIsOpen(false);
-    // fetch(location.pathname);
-  };
-
   useEffect(() => {
     fetch(location.pathname);
   }, [location.pathname]);
@@ -85,19 +68,14 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
 
   return (
     <section className="main-content clear-fix">
-      <UploadPictureModal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        productId={payload.id}
-      />
+      <ProductPicture productId={payload.id} />
 
       <section className="product-image-col">
         <div className="product-image-container">
           <a href="">
             <img src={mainProductImg} />
           </a>
-          <OneButtonOrTwo isAdmin={isAdmin} openModal={(event) => openModal(event)} />
+          <OneButtonOrTwo isAdmin={isAdmin} openDialog={() => openDialog(payload.id, payload.url)} />
         </div>
         <div className="product-thumbnail-container">
           <a href="" className="active-thumbnail">
@@ -163,14 +141,19 @@ const POrInput = ({ isAdmin, onChangeDescription, description, style }) => {
   }
 };
 
-const OneButtonOrTwo = ({ isAdmin, openModal }) => {
+const OneButtonOrTwo = ({ isAdmin, openDialog }) => {
+  const onClick = (event) => {
+    event.preventDefault();
+    openDialog();
+  };
+
   if (isAdmin) {
     return (
       <div>
         <a href="" className="enlarge-product-btn-admin">
           Ver más grande
         </a>
-        <a href="" className="enlarge-product-btn-admin" onClick={openModal}>
+        <a href="" className="enlarge-product-btn-admin" onClick={(event) => onClick(event)}>
           Agregar imagen
         </a>
       </div>
@@ -184,14 +167,6 @@ const OneButtonOrTwo = ({ isAdmin, openModal }) => {
   }
 };
 
-const UploadPictureModal = ({ isOpen, onAfterOpen, onRequestClose, productId }) => {
-  return (
-    <Modal isOpen={isOpen} onAfterOpen={onAfterOpen} onRequestClose={onRequestClose} contentLabel="Example Modal">
-      <ProductPicture onRequestClose={onRequestClose} productId={productId} />
-    </Modal>
-  );
-};
-
 const mapStateToProps = (state): IStateProps => {
   return {
     payload: state.productGetReducer.payload,
@@ -200,8 +175,9 @@ const mapStateToProps = (state): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
-  fetch: (productUrl) => dispatch(productActions.fetch(productUrl)),
-  put: (id, name, description) => dispatch(productActions.put(id, name, description)),
+  fetch: (productUrl: string) => dispatch(productActions.fetch(productUrl)),
+  put: (id: string, name: string, description: string) => dispatch(productActions.put(id, name, description)),
+  openDialog: (productId: string) => dispatch(productPictureActions.openDialog(productId)),
 });
 
 export default withRouterWrapper(connect(mapStateToProps, mapDispatchToProps)(Product));
