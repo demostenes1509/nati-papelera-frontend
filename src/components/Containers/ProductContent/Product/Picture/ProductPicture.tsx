@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Cropper from 'simple-react-cropper';
 import { blobToFile } from '../../../../../helpers/FileUtil';
@@ -14,29 +13,28 @@ interface IStateProps {
 }
 
 interface IStateX {
-  response: { id: string };
+  response: { id: string | null };
 }
 
 const ProductPicture = ({ onRequestClose, post, productId, response }: IStateProps & IPathProps & IStateX) => {
-  // const [savedId, setSavedId] = useState(response.id);
+  console.log(response);
 
   const uploadToServer = (blob: Blob) => {
     const file = blobToFile(blob);
     post(productId, file);
-    console.log(onRequestClose);
-    // onRequestClose();
+    console.log(onRequestClose());
   };
 
+  /*
   useEffect(() => {
-    console.log('==================');
-    console.log(response);
-    console.log('==================');
-    // setSavedId(response.id);
+    console.log('RESPONSE ID:' + response.id);
+    // This means server response was successfull
+    if (response.id) {
+      console.log('ENTRO A CERRAR TODO');
+      onRequestClose();
+    }
   }, [response.id]);
-
-  // console.log('#################');
-  // console.log(savedId);
-  // console.log('#################');
+  */
 
   const afterCrop = () => {
     console.log('close cropper');
@@ -55,10 +53,6 @@ const ProductPicture = ({ onRequestClose, post, productId, response }: IStatePro
 };
 
 const mapStateToProps = (state): IStateX => {
-  console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-  console.log(state.productPictureSaveReducer);
-  console.log(state.productPictureSaveReducer.response);
-  console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&');
   return {
     response: state.productPictureSaveReducer.response,
   };

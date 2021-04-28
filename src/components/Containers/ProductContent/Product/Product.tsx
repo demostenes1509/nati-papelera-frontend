@@ -37,7 +37,6 @@ Modal.setAppElement('#root');
 
 const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => {
   const { packaging, pictures } = payload;
-  console.log(pictures);
 
   const [name, setName] = useState(payload.name);
   const [nameColor, setNameColor] = useState('white');
@@ -72,6 +71,7 @@ const Product = ({ isAdmin, payload, fetch, put }: IStateProps & IPathProps) => 
   const closeModal = () => {
     console.log('CLOSE MODAL');
     setModalIsOpen(false);
+    // fetch(location.pathname);
   };
 
   useEffect(() => {
