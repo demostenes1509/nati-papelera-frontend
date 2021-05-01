@@ -49,7 +49,34 @@ const defaultPost = (initialState, state, action, types) => {
   }
 };
 
+const defaultPut = (initialState, state, action, types) => {
+  switch (action.type) {
+    case types.PUT:
+      return {
+        waiting: true,
+        request: initialState.request,
+        response: initialState.response,
+        error: null,
+      };
+    case types.PUT_SUCCESS:
+      return {
+        waiting: false,
+        response: action.response,
+        error: null,
+      };
+    case types.PUT_ERROR:
+      return {
+        waiting: false,
+        error: action.error,
+        response: {},
+      };
+    default:
+      return state;
+  }
+};
+
 export default {
   defaultFetch,
   defaultPost,
+  defaultPut,
 };

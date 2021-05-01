@@ -11,7 +11,7 @@ export function* defaultFetch(actions, api, data = null) {
       yield put(actions.fetchError(response));
     }
   } catch (err) {
-    yield put(actions.fetchError(err));
+    yield put(actions.fetchError(err.message));
   }
 }
 
@@ -20,16 +20,27 @@ export function* defaultPost(actions, api, request) {
     yield put(actions.postWaiting());
     const response = yield call(() => api.post(request));
 
-    if (response.status === 200) {
+    if ([200, 201].includes(response.status)) {
       yield put(actions.postSuccess(response.data));
     } else {
       yield put(actions.postError(response));
     }
   } catch (err) {
-    if (err.response && err.response.data) {
-      yield put(actions.postError(err.response.data.server_error));
+    yield put(actions.postError(err.message));
+  }
+}
+
+export function* defaultPut(actions, api, request) {
+  try {
+    yield put(actions.putWaiting());
+    const response = yield call(() => api.put(request));
+
+    if ([200, 201].includes(response.status)) {
+      yield put(actions.putSuccess(response.data));
     } else {
-      yield put(actions.postError(err));
+      yield put(actions.putError(response));
     }
+  } catch (err) {
+    yield put(actions.putError(err.message));
   }
 }

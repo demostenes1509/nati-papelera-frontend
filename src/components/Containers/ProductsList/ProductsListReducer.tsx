@@ -7,6 +7,10 @@ const initialState = {
   error: null,
 };
 
-export default (state = initialState, action) => {
+const get = (state = initialState, action) => {
   return ReducersUtil.defaultFetch(initialState, state, action, ProductsListActions);
+};
+
+export default {
+  get,
 };

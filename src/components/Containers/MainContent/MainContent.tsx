@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ProductsList from '../ProductsList/ProductsList';
 import Slider from '../Slider/Slider';
 
-class MainContent extends Component {
-  render() {
-    return (
-      <section className="main-content clear-fix">
-        <Slider />
-        <ProductsList />
-      </section>
-    );
-  }
-}
+const MainContent = () => {
+  return (
+    <section className="main-content clear-fix">
+      <Slider />
+      <ProductsList />
+    </section>
+  );
+};
 
 export default MainContent;
