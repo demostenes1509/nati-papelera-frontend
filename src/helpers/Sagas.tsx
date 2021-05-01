@@ -18,6 +18,7 @@ export default function* rootSaga() {
     fork(SessionSagas.watchLogout),
     fork(ProductsListSagas.watchFetchProductsList),
     fork(ProductSagas.watchProductGet),
+    fork(ProductSagas.watchProductGetSuccess),
     fork(ProductSagas.watchProductSave),
     fork(ProductSagas.watchProductUpdate),
     fork(PackagingSagas.watchPackagingUpdate),

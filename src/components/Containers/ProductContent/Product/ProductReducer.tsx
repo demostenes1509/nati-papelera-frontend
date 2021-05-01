@@ -1,5 +1,10 @@
 import ReducersUtil from '../../../../helpers/ReducersUtil';
-import { ProductGetActions, ProductUpdateActions, ProductSaveActions } from './ProductActions';
+import {
+  ProductGetActions,
+  ProductUpdateActions,
+  ProductSaveActions,
+  ProductSelectPictureActions,
+} from './ProductActions';
 
 const initialFetchState = {
   loading: false,
@@ -21,6 +26,12 @@ const initialPutState = {
   error: null,
 };
 
+const initialSelectedImageState = {
+  selectedPicture: {
+    id: null,
+  },
+};
+
 const fetch = (state = initialFetchState, action) => {
   return ReducersUtil.defaultFetch(initialFetchState, state, action, ProductGetActions);
 };
@@ -33,8 +44,20 @@ const post = (state = initialPostState, action) => {
   return ReducersUtil.defaultPost(initialPostState, state, action, ProductSaveActions);
 };
 
+const selectPicture = (state = initialSelectedImageState, action) => {
+  switch (action.type) {
+    case ProductSelectPictureActions.SELECT:
+      return {
+        selectedPicture: action.picture,
+      };
+    default:
+      return state;
+  }
+};
+
 export default {
   fetch,
   post,
   put,
+  selectPicture,
 };

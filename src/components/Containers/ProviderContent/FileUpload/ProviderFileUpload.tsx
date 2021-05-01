@@ -67,7 +67,6 @@ const Resultados = ({ response }) => {
 };
 
 const mapStateToProps = (state): IStateProps => {
-  console.log(state.providerUploadReducer);
   return {
     response: state.providerUploadReducer.response,
     waiting: state.providerUploadReducer.waiting,

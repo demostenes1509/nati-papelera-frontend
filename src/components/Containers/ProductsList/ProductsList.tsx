@@ -22,8 +22,6 @@ interface IPathProps {
 const ProductsList = ({ payload, fetch }: IStateProps & IPathProps) => {
   const { categoryName, categoryUrl, products } = payload;
 
-  console.log(API_URL);
-
   useEffect(() => {
     fetch(location.pathname);
   }, [location.pathname]);

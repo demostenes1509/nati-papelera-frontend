@@ -19,6 +19,10 @@ export const ProductSaveActions = {
   POST_ERROR: 'POST_PRODUCT_ERROR',
 };
 
+export const ProductSelectPictureActions = {
+  SELECT: 'SELECT_PICTURE',
+};
+
 const fetch = (params) => ({ type: ProductGetActions.FETCH, params });
 const fetchLoading = () => ({ type: ProductGetActions.FETCH_LOADING });
 const fetchSuccess = (payload) => ({ type: ProductGetActions.FETCH_SUCCESS, payload });
@@ -34,6 +38,8 @@ const postWaiting = () => ({ type: ProductSaveActions.POST_WAITING });
 const postSuccess = (response) => ({ type: ProductSaveActions.POST_SUCCESS, response });
 const postError = (error) => ({ type: ProductSaveActions.POST_ERROR, error });
 
+const selectPicture = (picture) => ({ type: ProductSelectPictureActions.SELECT, picture });
+
 export default {
   fetch,
   fetchLoading,
@@ -47,4 +53,5 @@ export default {
   putWaiting,
   putSuccess,
   putError,
+  selectPicture,
 };

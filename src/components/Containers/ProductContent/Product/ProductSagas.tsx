@@ -1,4 +1,4 @@
-import { fork, take } from 'redux-saga/effects';
+import { fork, put, take } from 'redux-saga/effects';
 import { defaultFetch, defaultPost, defaultPut } from '../../../../helpers/SagasUtil';
 import Actions, { ProductGetActions, ProductUpdateActions, ProductSaveActions } from './ProductActions';
 import ProductApi from './ProductApi';
@@ -25,4 +25,15 @@ const watchProductSave = function* () {
   }
 };
 
-export default { watchProductGet, watchProductUpdate, watchProductSave };
+const watchProductGetSuccess = function* () {
+  while (true) {
+    const {
+      payload: { pictures },
+    } = yield take(ProductGetActions.FETCH_SUCCESS);
+    if (pictures.length > 0) {
+      yield put(Actions.selectPicture(pictures[0]));
+    }
+  }
+};
+
+export default { watchProductGet, watchProductUpdate, watchProductSave, watchProductGetSuccess };
