@@ -55,19 +55,22 @@ const SideBar = ({
               >
                 {category.name}
               </Link>
-              <ul className="aside-sub-menu">
-                {category.products.map((product) => (
-                  <li key={product.id}>
-                    <Link
-                      to={`/${category.url}/${product.url}`}
-                      onClick={() => handleClick(product.id)}
-                      className={product.selected ? 'aside-active' : ''}
-                    >
-                      {product.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+
+              {category.expanded ? (
+                <ul className="aside-sub-menu">
+                  {category.products.map((product) => (
+                    <li key={product.id}>
+                      <Link
+                        to={`/${category.url}/${product.url}`}
+                        onClick={() => handleClick(product.id)}
+                        className={product.selected ? 'aside-active' : ''}
+                      >
+                        {product.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </li>
           ))}
         </ul>

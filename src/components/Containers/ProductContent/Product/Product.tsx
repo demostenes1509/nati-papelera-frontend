@@ -7,8 +7,8 @@ import productThumbnail from '../../../../images/product-thumbnail.png';
 import { IProduct } from '../../../../interfaces/interfaces';
 import Packaging from './Packaging/Packaging';
 import ProductPicture from './Picture/ProductPicture';
-import productActions from './ProductActions';
 import productPictureActions from './Picture/ProductPictureActions';
+import productActions from './ProductActions';
 
 const API_URL = getEnv('REACT_APP_API_URL');
 

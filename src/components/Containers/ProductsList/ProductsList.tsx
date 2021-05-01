@@ -1,9 +1,12 @@
+import getEnv from 'getenv';
 import React, { useEffect } from 'react';
-import productImg1 from '../../../images/product-img1.jpg';
 import { connect } from 'react-redux';
 import { withRouterWrapper } from '../../../helpers/UIUtil';
+import productImg1 from '../../../images/product-img1.jpg';
 import { IProduct } from '../../../interfaces/interfaces';
 import productsListActions from './ProductsListActions';
+
+const API_URL = getEnv('REACT_APP_API_URL');
 
 interface IStateProps {
   payload: {
@@ -19,6 +22,8 @@ interface IPathProps {
 const ProductsList = ({ payload, fetch }: IStateProps & IPathProps) => {
   const { categoryName, categoryUrl, products } = payload;
 
+  console.log(API_URL);
+
   useEffect(() => {
     fetch(location.pathname);
   }, [location.pathname]);
@@ -30,9 +35,19 @@ const ProductsList = ({ payload, fetch }: IStateProps & IPathProps) => {
         <div className="clear-fix">
           {products.map((product) => (
             <li key={product.id}>
-              <a href="#">
-                <img src={productImg1} alt="" />
-              </a>
+              {product.pictures.length > 0 ? (
+                <a href={`/${categoryUrl}/${product.url}`}>
+                  <img
+                    className="main-products-list-image"
+                    src={`${API_URL}/products-pictures/${product.pictures[0].id}`}
+                  />
+                </a>
+              ) : (
+                <a href="#">
+                  <img className="main-products-list-image" src={productImg1} alt="" />
+                </a>
+              )}
+
               <h3 className="main-product-title">
                 <a href={`/${categoryUrl}/${product.url}`}>{product.name}</a>
               </h3>

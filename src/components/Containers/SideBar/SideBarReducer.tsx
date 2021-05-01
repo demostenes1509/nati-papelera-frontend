@@ -15,6 +15,7 @@ const fetchState = (state, action) => {
   } = ReducersUtil.defaultFetch(initialState, state, action, SideBarActions);
   for (const category of categories) {
     category.selected = false;
+    category.expanded = false;
     for (const product of category.products) {
       product.selected = false;
     }
@@ -22,8 +23,12 @@ const fetchState = (state, action) => {
   return { payload: { categories }, loading, error };
 };
 
-const hastoChange = (element, id) => {
+const selectHasToChange = (element, id) => {
   return (element.id === id && element.selected === false) || (element.id !== id && element.selected === true);
+};
+
+const expandHasToChange = (element, id) => {
+  return element.id === id;
 };
 
 const selectState = (state, action) => {
@@ -35,17 +40,20 @@ const selectState = (state, action) => {
 
   const categories = originalCategories
     .map((c) => {
-      if (hastoChange(c, action.id)) {
-        return {
-          ...c,
-          selected: !c.selected,
-        };
+      const element = { ...c };
+      if (selectHasToChange(c, action.id)) {
+        element.selected = !element.selected;
       }
-      return c;
+
+      if (expandHasToChange(c, action.id)) {
+        element.expanded = !element.expanded;
+      }
+
+      return element;
     })
     .map((c) => {
       const products = c.products.map((p) => {
-        if (hastoChange(p, action.id)) {
+        if (selectHasToChange(p, action.id)) {
           return { ...p, selected: !p.selected };
         }
         return p;
