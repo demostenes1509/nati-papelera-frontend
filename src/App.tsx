@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import Layout from './components/layouts/Layout';
-import SideBar from './components/Containers/SideBar/SideBar';
-import MainContent from './components/Containers/MainContent/MainContent';
-import Authentication from './components/Containers/Authentication/Authentication';
-import CategoryContent from './components/Containers/CategoryContent/CategoryContent';
-import ProviderContent from './components/Containers/ProviderContent/ProviderContent';
-import ProductContent from './components/Containers/ProductContent/ProductContent';
-import { getToken } from './components/Containers/Authentication/SessionApi';
-import sessionActions from './components/Containers/Authentication/SessionActions';
-import { userLoggedIn } from './components/Containers/Authentication/SessionApi';
 import { connect } from 'react-redux';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import Authentication from './components/Containers/Authentication/Authentication';
+import sessionActions from './components/Containers/Authentication/SessionActions';
+import { getToken, userLoggedIn } from './components/Containers/Authentication/SessionApi';
+import CategoryContent from './components/Containers/CategoryContent/CategoryContent';
+import MainContent from './components/Containers/MainContent/MainContent';
+import ProductContent from './components/Containers/ProductContent/ProductContent';
+import ProviderFileUpload from './components/Containers/ProviderContent/FileUpload/ProviderFileUpload';
+import SideBar from './components/Containers/SideBar/SideBar';
+import Layout from './components/layouts/Layout';
 
 interface IPathProps {
   loggedIn(token: string);
@@ -35,7 +34,7 @@ const App = ({ isLoggedIn, loggedIn }: IStateProps & IPathProps) => {
       <Switch>
         <Layout exact path="/" components={[SideBar, MainContent]} />
         <Layout exact path="/login" components={[Authentication]} />
-        <Layout exact path="/providers/:provider" components={[SideBar, ProviderContent]} />
+        <Layout exact path="/providers/:provider/fileupload" components={[SideBar, ProviderFileUpload]} />
         <Layout exact path="/:category" components={[SideBar, CategoryContent]} />
         <Layout exact path="/:category/:product" components={[SideBar, ProductContent]} />
         {/* 

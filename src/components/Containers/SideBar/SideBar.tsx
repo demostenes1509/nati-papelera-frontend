@@ -87,7 +87,12 @@ const Providers = (props) => {
         <ul className="aside-menu">
           {providers.map((provider) => (
             <li key={provider.id}>
-              <Link to={`/providers/${provider.url}`}>{provider.name}</Link>
+              <span>{provider.name}</span>
+              <ul className="aside-sub-menu">
+                <li>
+                  <Link to={`/providers/${provider.url}/fileupload`}>Carga de Precios</Link>
+                </li>
+              </ul>
             </li>
           ))}
         </ul>

@@ -7,6 +7,7 @@ import SideBarReducer from '../components/Containers/SideBar/SideBarReducer';
 import ProductReducer from '../components/Containers/ProductContent/Product/ProductReducer';
 import PackagingReducer from '../components/Containers/ProductContent/Product/Packaging/PackagingReducer';
 import ProductPictureReducer from '../components/Containers/ProductContent/Product/Picture/ProductPictureReducer';
+import ProviderReducer from '../components/Containers/ProviderContent/ProviderReducer';
 
 const rootReducers = combineReducers({
   sidebarReducer: SideBarReducer.get,
@@ -19,6 +20,7 @@ const rootReducers = combineReducers({
   productUpdateReducer: ProductReducer.put,
   productPictureSaveReducer: ProductPictureReducer.post,
   productPictureDialogReducer: ProductPictureReducer.dialog,
+  providerUploadReducer: ProviderReducer.upload,
 });
 
 export default rootReducers;

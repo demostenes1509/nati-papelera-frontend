@@ -11,7 +11,7 @@ export function* defaultFetch(actions, api, data = null) {
       yield put(actions.fetchError(response));
     }
   } catch (err) {
-    yield put(actions.fetchError(err));
+    yield put(actions.fetchError(err.message));
   }
 }
 
@@ -26,11 +26,7 @@ export function* defaultPost(actions, api, request) {
       yield put(actions.postError(response));
     }
   } catch (err) {
-    if (err.response && err.response.data) {
-      yield put(actions.postError(err.response.data.server_error));
-    } else {
-      yield put(actions.postError(err));
-    }
+    yield put(actions.postError(err.message));
   }
 }
 
@@ -45,10 +41,6 @@ export function* defaultPut(actions, api, request) {
       yield put(actions.putError(response));
     }
   } catch (err) {
-    if (err.response && err.response.data) {
-      yield put(actions.putError(err.response.data.server_error));
-    } else {
-      yield put(actions.putError(err));
-    }
+    yield put(actions.putError(err.message));
   }
 }

@@ -1,19 +1,22 @@
 import { AxiosRequestConfig } from 'axios';
-import request from '../../../../../helpers/Api';
+import request from '../../../helpers/Api';
 
 export default {
   post(data) {
-    const { file, productId } = data;
+    const { file, providerUrl } = data;
+
+    const regex = '/providers/(.+?)/';
+    const res = providerUrl.match(regex);
 
     const formData = new FormData();
     formData.append('file', file, file.name);
 
     const config: AxiosRequestConfig = {
-      url: 'products-pictures/',
+      url: 'providers/upload-new-file',
       method: 'POST',
       data: formData,
       params: {
-        productId,
+        providerUrl: res[1],
       },
     };
     return request(config);

@@ -7,6 +7,7 @@ import ProductsListSagas from '../components/Containers/ProductsList/ProductsLis
 import ProductSagas from '../components/Containers/ProductContent/Product/ProductSagas';
 import PackagingSagas from '../components/Containers/ProductContent/Product/Packaging/PackagingSagas';
 import ProductPictureSagas from '../components/Containers/ProductContent/Product/Picture/ProductPictureSagas';
+import ProviderSagas from '../components/Containers/ProviderContent/ProviderSagas';
 
 export default function* rootSaga() {
   yield all([
@@ -22,6 +23,6 @@ export default function* rootSaga() {
     fork(PackagingSagas.watchPackagingUpdate),
     fork(ProductPictureSagas.watchProductPictureSave),
     fork(ProductPictureSagas.watchProductPictureSaveSuccess),
-    // fork(ProductPictureSagas.watchProductPictureClose),
+    fork(ProviderSagas.watchproviderUpload),
   ]);
 }
