@@ -2,9 +2,8 @@ import getEnv from 'getenv';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouterWrapper } from '../../../../helpers/UIUtil';
-// import mainProductImg from '../../../../images/main-product-img.png';
-// import productThumbnail from '../../../../images/product-thumbnail.png';
 import { IPicture, IProduct } from '../../../../interfaces/interfaces';
+import Error from '../../Error/Error';
 import Packaging from './Packaging/Packaging';
 import ProductPicture from './Picture/ProductPicture';
 import productPictureActions from './Picture/ProductPictureActions';
@@ -24,11 +23,15 @@ interface IStateProps {
   isAdmin: boolean;
   refreshPage: boolean;
   selectedPicture: IPicture;
+  errorFetch: string;
+  errorPut: string;
 }
 
 const Product = ({
   isAdmin,
   payload,
+  errorFetch,
+  errorPut,
   fetch,
   selectPicture,
   put,
@@ -71,6 +74,8 @@ const Product = ({
     event.preventDefault();
     selectPicture(pictureId);
   };
+
+  if (errorFetch) return <Error error={errorFetch} />;
 
   return (
     <section className="main-content clear-fix">
@@ -120,6 +125,7 @@ const Product = ({
         <button onClick={update} className="form-btn">
           Grabar
         </button>
+        {errorPut ? <Error error={errorPut} /> : null}
       </section>
     </section>
   );
@@ -181,6 +187,8 @@ const OneButtonOrTwo = ({ isAdmin, openDialog, selectedPicture }) => {
 const mapStateToProps = (state): IStateProps => {
   return {
     payload: state.productGetReducer.payload,
+    errorFetch: state.productGetReducer.error,
+    errorPut: state.productUpdateReducer.error,
     isAdmin: state.sessionReducer.isAdmin,
     refreshPage: state.productPictureDialogReducer.refreshPage,
     selectedPicture: state.productSelectPictureReducer.selectedPicture,

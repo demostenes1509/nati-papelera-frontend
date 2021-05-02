@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import sidebarActions from './SideBarActions';
+import { withRouterWrapper } from '../../../helpers/UIUtil';
 import deliveryVan from '../../../images/delivery-van.png';
 import deliveryVan2 from '../../../images/delivery-van2.png';
 import { ICategory, IProvider } from '../../../interfaces/interfaces';
-import { withRouterWrapper } from '../../../helpers/UIUtil';
-
+import sidebarActions from './SideBarActions';
+import Error from '../Error/Error';
 interface IStateProps {
   sidebarPayload: {
     categories: Array<ICategory>;
@@ -15,6 +15,7 @@ interface IStateProps {
     providers: Array<IProvider>;
   };
   isAdmin: boolean;
+  error: string;
 }
 
 interface IPathProps {
@@ -24,6 +25,7 @@ interface IPathProps {
 
 const SideBar = ({
   isAdmin,
+  error,
   sidebarPayload: { categories },
   providersPayload: { providers },
   fetch,
@@ -37,6 +39,10 @@ const SideBar = ({
     select(id);
   };
 
+  console.log('===========');
+  console.log(error);
+  console.log('===========');
+
   return (
     <aside className="main-sidebar">
       <section className="advertising-aside">
@@ -46,6 +52,7 @@ const SideBar = ({
       <section className="category-aside">
         <h2 className="aside-title">Categorias</h2>
         <ul className="aside-menu">
+          {error ? <Error error={error} /> : null}
           {categories.map((category) => (
             <li key={category.id}>
               <Link
@@ -76,38 +83,36 @@ const SideBar = ({
         </ul>
       </section>
 
-      <Providers isAdmin={isAdmin} providers={providers} />
+      {isAdmin ? <Providers providers={providers} /> : null}
     </aside>
   );
 };
 
 const Providers = (props) => {
-  const { isAdmin, providers } = props;
-  if (isAdmin) {
-    return (
-      <section className="category-aside">
-        <h2 className="aside-title">Proveedores</h2>
-        <ul className="aside-menu">
-          {providers.map((provider) => (
-            <li key={provider.id}>
-              <span>{provider.name}</span>
-              <ul className="aside-sub-menu">
-                <li>
-                  <Link to={`/providers/${provider.url}/fileupload`}>Carga de Precios</Link>
-                </li>
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </section>
-    );
-  } else {
-    return <></>;
-  }
+  const { providers } = props;
+  return (
+    <section className="category-aside">
+      <h2 className="aside-title">Proveedores</h2>
+      <ul className="aside-menu">
+        {providers.map((provider) => (
+          <li key={provider.id}>
+            <span>{provider.name}</span>
+            <ul className="aside-sub-menu">
+              <li>
+                <Link to={`/providers/${provider.url}/fileupload`}>Carga de Precios</Link>
+              </li>
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 };
 
 const mapStateToProps = (state): IStateProps => {
+  console.log(state.sidebarReducer);
   return {
+    error: state.sidebarReducer.error,
     sidebarPayload: state.sidebarReducer.payload,
     isAdmin: state.sessionReducer.isAdmin,
     providersPayload: state.providersReducer.payload,

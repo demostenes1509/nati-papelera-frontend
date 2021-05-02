@@ -11,16 +11,16 @@ import SideBarReducer from '../components/Containers/SideBar/SideBarReducer';
 
 const rootReducers = combineReducers({
   sidebarReducer: SideBarReducer.get,
-  providersReducer: ProvidersReducer.get,
   authenticationReducer: AuthenticationReducer.get,
   sessionReducer: SessionReducer.login,
   productsListReducer: ProductsListReducer.get,
   productGetReducer: ProductReducer.fetch,
+  productUpdateReducer: ProductReducer.put,
   productSelectPictureReducer: ProductReducer.selectPicture,
   packagingUpdateReducer: PackagingReducer.put,
-  productUpdateReducer: ProductReducer.put,
   productPictureSaveReducer: ProductPictureReducer.post,
   productPictureDialogReducer: ProductPictureReducer.dialog,
+  providersReducer: ProvidersReducer.get,
   providerUploadReducer: ProviderReducer.upload,
 });
 
