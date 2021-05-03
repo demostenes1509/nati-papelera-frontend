@@ -39,10 +39,6 @@ const SideBar = ({
     select(id);
   };
 
-  console.log('===========');
-  console.log(error);
-  console.log('===========');
-
   return (
     <aside className="main-sidebar">
       <section className="advertising-aside">
