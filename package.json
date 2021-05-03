@@ -34,6 +34,7 @@
     "redux-thunk": "^2.3.0",
     "simple-react-cropper": "^1.0.10",
     "typescript": "^4.2.3",
+    "watermarkjs": "^2.1.1",
     "web-vitals": "^1.1.1"
   },
   "scripts": {

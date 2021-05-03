@@ -1,8 +1,11 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import Cropper from 'simple-react-cropper';
 import { blobToFile } from '../../../../../helpers/FileUtil';
 import productPictureActions from './ProductPictureActions';
 import Modal from 'react-modal';
+import watermark from 'watermarkjs';
+import logo from './logo.png';
 
 interface IPathProps {
   post(productId: string, file: File): string;
@@ -20,9 +23,12 @@ interface IProps {
 Modal.setAppElement('#root');
 
 const ProductPicture = ({ productId, post, isDialogOpen, closeDialog }: IStateProps & IPathProps & IProps) => {
-  const savePicture = (blob: Blob) => {
+  const savePicture = async (blob: Blob) => {
     const file = blobToFile(blob);
-    post(productId, file);
+
+    const watermarkedBlob = await watermark([file, logo]).blob(watermark.image.lowerRight(0.3));
+
+    post(productId, watermarkedBlob);
   };
 
   const closeModal = () => {
