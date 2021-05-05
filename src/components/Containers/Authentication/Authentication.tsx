@@ -1,20 +1,22 @@
+import getEnv from 'getenv';
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
-import getEnv from 'getenv';
 import { connect } from 'react-redux';
-import AuthenticationActions from './AuthenticationActions';
 import { Redirect } from 'react-router-dom';
+import AuthenticationActions from './AuthenticationActions';
+import Error from '../Error/Error';
 
 const FACEBOOK_APP_ID = getEnv('REACT_APP_FACEBOOK_APP_ID');
 
 interface IStateProps {
   isLoggedIn: boolean;
+  error: string;
 }
 interface IPathProps {
   passportLogin(provider, params): string;
 }
 
-const Authentication = ({ isLoggedIn, passportLogin }: IStateProps & IPathProps) => {
+const Authentication = ({ isLoggedIn, error, passportLogin }: IStateProps & IPathProps) => {
   const facebookLogin = (params) => {
     passportLogin('facebook', params);
   };
@@ -36,6 +38,7 @@ const Authentication = ({ isLoggedIn, passportLogin }: IStateProps & IPathProps)
               fields="name,email,picture"
               callback={(response) => facebookLogin(response)}
             />
+            {error ? <Error error={error} /> : null}
           </form>
         </div>
         <div className="returning-customer">
@@ -51,6 +54,7 @@ const Authentication = ({ isLoggedIn, passportLogin }: IStateProps & IPathProps)
 const mapStateToProps = (state): IStateProps => {
   return {
     isLoggedIn: state.sessionReducer.isLoggedIn,
+    error: state.authenticationReducer.error,
   };
 };
 
