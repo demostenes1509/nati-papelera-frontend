@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="subscribe-checkbox">
             <input type="checkbox" />
             <span>
-              He leido y estoy conforme con la <a href="#">Politica de proteccion de Datos</a>
+              He leido y estoy conforme con la <a href="/other/dataprotection">Politica de proteccion de Datos</a>
             </span>
           </div>
         </div>
