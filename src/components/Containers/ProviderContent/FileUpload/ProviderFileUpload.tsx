@@ -38,8 +38,8 @@ const ProviderFileUpload = ({ post, waiting, error, response }: IPathProps & ISt
         <h2 className="main-title">Actualización Lista de Precios</h2>
         <div className="new-customer">
           <h3 className="form-header">Carga de Nuevo Archivo</h3>
-          {waiting ? <Loader className="loader-upload-provider" /> : ''}
-          {error ? <Error error={error} /> : ''}
+          {waiting ? <Loader className="loader-upload-provider" /> : null}
+          {error ? <Error error={error} /> : null}
           <Resultados response={response} />
           <form>
             <input type="file" onChange={(event) => onFileChange(event.target.files)} />

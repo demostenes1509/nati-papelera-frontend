@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Error from '../Error/Error';
 import NavBar from '../NavBar/NavBar';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -19,7 +18,6 @@ const Layout = ({ components, ...rest }: LayoutProps) => (
     render={() => (
       <section className="main-wrapper">
         <Header />
-        <Error />
         <NavBar />
         <section className="page-container clear-fix">
           {components.map((Component: any, i: number) => (

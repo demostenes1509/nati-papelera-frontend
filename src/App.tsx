@@ -8,6 +8,7 @@ import CategoryContent from './components/Containers/CategoryContent/CategoryCon
 import MainContent from './components/Containers/MainContent/MainContent';
 import ProductContent from './components/Containers/ProductContent/ProductContent';
 import ProviderFileUpload from './components/Containers/ProviderContent/FileUpload/ProviderFileUpload';
+import DataProtection from './components/Containers/OtherContents/DataProtection';
 import SideBar from './components/Containers/SideBar/SideBar';
 import Layout from './components/layouts/Layout';
 
@@ -34,6 +35,7 @@ const App = ({ isLoggedIn, loggedIn }: IStateProps & IPathProps) => {
       <Switch>
         <Layout exact path="/" components={[SideBar, MainContent]} />
         <Layout exact path="/login" components={[Authentication]} />
+        <Layout exact path="/other/dataprotection" components={[SideBar, DataProtection]} />
         <Layout exact path="/providers/:provider/fileupload" components={[SideBar, ProviderFileUpload]} />
         <Layout exact path="/:category" components={[SideBar, CategoryContent]} />
         <Layout exact path="/:category/:product" components={[SideBar, ProductContent]} />

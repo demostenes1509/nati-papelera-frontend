@@ -41,6 +41,7 @@ export function* defaultPut(actions, api, request) {
       yield put(actions.putError(response));
     }
   } catch (err) {
+    console.log(JSON.stringify(err));
     yield put(actions.putError(err.message));
   }
 }

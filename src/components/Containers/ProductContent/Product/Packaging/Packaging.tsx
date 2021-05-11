@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { IPackaging } from '../../../../../interfaces/interfaces';
 import packagingUpdateActions from './PackagingActions';
+import Error from '../../../Error/Error';
 
-interface IStateInitialProps {
+interface IProps {
   pack: IPackaging;
   isAdmin: boolean;
 }
@@ -12,7 +13,11 @@ interface IPathProps {
   put(id: string, name: string, price: number): string;
 }
 
-const Packaging = ({ pack, isAdmin, put }: IStateInitialProps & IPathProps) => {
+interface IStateProps {
+  error: string;
+}
+
+const Packaging = ({ pack, isAdmin, put, error }: IProps & IPathProps & IStateProps) => {
   const [name, setName] = useState(pack.name);
   const [nameColor, setNameColor] = useState('white');
   const [price, setPrice] = useState(Math.ceil(pack.price));
@@ -53,6 +58,7 @@ const Packaging = ({ pack, isAdmin, put }: IStateInitialProps & IPathProps) => {
         <button onClick={onClick} className="small-form-btn">
           Grabar
         </button>
+        {error ? <Error error={error} /> : null}
       </li>
     );
   } else {
@@ -64,8 +70,14 @@ const Packaging = ({ pack, isAdmin, put }: IStateInitialProps & IPathProps) => {
   }
 };
 
+const mapStateToProps = (state): IStateProps => {
+  return {
+    error: state.packagingUpdateReducer.error,
+  };
+};
+
 const mapDispatchToProps = (dispatch): IPathProps => ({
   put: (id, name, price) => dispatch(packagingUpdateActions.put(id, name, price)),
 });
 
-export default connect(null, mapDispatchToProps)(Packaging);
+export default connect(mapStateToProps, mapDispatchToProps)(Packaging);
