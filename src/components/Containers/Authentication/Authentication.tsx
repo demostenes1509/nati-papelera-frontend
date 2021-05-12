@@ -1,13 +1,14 @@
 import getEnv from 'getenv';
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
+import InstagramLogin from 'react-instagram-login';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import AuthenticationActions from './AuthenticationActions';
 import Error from '../Error/Error';
+import AuthenticationActions from './AuthenticationActions';
 
 const FACEBOOK_APP_ID = getEnv('REACT_APP_FACEBOOK_APP_ID');
-
+const REACT_APP_INSTAGRAM_CLIENT_ID = getEnv('REACT_APP_INSTAGRAM_CLIENT_ID');
 interface IStateProps {
   isLoggedIn: boolean;
   error: string;
@@ -19,6 +20,20 @@ interface IPathProps {
 const Authentication = ({ isLoggedIn, error, passportLogin }: IStateProps & IPathProps) => {
   const facebookLogin = (params) => {
     passportLogin('facebook', params);
+  };
+
+  const instagramLogin = (params) => {
+    // passportLogin('instagram', params);
+    console.log('================');
+    console.log(params);
+    console.log('================');
+  };
+
+  const instagramError = (params) => {
+    // passportLogin('instagram', params);
+    console.log('================');
+    console.log(params);
+    console.log('================');
   };
 
   if (isLoggedIn) {
@@ -42,9 +57,18 @@ const Authentication = ({ isLoggedIn, error, passportLogin }: IStateProps & IPat
           </form>
         </div>
         <div className="returning-customer">
-          <h3 className="form-header">Ingreso con Google</h3>
-          <p>Ingrese con su usuario de Google</p>
-          <form>{/* <OAuth provider="google" /> */}</form>
+          <h3 className="form-header">Instagram</h3>
+          <p>Ingrese con su usuario de Instagram</p>
+          <form>
+            <InstagramLogin
+              clientId={REACT_APP_INSTAGRAM_CLIENT_ID}
+              buttonText="Login with Instagram"
+              onSuccess={(response) => instagramLogin(response)}
+              onFailure={(response) => instagramError(response)}
+              scope="user_profile,user_media"
+            />
+            ,
+          </form>
         </div>
       </div>
     </section>
