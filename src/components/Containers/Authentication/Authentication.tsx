@@ -65,6 +65,7 @@ const Authentication = ({ isLoggedIn, error, passportLogin }: IStateProps & IPat
               buttonText="Login with Instagram"
               onSuccess={(response) => instagramLogin(response)}
               onFailure={(response) => instagramError(response)}
+              scope="user_profile,user_media"
             />
             ,
           </form>
