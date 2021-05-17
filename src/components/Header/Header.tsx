@@ -38,7 +38,9 @@ const HeaderDetails = (props) => {
       <div className="header-details">
         <ul>
           <li>
-            <a href="#">Bienvenido</a>&nbsp;{fullName}&nbsp;|&nbsp;&nbsp;
+            <a href="#">Bienvenido</a>&nbsp;{fullName}
+          </li>
+          <li>
             <Link to="/" onClick={onClick} className="user-logout">
               Cerrar sesión
             </Link>
