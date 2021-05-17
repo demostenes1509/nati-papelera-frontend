@@ -32,6 +32,8 @@ const watchProductGetSuccess = function* () {
     } = yield take(ProductGetActions.FETCH_SUCCESS);
     if (pictures.length > 0) {
       yield put(Actions.selectPicture(pictures[0]));
+    } else {
+      yield put(Actions.selectPicture({ id: null }));
     }
   }
 };
