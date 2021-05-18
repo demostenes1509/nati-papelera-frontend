@@ -20,6 +20,10 @@ interface IStateProps {
 const ProviderFileUpload = ({ post, waiting, error, response }: IPathProps & IStateProps) => {
   const [file, setFile] = useState<File | null>(null);
 
+  console.log('=============');
+  console.log(response);
+  console.log('=============');
+
   const onFileChange = (selectorFiles: FileList | null) => {
     if (selectorFiles) {
       setFile(selectorFiles[0]);
@@ -41,12 +45,15 @@ const ProviderFileUpload = ({ post, waiting, error, response }: IPathProps & ISt
           {waiting ? <Loader className="loader-upload-provider" /> : null}
           {error ? <Error error={error} /> : null}
           <Resultados response={response} />
-          <form>
-            <input type="file" onChange={(event) => onFileChange(event.target.files)} />
-            <button type="button" className="form-btn" onClick={() => onFileUpload()}>
-              Procesar Archivo
-            </button>
-          </form>
+
+          {response.insertedRecords === 0 && response.updatedRecords === 0 && !waiting ? (
+            <form>
+              <input type="file" onChange={(event) => onFileChange(event.target.files)} />
+              <button type="button" className="form-btn" onClick={() => onFileUpload()}>
+                Procesar Archivo
+              </button>
+            </form>
+          ) : null}
         </div>
       </div>
     </section>
