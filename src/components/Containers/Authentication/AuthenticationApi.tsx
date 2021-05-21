@@ -8,7 +8,8 @@ export default {
       url: `auth/${provider}`,
       method: 'POST',
       params: {
-        access_token: params.accessToken,
+        code: params.code, // For Mercado Libre
+        access_token: params.accessToken, // For Facebook
       },
     };
     return request(config);
