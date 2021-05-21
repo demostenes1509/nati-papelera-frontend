@@ -106,7 +106,6 @@ const Providers = (props) => {
 };
 
 const mapStateToProps = (state): IStateProps => {
-  console.log(state.sidebarReducer);
   return {
     error: state.sidebarReducer.error,
     sidebarPayload: state.sidebarReducer.payload,

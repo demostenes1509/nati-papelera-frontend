@@ -1,14 +1,15 @@
 import getEnv from 'getenv';
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
-import InstagramLogin from 'react-instagram-login';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import OAuth2Login from 'react-simple-oauth2-login';
 import Error from '../Error/Error';
 import AuthenticationActions from './AuthenticationActions';
 
 const FACEBOOK_APP_ID = getEnv('REACT_APP_FACEBOOK_APP_ID');
-const REACT_APP_INSTAGRAM_CLIENT_ID = getEnv('REACT_APP_INSTAGRAM_CLIENT_ID');
+const MERCADOLIBRE_APP_ID = getEnv('REACT_APP_MERCADOLIBRE_APP_ID');
+const API_URL = getEnv('REACT_APP_API_URL');
 interface IStateProps {
   isLoggedIn: boolean;
   error: string;
@@ -18,22 +19,14 @@ interface IPathProps {
 }
 
 const Authentication = ({ isLoggedIn, error, passportLogin }: IStateProps & IPathProps) => {
+  const mercadoLibreRedirectUri = `${API_URL}/auth/mercadolibre/redirecturi`;
+
   const facebookLogin = (params) => {
     passportLogin('facebook', params);
   };
 
-  const instagramLogin = (params) => {
-    // passportLogin('instagram', params);
-    console.log('================');
-    console.log(params);
-    console.log('================');
-  };
-
-  const instagramError = (params) => {
-    // passportLogin('instagram', params);
-    console.log('================');
-    console.log(params);
-    console.log('================');
+  const mercadoLibreLogin = (params) => {
+    passportLogin('mercadolibre', params);
   };
 
   if (isLoggedIn) {
@@ -57,17 +50,16 @@ const Authentication = ({ isLoggedIn, error, passportLogin }: IStateProps & IPat
           </form>
         </div>
         <div className="returning-customer">
-          <h3 className="form-header">Instagram</h3>
-          <p>Ingrese con su usuario de Instagram</p>
+          <h3 className="form-header">Mercado Libre</h3>
+          <p>Ingrese con su usuario de Mercado Libre</p>
           <form>
-            <InstagramLogin
-              clientId={REACT_APP_INSTAGRAM_CLIENT_ID}
-              buttonText="Login with Instagram"
-              onSuccess={(response) => instagramLogin(response)}
-              onFailure={(response) => instagramError(response)}
-              scope="user_profile,user_media"
+            <OAuth2Login
+              authorizationUrl="http://auth.mercadolibre.com.ar/authorization"
+              responseType="code"
+              clientId={MERCADOLIBRE_APP_ID}
+              redirectUri={mercadoLibreRedirectUri}
+              onSuccess={mercadoLibreLogin}
             />
-            ,
           </form>
         </div>
       </div>
