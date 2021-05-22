@@ -32,8 +32,13 @@ const SideBar = ({
   select,
 }: IStateProps & IPathProps) => {
   useEffect(() => {
+    console.log('SE DISPARA USE EFFECT DE SIDEBAR 1');
     fetch();
   }, []);
+
+  useEffect(() => {
+    console.log('SE DISPARA USE EFFECT DE SIDEBAR 2');
+  }, [location.pathname]);
 
   const handleClick = (id: string) => {
     select(id);
