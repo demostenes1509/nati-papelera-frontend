@@ -1,7 +1,7 @@
 import getEnv from 'getenv';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withRouterWrapper } from '../../../helpers/UIUtil';
 import productImg1 from '../../../images/product-img1.jpg';
 import { IProduct } from '../../../interfaces/interfaces';
@@ -22,7 +22,6 @@ interface IPathProps {
 
 const ProductsList = ({ payload, fetch }: IStateProps & IPathProps) => {
   const { categoryName, categoryUrl, products } = payload;
-  const history = useHistory();
 
   useEffect(() => {
     fetch(location.pathname);

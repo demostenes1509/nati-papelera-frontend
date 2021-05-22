@@ -6,8 +6,8 @@ import SidebarApi from './SideBarApi';
 /* --------------------- Watchers ------------------ */
 const watchFetchSidebar = function* () {
   while (true) {
-    yield take(SideBarActions.FETCH);
-    yield fork(() => defaultFetch(Actions, SidebarApi));
+    const params = yield take(SideBarActions.FETCH);
+    yield fork(() => defaultFetch(Actions, SidebarApi, params));
   }
 };
 

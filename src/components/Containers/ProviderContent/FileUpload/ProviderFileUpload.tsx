@@ -20,10 +20,6 @@ interface IStateProps {
 const ProviderFileUpload = ({ post, waiting, error, response }: IPathProps & IStateProps) => {
   const [file, setFile] = useState<File | null>(null);
 
-  console.log('=============');
-  console.log(response);
-  console.log('=============');
-
   const onFileChange = (selectorFiles: FileList | null) => {
     if (selectorFiles) {
       setFile(selectorFiles[0]);
