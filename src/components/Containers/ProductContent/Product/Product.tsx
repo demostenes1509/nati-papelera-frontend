@@ -122,9 +122,11 @@ const Product = ({
             ))}
           </ul>
         </div>
-        <button onClick={update} className="form-btn">
-          Grabar
-        </button>
+        {isAdmin ? (
+          <button onClick={update} className="form-btn">
+            Grabar
+          </button>
+        ) : null}
         {errorPut ? <Error error={errorPut} /> : null}
       </section>
     </section>

@@ -1,6 +1,7 @@
 import getEnv from 'getenv';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { withRouterWrapper } from '../../../helpers/UIUtil';
 import productImg1 from '../../../images/product-img1.jpg';
 import { IProduct } from '../../../interfaces/interfaces';
@@ -34,23 +35,23 @@ const ProductsList = ({ payload, fetch }: IStateProps & IPathProps) => {
           {products.map((product) => (
             <li key={product.id}>
               {product.pictures.length > 0 ? (
-                <a href={`/${categoryUrl}/${product.url}`}>
+                <Link to={`/${categoryUrl}/${product.url}`}>
                   <img
                     className="main-products-list-image"
                     src={`${API_URL}/products-pictures/${product.pictures[0].id}`}
                   />
-                </a>
+                </Link>
               ) : (
-                <a href="#">
+                <Link to={`/${categoryUrl}/${product.url}`}>
                   <img className="main-products-list-image" src={productImg1} alt="" />
-                </a>
+                </Link>
               )}
 
               <h3 className="main-product-title">
-                <a href={`/${categoryUrl}/${product.url}`}>{product.name}</a>
+                <Link to={`/${categoryUrl}/${product.url}`}>{product.name}</Link>
               </h3>
               <p className="main-product-description">
-                <a href={`/${categoryUrl}/${product.url}`}>{product.description}</a>
+                <Link to={`/${categoryUrl}/${product.url}`}>{product.description}</Link>
               </p>
 
               <div className="product-prices">

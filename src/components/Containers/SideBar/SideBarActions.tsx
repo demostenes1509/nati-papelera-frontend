@@ -6,11 +6,11 @@ export const SideBarActions = {
   SELECT: 'SELECT',
 };
 
-const fetch = () => ({ type: SideBarActions.FETCH });
+const fetch = (url) => ({ type: SideBarActions.FETCH, url });
 const fetchLoading = () => ({ type: SideBarActions.FETCH_LOADING });
 const fetchSuccess = (payload) => ({ type: SideBarActions.FETCH_SUCCESS, payload });
 const fetchError = (error) => ({ type: SideBarActions.FETCH_ERROR, error });
-const select = (id) => ({ type: SideBarActions.SELECT, id });
+const select = (url) => ({ type: SideBarActions.SELECT, url });
 
 export default {
   fetch,

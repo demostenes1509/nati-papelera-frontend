@@ -22,6 +22,7 @@ export default function* rootSaga() {
     fork(ProductSagas.watchProductSave),
     fork(ProductSagas.watchProductUpdate),
     fork(PackagingSagas.watchPackagingUpdate),
+    fork(PackagingSagas.watchPackagingPost),
     fork(ProductPictureSagas.watchProductPictureSave),
     fork(ProductPictureSagas.watchProductPictureSaveSuccess),
     fork(ProviderSagas.watchproviderUpload),

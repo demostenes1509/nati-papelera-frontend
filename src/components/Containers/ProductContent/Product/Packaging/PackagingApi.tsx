@@ -10,4 +10,12 @@ export default {
     };
     return request(config);
   },
+  post(data) {
+    const config: AxiosRequestConfig = {
+      url: 'packaging/publish',
+      method: 'POST',
+      data,
+    };
+    return request(config);
+  },
 };

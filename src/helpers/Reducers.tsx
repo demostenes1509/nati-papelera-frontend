@@ -18,6 +18,7 @@ const rootReducers = combineReducers({
   productUpdateReducer: ProductReducer.put,
   productSelectPictureReducer: ProductReducer.selectPicture,
   packagingUpdateReducer: PackagingReducer.put,
+  packagingPublishReducer: PackagingReducer.post,
   productPictureSaveReducer: ProductPictureReducer.post,
   productPictureDialogReducer: ProductPictureReducer.dialog,
   providersReducer: ProvidersReducer.get,

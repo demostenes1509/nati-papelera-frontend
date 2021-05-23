@@ -19,8 +19,8 @@ interface IStateProps {
 }
 
 interface IPathProps {
-  fetch(): string;
-  select(id: string): string;
+  fetch(url: string): string;
+  select(url: string): string;
 }
 
 const SideBar = ({
@@ -32,11 +32,15 @@ const SideBar = ({
   select,
 }: IStateProps & IPathProps) => {
   useEffect(() => {
-    fetch();
+    fetch(location.pathname);
   }, []);
 
-  const handleClick = (id: string) => {
-    select(id);
+  useEffect(() => {
+    select(location.pathname);
+  }, [location.pathname]);
+
+  const handleClick = () => {
+    select(location.pathname);
   };
 
   return (
@@ -53,7 +57,7 @@ const SideBar = ({
             <li key={category.id}>
               <Link
                 to={`/${category.url}`}
-                onClick={() => handleClick(category.id)}
+                onClick={() => handleClick()}
                 className={category.selected ? 'aside-active' : ''}
               >
                 {category.name}
@@ -65,7 +69,7 @@ const SideBar = ({
                     <li key={product.id}>
                       <Link
                         to={`/${category.url}/${product.url}`}
-                        onClick={() => handleClick(product.id)}
+                        // onClick={() => handleClick(product.id)}
                         className={product.selected ? 'aside-active' : ''}
                       >
                         {product.name}
@@ -115,8 +119,8 @@ const mapStateToProps = (state): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
-  fetch: () => dispatch(sidebarActions.fetch()),
-  select: (id) => dispatch(sidebarActions.select(id)),
+  fetch: (url) => dispatch(sidebarActions.fetch(url)),
+  select: (url) => dispatch(sidebarActions.select(url)),
 });
 
 export default withRouterWrapper(connect(mapStateToProps, mapDispatchToProps)(SideBar));
