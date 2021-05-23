@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { IPackaging } from '../../../../../interfaces/interfaces';
-import packagingUpdateActions from './PackagingActions';
+import packagingActions from './PackagingActions';
 import Error from '../../../Error/Error';
 
 interface IProps {
@@ -11,13 +11,15 @@ interface IProps {
 
 interface IPathProps {
   put(id: string, name: string, price: number): string;
+  publish(id: string): string;
 }
 
 interface IStateProps {
-  error: string;
+  errorPut: string;
+  errorPublish: string;
 }
 
-const Packaging = ({ pack, isAdmin, put, error }: IProps & IPathProps & IStateProps) => {
+const Packaging = ({ pack, isAdmin, put, publish, errorPut, errorPublish }: IProps & IPathProps & IStateProps) => {
   const [name, setName] = useState(pack.name);
   const [nameColor, setNameColor] = useState('white');
   const [price, setPrice] = useState(Math.ceil(pack.price));
@@ -32,10 +34,13 @@ const Packaging = ({ pack, isAdmin, put, error }: IProps & IPathProps & IStatePr
     }
   };
 
-  const onClick = () => {
+  const onUpdate = () => {
     put(pack.id, name, price);
     setNameColor('white');
     setPriceColor('white');
+  };
+  const onPublish = () => {
+    publish(pack.id);
   };
 
   if (isAdmin) {
@@ -55,10 +60,14 @@ const Packaging = ({ pack, isAdmin, put, error }: IProps & IPathProps & IStatePr
             className="product-details-packaging-price"
           />
         </div>
-        <button onClick={onClick} className="small-form-btn">
+        <button onClick={onUpdate} className="small-form-btn">
           Grabar
         </button>
-        {error ? <Error error={error} /> : null}
+        <button onClick={onPublish} className="small-form-btn">
+          Publicar
+        </button>
+        {errorPut ? <Error error={errorPut} /> : null}
+        {errorPublish ? <Error error={errorPublish} /> : null}
       </li>
     );
   } else {
@@ -72,12 +81,14 @@ const Packaging = ({ pack, isAdmin, put, error }: IProps & IPathProps & IStatePr
 
 const mapStateToProps = (state): IStateProps => {
   return {
-    error: state.packagingUpdateReducer.error,
+    errorPut: state.packagingUpdateReducer.error,
+    errorPublish: state.packagingPublishReducer.error,
   };
 };
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
-  put: (id, name, price) => dispatch(packagingUpdateActions.put(id, name, price)),
+  put: (id, name, price) => dispatch(packagingActions.put(id, name, price)),
+  publish: (id) => dispatch(packagingActions.post(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Packaging);

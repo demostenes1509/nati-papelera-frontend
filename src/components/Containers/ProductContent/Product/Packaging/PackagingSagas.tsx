@@ -1,14 +1,21 @@
 import { fork, take } from 'redux-saga/effects';
-import { defaultPut } from '../../../../../helpers/SagasUtil';
-import Actions, { PackagingUpdateActions } from './PackagingActions';
-import PackagingUpdateApi from './PackagingApi';
+import { defaultPut, defaultPost } from '../../../../../helpers/SagasUtil';
+import Actions, { PackagingPublishActions, PackagingUpdateActions } from './PackagingActions';
+import PackagingApi from './PackagingApi';
 
 /* --------------------- Watchers ------------------ */
 const watchPackagingUpdate = function* () {
   while (true) {
     const { params } = yield take(PackagingUpdateActions.PUT);
-    yield fork(() => defaultPut(Actions, PackagingUpdateApi, params));
+    yield fork(() => defaultPut(Actions, PackagingApi, params));
   }
 };
 
-export default { watchPackagingUpdate };
+const watchPackagingPost = function* () {
+  while (true) {
+    const { params } = yield take(PackagingPublishActions.POST);
+    yield fork(() => defaultPost(Actions, PackagingApi, params));
+  }
+};
+
+export default { watchPackagingUpdate, watchPackagingPost };
