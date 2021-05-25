@@ -434,7 +434,7 @@ a:active {
 }
 
 .main-wrapper {
-  width: 980px;
+  width: 1400px;
   margin: 40px auto;
   background: #fff;
   -webkit-border-radius: 10px;
@@ -457,13 +457,13 @@ a:active {
 }
 
 .main-sidebar {
-  width: 210px;
+  width: 280px;
   float: left;
   margin: 0 10px 0 0;
 }
 
 .main-content {
-  width: 710px;
+  width: 1070px;
   margin: 0 0 0 10px;
   float: right;
 }
@@ -1094,15 +1094,15 @@ a.forgot-password {
 /* Product Page */
 
 .product-image-col {
-  width: 48%;
+  width: 32%;
   float: left;
   margin: 0 0 80px 0;
 }
 
 .product-details-col {
-  width: 46%;
+  width: 62%;
   float: left;
-  margin: 0 0 80px 4%;
+  margin: 0 0 80px 2%;
 }
 
 .product-image-container {
@@ -1167,10 +1167,10 @@ a.enlarge-product-btn-admin {
 }
 
 .product-details-col-name {
-  font-size: 22px;
+  font-size: 17px;
   font-weight: 600;
   margin: 0 0 20px;
-  width: 96%;
+  width: 99%;
   border-radius: 5px;
 }
 
@@ -1179,6 +1179,7 @@ a.enlarge-product-btn-admin {
   font-size: 15px;
   line-height: 18px;
   border-radius: 5px;
+  width: 99%;
 }
 
 .product-details-packaging {
@@ -1190,6 +1191,7 @@ a.enlarge-product-btn-admin {
   width: 76%;
   margin-right: 2px;
   border-radius: 5px;
+  font-size: 15px;
 }
 
 .product-details-packaging-price {
