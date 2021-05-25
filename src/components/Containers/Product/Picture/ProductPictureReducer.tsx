@@ -1,4 +1,4 @@
-import ReducersUtil from '../../../../../helpers/ReducersUtil';
+import ReducersUtil from '../../../../helpers/ReducersUtil';
 import { ProductPictureSaveActions, ProductPictureDialogActions } from './ProductPictureActions';
 
 const initialPostState = {

@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import request from '../../../../../helpers/Api';
+import request from '../../../../helpers/Api';
 
 export default {
   post(data) {

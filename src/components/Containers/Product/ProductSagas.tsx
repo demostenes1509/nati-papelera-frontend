@@ -1,5 +1,5 @@
 import { fork, put, take } from 'redux-saga/effects';
-import { defaultFetch, defaultPost, defaultPut } from '../../../../helpers/SagasUtil';
+import { defaultFetch, defaultPost, defaultPut } from '../../../helpers/SagasUtil';
 import Actions, { ProductGetActions, ProductUpdateActions, ProductSaveActions } from './ProductActions';
 import ProductApi from './ProductApi';
 

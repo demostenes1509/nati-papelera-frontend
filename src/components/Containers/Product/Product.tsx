@@ -1,9 +1,9 @@
 import getEnv from 'getenv';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouterWrapper } from '../../../../helpers/UIUtil';
-import { IPicture, IProduct } from '../../../../interfaces/interfaces';
-import Error from '../../Error/Error';
+import { withRouterWrapper } from '../../../helpers/UIUtil';
+import { IPicture, IProduct } from '../../../interfaces/interfaces';
+import Error from '../Error/Error';
 import Packaging from './Packaging/Packaging';
 import ProductPicture from './Picture/ProductPicture';
 import productPictureActions from './Picture/ProductPictureActions';
