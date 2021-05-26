@@ -1,13 +1,13 @@
 import { all, fork } from 'redux-saga/effects';
-import FetchProviders from '../components/Containers/SideBar/ProviderSagas';
-import FetchSidebar from '../components/Containers/SideBar/SideBarSagas';
 import FetchAuthentication from '../components/Containers/Authentication/AuthenticationSagas';
 import SessionSagas from '../components/Containers/Authentication/SessionSagas';
+import PackagingSagas from '../components/Containers/Product/Packaging/PackagingSagas';
+import ProductPictureSagas from '../components/Containers/Product/Picture/ProductPictureSagas';
+import ProductSagas from '../components/Containers/Product/ProductSagas';
 import ProductsListSagas from '../components/Containers/ProductsList/ProductsListSagas';
-import ProductSagas from '../components/Containers/ProductContent/Product/ProductSagas';
-import PackagingSagas from '../components/Containers/ProductContent/Product/Packaging/PackagingSagas';
-import ProductPictureSagas from '../components/Containers/ProductContent/Product/Picture/ProductPictureSagas';
 import ProviderSagas from '../components/Containers/ProviderContent/ProviderSagas';
+import FetchProviders from '../components/Containers/SideBar/ProviderSagas';
+import FetchSidebar from '../components/Containers/SideBar/SideBarSagas';
 
 export default function* rootSaga() {
   yield all([

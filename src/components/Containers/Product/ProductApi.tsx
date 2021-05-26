@@ -1,18 +1,27 @@
 import { AxiosRequestConfig } from 'axios';
-import request from '../../../../../helpers/Api';
+import request from '../../../helpers/Api';
 
 export default {
+  fetch(categoryUrl: string) {
+    const config: AxiosRequestConfig = {
+      url: 'products/get' + categoryUrl,
+      method: 'GET',
+    };
+    return request(config);
+  },
+
   put(data) {
     const config: AxiosRequestConfig = {
-      url: 'packaging/',
+      url: 'products/',
       method: 'PUT',
       data,
     };
     return request(config);
   },
+
   post(data) {
     const config: AxiosRequestConfig = {
-      url: 'packaging/publish',
+      url: 'products/',
       method: 'POST',
       data,
     };

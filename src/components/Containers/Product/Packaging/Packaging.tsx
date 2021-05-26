@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { IPackaging } from '../../../../../interfaces/interfaces';
+import { IPackaging } from '../../../../interfaces/interfaces';
 import packagingActions from './PackagingActions';
-import Error from '../../../Error/Error';
+import Error from '../../Error/Error';
 
 interface IProps {
   pack: IPackaging;

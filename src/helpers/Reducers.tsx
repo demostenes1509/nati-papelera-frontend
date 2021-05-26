@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import AuthenticationReducer from '../components/Containers/Authentication/AuthenticationReducer';
 import SessionReducer from '../components/Containers/Authentication/SessionReducer';
-import PackagingReducer from '../components/Containers/ProductContent/Product/Packaging/PackagingReducer';
-import ProductPictureReducer from '../components/Containers/ProductContent/Product/Picture/ProductPictureReducer';
-import ProductReducer from '../components/Containers/ProductContent/Product/ProductReducer';
+import PackagingReducer from '../components/Containers/Product/Packaging/PackagingReducer';
+import ProductPictureReducer from '../components/Containers/Product/Picture/ProductPictureReducer';
+import ProductReducer from '../components/Containers/Product/ProductReducer';
 import ProductsListReducer from '../components/Containers/ProductsList/ProductsListReducer';
 import ProviderReducer from '../components/Containers/ProviderContent/ProviderReducer';
 import ProvidersReducer from '../components/Containers/SideBar/ProvidersReducer';

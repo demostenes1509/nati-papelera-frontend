@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Cropper from 'simple-react-cropper';
-import { blobToFile } from '../../../../../helpers/FileUtil';
+import { blobToFile } from '../../../../helpers/FileUtil';
 import productPictureActions from './ProductPictureActions';
 import Modal from 'react-modal';
 import watermark from 'watermarkjs';

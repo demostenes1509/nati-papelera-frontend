@@ -45,10 +45,6 @@ const SideBar = ({
 
   return (
     <aside className="main-sidebar">
-      <section className="advertising-aside">
-        <img src={deliveryVan} alt="" className="delivery-img1" />
-        <img src={deliveryVan2} alt="" className="delivery-img2" />
-      </section>
       <section className="category-aside">
         <h2 className="aside-title">Categorias</h2>
         <ul className="aside-menu">

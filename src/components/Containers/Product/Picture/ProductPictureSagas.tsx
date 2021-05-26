@@ -1,5 +1,5 @@
 import { fork, put, take } from 'redux-saga/effects';
-import { defaultPost } from '../../../../../helpers/SagasUtil';
+import { defaultPost } from '../../../../helpers/SagasUtil';
 import Actions, { ProductPictureSaveActions } from './ProductPictureActions';
 import ProductPictureApi from './ProductPictureApi';
 
