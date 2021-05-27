@@ -2,17 +2,13 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouterWrapper } from '../../../helpers/UIUtil';
-import { ICategory, IProvider } from '../../../interfaces/interfaces';
+import { ICategory } from '../../../interfaces/interfaces';
 import Error from '../Error/Error';
 import sidebarActions from './SideBarActions';
 interface IStateProps {
   sidebarPayload: {
     categories: Array<ICategory>;
   };
-  providersPayload: {
-    providers: Array<IProvider>;
-  };
-  isAdmin: boolean;
   error: string;
 }
 
@@ -21,14 +17,7 @@ interface IPathProps {
   select(url: string): string;
 }
 
-const SideBar = ({
-  isAdmin,
-  error,
-  sidebarPayload: { categories },
-  providersPayload: { providers },
-  fetch,
-  select,
-}: IStateProps & IPathProps) => {
+const SideBar = ({ error, sidebarPayload: { categories }, fetch, select }: IStateProps & IPathProps) => {
   useEffect(() => {
     fetch(location.pathname);
   }, []);
@@ -43,8 +32,6 @@ const SideBar = ({
 
   return (
     <aside className="main-sidebar">
-      {isAdmin ? <Providers providers={providers} /> : null}
-
       <section className="category-aside">
         <h2 className="aside-title">Categorias</h2>
         <ul className="aside-menu">
@@ -63,11 +50,7 @@ const SideBar = ({
                 <ul className="aside-sub-menu">
                   {category.products.map((product) => (
                     <li key={product.id}>
-                      <Link
-                        to={`/${category.url}/${product.url}`}
-                        // onClick={() => handleClick(product.id)}
-                        className={product.selected ? 'aside-active' : ''}
-                      >
+                      <Link to={`/${category.url}/${product.url}`} className={product.selected ? 'aside-active' : ''}>
                         {product.name}
                       </Link>
                     </li>
@@ -82,33 +65,10 @@ const SideBar = ({
   );
 };
 
-const Providers = (props) => {
-  const { providers } = props;
-  return (
-    <section className="category-aside">
-      <h2 className="aside-title">Proveedores</h2>
-      <ul className="aside-menu">
-        {providers.map((provider) => (
-          <li key={provider.id}>
-            <span>{provider.name}</span>
-            <ul className="aside-sub-menu">
-              <li>
-                <Link to={`/providers/${provider.url}/fileupload`}>Carga de Precios</Link>
-              </li>
-            </ul>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-};
-
 const mapStateToProps = (state): IStateProps => {
   return {
     error: state.sidebarReducer.error,
     sidebarPayload: state.sidebarReducer.payload,
-    isAdmin: state.sessionReducer.isAdmin,
-    providersPayload: state.providersReducer.payload,
   };
 };
 

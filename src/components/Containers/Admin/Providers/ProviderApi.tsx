@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import request from '../../../helpers/Api';
+import request from '../../../../helpers/Api';
 
 export default {
   post(data) {
@@ -18,6 +18,14 @@ export default {
       params: {
         providerUrl: res[1],
       },
+    };
+    return request(config);
+  },
+
+  fetch() {
+    const config: AxiosRequestConfig = {
+      url: '/providers/get-all',
+      method: 'GET',
     };
     return request(config);
   },

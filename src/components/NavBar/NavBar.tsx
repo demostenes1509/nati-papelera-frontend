@@ -8,11 +8,8 @@ interface IStateProps {
 }
 
 const NavVar = ({ isAdmin }: IStateProps) => {
-  const isInAdminPage = location.pathname === '/admin';
+  const isInAdminPage = location.pathname.startsWith('/admin');
   const [showProvMenu, setShowProvMenu] = useState(false);
-
-  console.log(showProvMenu);
-  console.log(showProvMenu);
 
   const clickProvider = (event) => {
     event.preventDefault();
@@ -47,7 +44,8 @@ const NavVar = ({ isAdmin }: IStateProps) => {
                 <ul className="sub-menu-list sub-menu-list-prov">
                   <li>
                     <a href="#">Gestión</a>
-                    <a href="#">Carga de Archivo</a>
+                    <Link to="/admin/providers/fileupload">Carga de Archivos</Link>
+                    {/* <a href="#">Carga de Archivos</a> */}
                   </li>
                 </ul>
               ) : null}

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Admin from './components/Containers/Admin/Admin';
+import ProviderFileUpload from './components/Containers/Admin/Providers/ProviderFileUpload';
 import Authentication from './components/Containers/Authentication/Authentication';
 import sessionActions from './components/Containers/Authentication/SessionActions';
 import { getToken, userLoggedIn } from './components/Containers/Authentication/SessionApi';
@@ -9,7 +10,6 @@ import CategoryContent from './components/Containers/CategoryContent/CategoryCon
 import MainContent from './components/Containers/MainContent/MainContent';
 import DataProtection from './components/Containers/OtherContents/DataProtection';
 import Product from './components/Containers/Product/Product';
-import ProviderFileUpload from './components/Containers/ProviderContent/FileUpload/ProviderFileUpload';
 import SideBar from './components/Containers/SideBar/SideBar';
 import Layout from './components/layouts/Layout';
 
@@ -38,7 +38,7 @@ const App = ({ isLoggedIn, loggedIn }: IStateProps & IPathProps) => {
         <Layout exact path="/login" components={[Authentication]} />
         <Layout exact path="/admin" components={[Admin]} />
         <Layout exact path="/other/dataprotection" components={[SideBar, DataProtection]} />
-        <Layout exact path="/providers/:provider/fileupload" components={[SideBar, ProviderFileUpload]} />
+        <Layout exact path="/admin/providers/fileupload" components={[ProviderFileUpload]} />
         <Layout exact path="/:category" components={[SideBar, CategoryContent]} />
         <Layout exact path="/:category/:product" components={[SideBar, Product]} />
         {/* 
