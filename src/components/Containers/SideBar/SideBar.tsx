@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouterWrapper } from '../../../helpers/UIUtil';
-import deliveryVan from '../../../images/delivery-van.png';
-import deliveryVan2 from '../../../images/delivery-van2.png';
 import { ICategory, IProvider } from '../../../interfaces/interfaces';
-import sidebarActions from './SideBarActions';
 import Error from '../Error/Error';
+import sidebarActions from './SideBarActions';
 interface IStateProps {
   sidebarPayload: {
     categories: Array<ICategory>;
@@ -45,6 +43,8 @@ const SideBar = ({
 
   return (
     <aside className="main-sidebar">
+      {isAdmin ? <Providers providers={providers} /> : null}
+
       <section className="category-aside">
         <h2 className="aside-title">Categorias</h2>
         <ul className="aside-menu">
@@ -78,8 +78,6 @@ const SideBar = ({
           ))}
         </ul>
       </section>
-
-      {isAdmin ? <Providers providers={providers} /> : null}
     </aside>
   );
 };
