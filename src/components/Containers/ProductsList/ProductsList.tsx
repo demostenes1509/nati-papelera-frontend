@@ -28,44 +28,46 @@ const ProductsList = ({ payload, fetch }: IStateProps & IPathProps) => {
   }, [location.pathname]);
 
   return (
-    <div className="main-products">
-      <h2 className="main-title">{categoryName}</h2>
-      <ul className="main-products-list clear-fix">
-        <div className="clear-fix">
-          {products.map((product) => (
-            <li key={product.id}>
-              {product.pictures.length > 0 ? (
-                <Link to={`/${categoryUrl}/${product.url}`}>
-                  <img
-                    className="main-products-list-image"
-                    src={`${API_URL}/products-pictures/${product.pictures[0].id}`}
-                  />
-                </Link>
-              ) : (
-                <Link to={`/${categoryUrl}/${product.url}`}>
-                  <img className="main-products-list-image" src={productImg1} alt="" />
-                </Link>
-              )}
+    <section className="main-content clear-fix">
+      <div className="main-products">
+        <h2 className="main-title">{categoryName}</h2>
+        <ul className="main-products-list clear-fix">
+          <div className="clear-fix">
+            {products.map((product) => (
+              <li key={product.id}>
+                {product.pictures.length > 0 ? (
+                  <Link to={`/${categoryUrl}/${product.url}`}>
+                    <img
+                      className="main-products-list-image"
+                      src={`${API_URL}/products-pictures/${product.pictures[0].id}`}
+                    />
+                  </Link>
+                ) : (
+                  <Link to={`/${categoryUrl}/${product.url}`}>
+                    <img className="main-products-list-image" src={productImg1} alt="" />
+                  </Link>
+                )}
 
-              <h3 className="main-product-title">
-                <Link to={`/${categoryUrl}/${product.url}`}>{product.name}</Link>
-              </h3>
-              <p className="main-product-description">
-                <Link to={`/${categoryUrl}/${product.url}`}>{product.description}</Link>
-              </p>
+                <h3 className="main-product-title">
+                  <Link to={`/${categoryUrl}/${product.url}`}>{product.name}</Link>
+                </h3>
+                <p className="main-product-description">
+                  <Link to={`/${categoryUrl}/${product.url}`}>{product.description}</Link>
+                </p>
 
-              <div className="product-prices">
-                {product.packaging.map((pack) => (
-                  <p key={pack.id}>
-                    {pack.name} <span className="price-con">$ {Math.ceil(pack.price)}.00</span>
-                  </p>
-                ))}
-              </div>
-            </li>
-          ))}
-        </div>
-      </ul>
-    </div>
+                <div className="product-prices">
+                  {product.packaging.map((pack) => (
+                    <p key={pack.id}>
+                      {pack.name} <span className="price-con">$ {Math.ceil(pack.price)}.00</span>
+                    </p>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </div>
+        </ul>
+      </div>
+    </section>
   );
 };
 

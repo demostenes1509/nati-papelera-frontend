@@ -15,6 +15,9 @@ const NavVar = ({ isAdmin }: IStateProps) => {
     event.preventDefault();
     setShowProvMenu(!showProvMenu);
   };
+  const hideMenu = () => {
+    setShowProvMenu(false);
+  };
 
   return (
     <nav className="nav-bar">
@@ -30,7 +33,7 @@ const NavVar = ({ isAdmin }: IStateProps) => {
         {isAdmin && isInAdminPage ? (
           <>
             <li>
-              <Link to="/">Inicio</Link>
+              <Link to="/">Inicio2</Link>
             </li>
             <li>
               <a
@@ -44,11 +47,17 @@ const NavVar = ({ isAdmin }: IStateProps) => {
                 <ul className="sub-menu-list sub-menu-list-prov">
                   <li>
                     <a href="#">Gestión</a>
-                    <Link to="/admin/providers/fileupload">Carga de Archivos</Link>
-                    {/* <a href="#">Carga de Archivos</a> */}
+                    <Link to="/admin/providers/fileupload" onClick={() => hideMenu()}>
+                      Carga de Archivos
+                    </Link>
                   </li>
                 </ul>
               ) : null}
+            </li>
+            <li>
+              <Link to="/admin/categories" onClick={() => hideMenu()}>
+                Categorías
+              </Link>
             </li>
           </>
         ) : null}

@@ -6,7 +6,8 @@ import ProductPictureSagas from '../components/Containers/Product/Picture/Produc
 import ProductSagas from '../components/Containers/Product/ProductSagas';
 import ProductsListSagas from '../components/Containers/ProductsList/ProductsListSagas';
 import FetchSidebar from '../components/Containers/SideBar/SideBarSagas';
-import ProvidersSagas from '../components/Containers/Admin/Providers/ProviderSagas';
+import ProviderSagas from '../components/Containers/Admin/Providers/ProviderSagas';
+import CategorySagas from '../components/Containers/Admin/Category/CategorySagas';
 
 export default function* rootSaga() {
   yield all([
@@ -23,7 +24,8 @@ export default function* rootSaga() {
     fork(PackagingSagas.watchPackagingPost),
     fork(ProductPictureSagas.watchProductPictureSave),
     fork(ProductPictureSagas.watchProductPictureSaveSuccess),
-    fork(ProvidersSagas.watchProviderUpload),
-    fork(ProvidersSagas.watchProviderGetAll),
+    fork(ProviderSagas.watchProviderUpload),
+    fork(ProviderSagas.watchProviderGetAll),
+    fork(CategorySagas.watchCategoryGetAll),
   ]);
 }
