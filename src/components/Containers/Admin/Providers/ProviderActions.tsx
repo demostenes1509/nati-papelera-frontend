@@ -12,9 +12,9 @@ export const ProviderGetAllActions = {
   FETCH_ERROR: 'FETCH_PROVIDERS_ERROR',
 };
 
-const post = (providerUrl: string, file: File) => ({
+const post = (providerId: string, file: File) => ({
   type: ProviderUploadActions.POST,
-  params: { providerUrl, file },
+  params: { providerId, file },
 });
 const postWaiting = () => ({ type: ProviderUploadActions.POST_WAITING });
 const postSuccess = (response) => ({ type: ProviderUploadActions.POST_SUCCESS, response });

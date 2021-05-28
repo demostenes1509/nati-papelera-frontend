@@ -33,7 +33,7 @@ const ProviderFileUpload = ({
   getAllPayload: { providers },
 }: IPathProps & IStateProps) => {
   const [file, setFile] = useState<File | null>(null);
-  // const [provider, setProvider] = useState<string | null>(null);
+  const [provider, setProvider] = useState<string | null>(null);
 
   useEffect(() => {
     fetch();
@@ -49,12 +49,13 @@ const ProviderFileUpload = ({
     const index = event.target.selectedIndex;
     const el = event.target.childNodes[index];
     const option = el.getAttribute('id');
-    console.log(option);
+    setProvider(option);
   };
 
   const onFileUpload = () => {
-    if (file) {
-      post(location.pathname, file);
+    if (file && provider) {
+      console.log('PROVIDER:' + provider);
+      post(provider, file);
     }
   };
 
@@ -71,7 +72,7 @@ const ProviderFileUpload = ({
           {uploadResponse.insertedRecords === 0 && uploadResponse.updatedRecords === 0 && !uploadWaiting ? (
             <form>
               <label className="form-select">
-                ProveedoresXX
+                Proveedores
                 <select onChange={(event) => onProviderChanged(event)}>
                   <option>Seleccione proveedor</option>
                   {providers.map((provider) => (
@@ -118,7 +119,7 @@ const mapStateToProps = (state): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
-  post: (providerUrl: string, file: File) => dispatch(providerActions.post(providerUrl, file)),
+  post: (providerId: string, file: File) => dispatch(providerActions.post(providerId, file)),
   fetch: () => dispatch(providerActions.fetch()),
 });
 

@@ -3,10 +3,7 @@ import request from '../../../../helpers/Api';
 
 export default {
   post(data) {
-    const { file, providerUrl } = data;
-
-    const regex = '/providers/(.+?)/';
-    const res = providerUrl.match(regex);
+    const { file, providerId } = data;
 
     const formData = new FormData();
     formData.append('file', file, file.name);
@@ -16,7 +13,7 @@ export default {
       method: 'POST',
       data: formData,
       params: {
-        providerUrl: res[1],
+        providerId,
       },
     };
     return request(config);
