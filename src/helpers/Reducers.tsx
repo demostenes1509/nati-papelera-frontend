@@ -5,9 +5,8 @@ import PackagingReducer from '../components/Containers/Product/Packaging/Packagi
 import ProductPictureReducer from '../components/Containers/Product/Picture/ProductPictureReducer';
 import ProductReducer from '../components/Containers/Product/ProductReducer';
 import ProductsListReducer from '../components/Containers/ProductsList/ProductsListReducer';
-import ProviderReducer from '../components/Containers/ProviderContent/ProviderReducer';
-import ProvidersReducer from '../components/Containers/SideBar/ProvidersReducer';
 import SideBarReducer from '../components/Containers/SideBar/SideBarReducer';
+import ProviderReducer from '../components/Containers/Admin/Providers/ProviderReducer';
 
 const rootReducers = combineReducers({
   sidebarReducer: SideBarReducer.get,
@@ -21,8 +20,8 @@ const rootReducers = combineReducers({
   packagingPublishReducer: PackagingReducer.post,
   productPictureSaveReducer: ProductPictureReducer.post,
   productPictureDialogReducer: ProductPictureReducer.dialog,
-  providersReducer: ProvidersReducer.get,
   providerUploadReducer: ProviderReducer.upload,
+  providerGetAllReducer: ProviderReducer.fetch,
 });
 
 export default rootReducers;

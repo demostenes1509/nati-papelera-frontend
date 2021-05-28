@@ -5,14 +5,12 @@ import PackagingSagas from '../components/Containers/Product/Packaging/Packaging
 import ProductPictureSagas from '../components/Containers/Product/Picture/ProductPictureSagas';
 import ProductSagas from '../components/Containers/Product/ProductSagas';
 import ProductsListSagas from '../components/Containers/ProductsList/ProductsListSagas';
-import ProviderSagas from '../components/Containers/ProviderContent/ProviderSagas';
-import FetchProviders from '../components/Containers/SideBar/ProviderSagas';
 import FetchSidebar from '../components/Containers/SideBar/SideBarSagas';
+import ProvidersSagas from '../components/Containers/Admin/Providers/ProviderSagas';
 
 export default function* rootSaga() {
   yield all([
     fork(FetchSidebar.watchFetchSidebar),
-    fork(FetchProviders.watchFetchProviders),
     fork(FetchAuthentication.watchFetchAuthorization),
     fork(SessionSagas.watchSuccessfulLogin),
     fork(SessionSagas.watchLogout),
@@ -25,6 +23,7 @@ export default function* rootSaga() {
     fork(PackagingSagas.watchPackagingPost),
     fork(ProductPictureSagas.watchProductPictureSave),
     fork(ProductPictureSagas.watchProductPictureSaveSuccess),
-    fork(ProviderSagas.watchproviderUpload),
+    fork(ProvidersSagas.watchProviderUpload),
+    fork(ProvidersSagas.watchProviderGetAll),
   ]);
 }
