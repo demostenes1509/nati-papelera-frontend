@@ -4,9 +4,11 @@ import { ICategory } from '../../../../interfaces/interfaces';
 import Loader from '../../Loader/Loader';
 import Error from '../../Error/Error';
 import categoryActions from './CategoryActions';
+import mercadoLibreCategoryActions from './MercadoLibreCategoryActions';
 
 interface IPathProps {
   fetch(): string;
+  mercadoLibreFetch(): string;
 }
 
 interface IStateProps {
@@ -17,11 +19,12 @@ interface IStateProps {
   };
 }
 
-const Categories = ({ getAll, fetch }: IStateProps & IPathProps) => {
+const Categories = ({ getAll, fetch, mercadoLibreFetch }: IStateProps & IPathProps) => {
   const { categories, loading, error } = getAll;
 
   useEffect(() => {
     fetch();
+    mercadoLibreFetch();
   }, []);
 
   return (
@@ -64,6 +67,7 @@ const mapStateToProps = (state): IStateProps => {
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
   fetch: () => dispatch(categoryActions.fetch()),
+  mercadoLibreFetch: () => dispatch(mercadoLibreCategoryActions.fetch()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);

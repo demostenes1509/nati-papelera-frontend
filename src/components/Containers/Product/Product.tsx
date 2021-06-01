@@ -8,6 +8,9 @@ import Packaging from './Packaging/Packaging';
 import ProductPicture from './Picture/ProductPicture';
 import productPictureActions from './Picture/ProductPictureActions';
 import productActions from './ProductActions';
+import SelectSearch, { SelectSearchOption } from 'react-select-search';
+import request from '../../../helpers/Api';
+import { AxiosRequestConfig } from 'axios';
 
 const API_URL = getEnv('REACT_APP_API_URL');
 
@@ -109,12 +112,13 @@ const Product = ({
           onChangeName={(event) => onChangeProp('name', setName, setNameColor, event)}
           style={{ backgroundColor: nameColor }}
         ></H2OrInput>
-        <POrInput
+        <ParOrInput
           isAdmin={isAdmin}
           description={description}
           onChangeDescription={(event) => onChangeProp('description', setDescription, setDescriptionColor, event)}
           style={{ backgroundColor: descriptionColor }}
-        ></POrInput>
+        ></ParOrInput>
+        <SelOrInput isAdmin={isAdmin}></SelOrInput>
         <div className="product-content-details">
           <ul>
             {packaging.map((pack) => (
@@ -141,7 +145,7 @@ const H2OrInput = ({ isAdmin, onChangeName, name, style }) => {
   }
 };
 
-const POrInput = ({ isAdmin, onChangeDescription, description, style }) => {
+const ParOrInput = ({ isAdmin, onChangeDescription, description, style }) => {
   if (isAdmin) {
     return (
       <textarea
@@ -155,6 +159,64 @@ const POrInput = ({ isAdmin, onChangeDescription, description, style }) => {
     );
   } else {
     return <p>{description}</p>;
+  }
+};
+
+const SelOrInput = ({ isAdmin }) => {
+  const fuzzySearch = (options: SelectSearchOption[]): ((query: string) => SelectSearchOption[]) => {
+    return () => {
+      return options;
+    };
+  };
+
+  const options: SelectSearchOption[] = [];
+
+  const getOptions = (query): Promise<SelectSearchOption[]> => {
+    interface Category {
+      id: string;
+      name: string;
+    }
+
+    interface Response {
+      categories: Category[];
+    }
+
+    return new Promise((resolve, reject) => {
+      if (query.length < 3) {
+        return [];
+      }
+      const config: AxiosRequestConfig = {
+        url: '/mercado-libre/categories',
+        method: 'GET',
+        params: {
+          pattern: query,
+        },
+      };
+      request<Response>(config)
+        .then((response) => {
+          const {
+            data: { categories },
+          } = response;
+          const res: SelectSearchOption[] = categories.map((c) => ({ value: c.id, name: c.name }));
+          resolve(res);
+        })
+        .catch(reject);
+    });
+  };
+
+  if (isAdmin) {
+    return (
+      <SelectSearch
+        options={options}
+        getOptions={getOptions}
+        value="sv"
+        search={true}
+        placeholder="Elija categoría!"
+        filterOptions={fuzzySearch}
+      />
+    );
+  } else {
+    return <p>hola</p>;
   }
 };
 

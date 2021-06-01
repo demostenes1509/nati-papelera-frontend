@@ -1,4 +1,7 @@
 import { combineReducers } from 'redux';
+import CategoryReducer from '../components/Containers/Admin/Category/CategoryReducer';
+import MercadoLibreCategoryReducer from '../components/Containers/Admin/Category/MercadoLibreCategoryReducer';
+import ProviderReducer from '../components/Containers/Admin/Providers/ProviderReducer';
 import AuthenticationReducer from '../components/Containers/Authentication/AuthenticationReducer';
 import SessionReducer from '../components/Containers/Authentication/SessionReducer';
 import PackagingReducer from '../components/Containers/Product/Packaging/PackagingReducer';
@@ -6,8 +9,6 @@ import ProductPictureReducer from '../components/Containers/Product/Picture/Prod
 import ProductReducer from '../components/Containers/Product/ProductReducer';
 import ProductsListReducer from '../components/Containers/ProductsList/ProductsListReducer';
 import SideBarReducer from '../components/Containers/SideBar/SideBarReducer';
-import ProviderReducer from '../components/Containers/Admin/Providers/ProviderReducer';
-import CategoryReducer from '../components/Containers/Admin/Category/CategoryReducer';
 
 const rootReducers = combineReducers({
   sidebarReducer: SideBarReducer.get,
@@ -24,6 +25,8 @@ const rootReducers = combineReducers({
   providerUploadReducer: ProviderReducer.upload,
   providerGetAllReducer: ProviderReducer.fetch,
   categoryGetAllReducer: CategoryReducer.fetch,
+  mercadoLibreCategoryGetAllReducer: MercadoLibreCategoryReducer.fetch,
+  mercadoLibreCategoryUploadReducer: MercadoLibreCategoryReducer.upload,
 });
 
 export default rootReducers;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Admin from './components/Containers/Admin/Admin';
 import CategoriesList from './components/Containers/Admin/Category/CategoriesList';
+import MercadoLibreCategoriesFileUpload from './components/Containers/Admin/Category/MercadoLibreCategoriesFileUpload';
 import ProviderFileUpload from './components/Containers/Admin/Providers/ProviderFileUpload';
 import Authentication from './components/Containers/Authentication/Authentication';
 import sessionActions from './components/Containers/Authentication/SessionActions';
@@ -38,7 +39,8 @@ const App = ({ isLoggedIn, loggedIn }: IStateProps & IPathProps) => {
         <Layout exact path="/" components={[SideBar, MainContent]} />
         <Layout exact path="/login" components={[Authentication]} />
         <Layout exact path="/admin" components={[Admin]} />
-        <Layout exact path="/admin/categories" components={[CategoriesList]} />
+        <Layout exact path="/admin/categories/management" components={[CategoriesList]} />
+        <Layout exact path="/admin/categories/fileupload" components={[MercadoLibreCategoriesFileUpload]} />
         <Layout exact path="/admin/providers/fileupload" components={[ProviderFileUpload]} />
         <Layout exact path="/other/dataprotection" components={[SideBar, DataProtection]} />
         <Layout exact path="/:category" components={[SideBar, ProductsList]} />
