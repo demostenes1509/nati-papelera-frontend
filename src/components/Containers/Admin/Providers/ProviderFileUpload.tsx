@@ -54,7 +54,6 @@ const ProviderFileUpload = ({
 
   const onFileUpload = () => {
     if (file && provider) {
-      console.log('PROVIDER:' + provider);
       post(provider, file);
     }
   };

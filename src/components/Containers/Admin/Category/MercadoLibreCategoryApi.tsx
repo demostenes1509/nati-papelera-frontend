@@ -2,27 +2,24 @@ import { AxiosRequestConfig } from 'axios';
 import request from '../../../../helpers/Api';
 
 export default {
+  fetch() {
+    const config: AxiosRequestConfig = {
+      url: '/mercado-libre/categories',
+      method: 'GET',
+    };
+    return request(config);
+  },
+
   post(data) {
-    const { file, providerId } = data;
+    const { file } = data;
 
     const formData = new FormData();
     formData.append('file', file, file.name);
 
     const config: AxiosRequestConfig = {
-      url: 'providers/upload-new-file',
+      url: '/mercado-libre/process-categories',
       method: 'POST',
       data: formData,
-      params: {
-        id: providerId,
-      },
-    };
-    return request(config);
-  },
-
-  fetch() {
-    const config: AxiosRequestConfig = {
-      url: '/providers/get-all',
-      method: 'GET',
     };
     return request(config);
   },

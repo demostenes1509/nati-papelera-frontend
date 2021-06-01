@@ -10,13 +10,19 @@ interface IStateProps {
 const NavVar = ({ isAdmin }: IStateProps) => {
   const isInAdminPage = location.pathname.startsWith('/admin');
   const [showProvMenu, setShowProvMenu] = useState(false);
+  const [showCatMenu, setShowCatMenu] = useState(false);
 
   const clickProvider = (event) => {
     event.preventDefault();
     setShowProvMenu(!showProvMenu);
   };
-  const hideMenu = () => {
+  const clickCategories = (event) => {
+    event.preventDefault();
+    setShowCatMenu(!showCatMenu);
+  };
+  const hideMenues = () => {
     setShowProvMenu(false);
+    setShowCatMenu(false);
   };
 
   return (
@@ -33,7 +39,7 @@ const NavVar = ({ isAdmin }: IStateProps) => {
         {isAdmin && isInAdminPage ? (
           <>
             <li>
-              <Link to="/">Inicio2</Link>
+              <Link to="/">Inicio</Link>
             </li>
             <li>
               <a
@@ -47,7 +53,7 @@ const NavVar = ({ isAdmin }: IStateProps) => {
                 <ul className="sub-menu-list sub-menu-list-prov">
                   <li>
                     <a href="#">Gestión</a>
-                    <Link to="/admin/providers/fileupload" onClick={() => hideMenu()}>
+                    <Link to="/admin/providers/fileupload" onClick={() => hideMenues()}>
                       Carga de Archivos
                     </Link>
                   </li>
@@ -55,9 +61,25 @@ const NavVar = ({ isAdmin }: IStateProps) => {
               ) : null}
             </li>
             <li>
-              <Link to="/admin/categories" onClick={() => hideMenu()}>
+              <a
+                href="#"
+                className={showCatMenu ? 'sub-menu-item' : 'sub-menu-item-left'}
+                onClick={(event) => clickCategories(event)}
+              >
                 Categorías
-              </Link>
+              </a>
+              {showCatMenu ? (
+                <ul className="sub-menu-list sub-menu-list-cat">
+                  <li>
+                    <Link to="/admin/categories/management" onClick={() => hideMenues()}>
+                      Gestión
+                    </Link>
+                    <Link to="/admin/categories/fileupload" onClick={() => hideMenues()}>
+                      Carga de Categorías de Mercado Libre
+                    </Link>
+                  </li>
+                </ul>
+              ) : null}
             </li>
           </>
         ) : null}
