@@ -22,9 +22,6 @@ const initialPostState = {
 };
 
 const upload = (state = initialPostState, action) => {
-  console.log('ESTADO DISPARADO');
-  console.log(state);
-  console.log('ESTADO DISPARADO');
   return ReducersUtil.defaultPost(initialPostState, state, action, MercadoLibreCategoriesUploadActions);
 };
 

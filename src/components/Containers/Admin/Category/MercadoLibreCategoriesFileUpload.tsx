@@ -27,9 +27,7 @@ const ProviderFileUpload = ({ post, uploadWaiting, uploadError, uploadResponse }
   };
 
   const onFileUpload = () => {
-    console.log('MEC>1');
     if (file) {
-      console.log('MEC>2');
       post(file);
     }
   };

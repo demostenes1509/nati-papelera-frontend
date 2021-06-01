@@ -17,10 +17,7 @@ const watchMercadoLibreCategoryGetAll = function* () {
 
 const watchMercadoLibreCategoryUpload = function* () {
   while (true) {
-    console.log('BEFORE SAGA');
     const { params } = yield take(MercadoLibreCategoriesUploadActions.POST);
-    console.log('AFTER SAGA with');
-    console.log(params);
     yield fork(() => defaultPost(Actions, MercadoLibreCategoriesApi, params));
   }
 };
