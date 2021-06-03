@@ -1181,7 +1181,7 @@ a.enlarge-product-btn-admin {
 .product-details-col-name {
   font-size: 17px;
   font-weight: 600;
-  margin: 0 0 20px;
+  margin: 0 0 5px;
   width: 99%;
   border-radius: 5px;
 }
@@ -1242,12 +1242,25 @@ a.enlarge-product-btn-admin {
   float: right;
 }
 
+.product-content-details {
+  // background-color: yellow;
+  margin-top: 40px;
+  border-top: 1px solid #ddd;
+}
+
+.product-content-details p {
+  // background-color: red;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
 .product-content-details ul li {
   line-height: 26px;
 }
 
 .product-content-details ul {
-  padding: 0 0 20px 0;
+  padding: 0 0 5px 0;
   border-bottom: 1px solid #ddd;
 }
 
@@ -2210,7 +2223,8 @@ Select Search
   position: relative;
   font-family: 'Nunito Sans', sans-serif;
   box-sizing: border-box;
-  padding-top: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .select-search *,

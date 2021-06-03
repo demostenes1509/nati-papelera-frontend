@@ -139,19 +139,20 @@ const Product = ({
           onChangeMLCategoryId={(value) => onChangeMlCategoryId(value)}
           style={{ backgroundColor: mlCategoryIdColor }}
         ></SelOrInput>
-        <div className="product-content-details">
-          <ul>
-            {packaging.map((pack) => (
-              <Packaging key={pack.id} isAdmin={isAdmin} pack={pack} />
-            ))}
-          </ul>
-        </div>
         {isAdmin ? (
           <button onClick={update} className="form-btn">
             Grabar
           </button>
         ) : null}
         {errorPut ? <Error error={errorPut} /> : null}
+        <div className="product-content-details">
+          <p>Packaging</p>
+          <ul>
+            {packaging.map((pack) => (
+              <Packaging key={pack.id} isAdmin={isAdmin} pack={pack} />
+            ))}
+          </ul>
+        </div>
       </section>
     </section>
   );
@@ -237,7 +238,7 @@ const SelOrInput = ({ isAdmin, onChangeMLCategoryId, mlCategoryId, mlCategoryNam
       />
     );
   } else {
-    return <p>hola</p>;
+    return <p>{mlCategoryName}</p>;
   }
 };
 
