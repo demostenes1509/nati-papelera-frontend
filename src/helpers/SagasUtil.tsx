@@ -35,7 +35,7 @@ export function* defaultPut(actions, api, request) {
     yield put(actions.putWaiting());
     const response = yield call(() => api.put(request));
 
-    if ([200, 201].includes(response.status)) {
+    if ([200, 204].includes(response.status)) {
       yield put(actions.putSuccess(response.data));
     } else {
       yield put(actions.putError(response));

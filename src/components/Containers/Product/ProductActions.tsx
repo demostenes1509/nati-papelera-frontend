@@ -28,7 +28,10 @@ const fetchLoading = () => ({ type: ProductGetActions.FETCH_LOADING });
 const fetchSuccess = (payload) => ({ type: ProductGetActions.FETCH_SUCCESS, payload });
 const fetchError = (error) => ({ type: ProductGetActions.FETCH_ERROR, error });
 
-const put = (id, name, description) => ({ type: ProductUpdateActions.PUT, params: { id, name, description } });
+const put = (id, name, description, mlCategoryId) => ({
+  type: ProductUpdateActions.PUT,
+  params: { id, name, description, mlCategoryId },
+});
 const putWaiting = () => ({ type: ProductUpdateActions.PUT_WAITING });
 const putSuccess = (response) => ({ type: ProductUpdateActions.PUT_SUCCESS, response });
 const putError = (error) => ({ type: ProductUpdateActions.PUT_ERROR, error });

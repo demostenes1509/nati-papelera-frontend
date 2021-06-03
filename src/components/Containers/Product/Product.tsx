@@ -1,6 +1,9 @@
+import { AxiosRequestConfig } from 'axios';
 import getEnv from 'getenv';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import SelectSearch, { SelectSearchOption } from 'react-select-search';
+import request from '../../../helpers/Api';
 import { withRouterWrapper } from '../../../helpers/UIUtil';
 import { IPicture, IProduct } from '../../../interfaces/interfaces';
 import Error from '../Error/Error';
@@ -8,16 +11,13 @@ import Packaging from './Packaging/Packaging';
 import ProductPicture from './Picture/ProductPicture';
 import productPictureActions from './Picture/ProductPictureActions';
 import productActions from './ProductActions';
-import SelectSearch, { SelectSearchOption } from 'react-select-search';
-import request from '../../../helpers/Api';
-import { AxiosRequestConfig } from 'axios';
 
 const API_URL = getEnv('REACT_APP_API_URL');
 
 interface IPathProps {
   fetch(productUrl: string): string;
   openDialog(productId: string, productUrl: string): string;
-  put(id: string, name: string, description: string): string;
+  put(id: string, name: string, description: string, mlCategoryId: string): string;
   selectPicture(pictureId: string);
 }
 
@@ -48,6 +48,9 @@ const Product = ({
   const [nameColor, setNameColor] = useState('white');
   const [description, setDescription] = useState(payload.description);
   const [descriptionColor, setDescriptionColor] = useState('white');
+  const [mlCategoryId, setMLCategoryId] = useState(payload.mlCategoryId);
+  const [mlCategoryName, setMLCategoryName] = useState(payload.mlCategoryName);
+  const [mlCategoryIdColor, setMLCategoryIdColor] = useState('white');
 
   const onChangeProp = (property, setProperty, setPropertyColor, event) => {
     setProperty(event.target.value);
@@ -58,8 +61,17 @@ const Product = ({
     }
   };
 
+  const onChangeMlCategoryId = (value) => {
+    setMLCategoryId(value);
+    if (value !== payload.mlCategoryId) {
+      setMLCategoryIdColor('#ffcccb');
+    } else {
+      setMLCategoryIdColor('white');
+    }
+  };
+
   const update = () => {
-    put(payload.id, name, description);
+    put(payload.id, name, description, mlCategoryId);
     setNameColor('white');
     setDescriptionColor('white');
   };
@@ -71,6 +83,8 @@ const Product = ({
   useEffect(() => {
     setName(payload.name);
     setDescription(payload.description);
+    setMLCategoryId(payload.mlCategoryId);
+    setMLCategoryName(payload.mlCategoryName);
   }, [payload]);
 
   const onClick = (event, pictureId: string) => {
@@ -118,20 +132,27 @@ const Product = ({
           onChangeDescription={(event) => onChangeProp('description', setDescription, setDescriptionColor, event)}
           style={{ backgroundColor: descriptionColor }}
         ></ParOrInput>
-        <SelOrInput isAdmin={isAdmin}></SelOrInput>
-        <div className="product-content-details">
-          <ul>
-            {packaging.map((pack) => (
-              <Packaging key={pack.id} isAdmin={isAdmin} pack={pack} />
-            ))}
-          </ul>
-        </div>
+        <SelOrInput
+          isAdmin={isAdmin}
+          mlCategoryId={mlCategoryId}
+          mlCategoryName={mlCategoryName}
+          onChangeMLCategoryId={(value) => onChangeMlCategoryId(value)}
+          style={{ backgroundColor: mlCategoryIdColor }}
+        ></SelOrInput>
         {isAdmin ? (
           <button onClick={update} className="form-btn">
             Grabar
           </button>
         ) : null}
         {errorPut ? <Error error={errorPut} /> : null}
+        <div className="product-content-details">
+          <p>Packaging</p>
+          <ul>
+            {packaging.map((pack) => (
+              <Packaging key={pack.id} isAdmin={isAdmin} pack={pack} />
+            ))}
+          </ul>
+        </div>
       </section>
     </section>
   );
@@ -162,7 +183,8 @@ const ParOrInput = ({ isAdmin, onChangeDescription, description, style }) => {
   }
 };
 
-const SelOrInput = ({ isAdmin }) => {
+const SelOrInput = ({ isAdmin, onChangeMLCategoryId, mlCategoryId, mlCategoryName, style }) => {
+  console.log(style, 1);
   const fuzzySearch = (options: SelectSearchOption[]): ((query: string) => SelectSearchOption[]) => {
     return () => {
       return options;
@@ -170,7 +192,6 @@ const SelOrInput = ({ isAdmin }) => {
   };
 
   const options: SelectSearchOption[] = [];
-
   const getOptions = (query): Promise<SelectSearchOption[]> => {
     interface Category {
       id: string;
@@ -207,16 +228,17 @@ const SelOrInput = ({ isAdmin }) => {
   if (isAdmin) {
     return (
       <SelectSearch
+        value={mlCategoryId}
         options={options}
         getOptions={getOptions}
-        value="sv"
+        onChange={onChangeMLCategoryId}
         search={true}
-        placeholder="Elija categoría!"
+        placeholder={mlCategoryName}
         filterOptions={fuzzySearch}
       />
     );
   } else {
-    return <p>hola</p>;
+    return <p>{mlCategoryName}</p>;
   }
 };
 
@@ -261,7 +283,8 @@ const mapStateToProps = (state): IStateProps => {
 
 const mapDispatchToProps = (dispatch): IPathProps => ({
   fetch: (productUrl: string) => dispatch(productActions.fetch(productUrl)),
-  put: (id: string, name: string, description: string) => dispatch(productActions.put(id, name, description)),
+  put: (id: string, name: string, description: string, mlCategoryId: string) =>
+    dispatch(productActions.put(id, name, description, mlCategoryId)),
   openDialog: (productId: string) => dispatch(productPictureActions.openDialog(productId)),
   selectPicture: (pictureId: string) => dispatch(productActions.selectPicture({ id: pictureId })),
 });
