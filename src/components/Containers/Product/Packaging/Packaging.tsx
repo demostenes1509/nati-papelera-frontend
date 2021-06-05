@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { IPackaging } from '../../../../interfaces/interfaces';
 import packagingActions from './PackagingActions';
-import Error from '../../Error/Error';
 
 interface IProps {
   pack: IPackaging;
@@ -14,30 +13,19 @@ interface IPathProps {
   publish(id: string): string;
 }
 
-interface IStateProps {
-  errorPut: string;
-  errorPublish: string;
-}
-
-const Packaging = ({ pack, isAdmin, put, publish, errorPut, errorPublish }: IProps & IPathProps & IStateProps) => {
+const Packaging = ({ pack, isAdmin, put, publish }: IProps & IPathProps) => {
   const [name, setName] = useState(pack.name);
-  const [nameColor, setNameColor] = useState('white');
   const [price, setPrice] = useState(Math.ceil(pack.price));
-  const [priceColor, setPriceColor] = useState('white');
+  const [recordUpdated, setRecordUpdated] = useState(false);
 
-  const onChangeProp = (property, setProperty, setPropertyColor, event) => {
-    setProperty(event.target.value);
-    if (event.target.value.toString() !== pack[property].toString()) {
-      setPropertyColor('#ffcccb');
-    } else {
-      setPropertyColor('white');
-    }
+  const onChangeProp = (setProperty, event, formatter) => {
+    setProperty(formatter(event.target.value));
+    setRecordUpdated(true);
   };
 
   const onUpdate = () => {
     put(pack.id, name, price);
-    setNameColor('white');
-    setPriceColor('white');
+    setRecordUpdated(false);
   };
   const onPublish = () => {
     publish(pack.id);
@@ -49,25 +37,31 @@ const Packaging = ({ pack, isAdmin, put, publish, errorPut, errorPublish }: IPro
         <div>
           <input
             value={name}
-            onChange={(event) => onChangeProp('name', setName, setNameColor, event)}
-            style={{ backgroundColor: nameColor }}
+            onChange={(event) =>
+              onChangeProp(setName, event, (value) => {
+                return value;
+              })
+            }
             className="product-details-packaging-name"
           />
           <input
             value={price}
-            onChange={(event) => onChangeProp('price', setPrice, setPriceColor, event)}
-            style={{ backgroundColor: priceColor }}
+            onChange={(event) =>
+              onChangeProp(setPrice, event, (value) => {
+                return parseFloat(value);
+              })
+            }
             className="product-details-packaging-price"
           />
         </div>
-        <button onClick={onUpdate} className="small-form-btn">
-          Grabar
-        </button>
+        {recordUpdated ? (
+          <button onClick={onUpdate} className="small-form-btn">
+            Grabar
+          </button>
+        ) : null}
         <button onClick={onPublish} className="small-form-btn">
           Publicar
         </button>
-        {errorPut ? <Error error={errorPut} /> : null}
-        {errorPublish ? <Error error={errorPublish} /> : null}
       </li>
     );
   } else {
@@ -79,16 +73,9 @@ const Packaging = ({ pack, isAdmin, put, publish, errorPut, errorPublish }: IPro
   }
 };
 
-const mapStateToProps = (state): IStateProps => {
-  return {
-    errorPut: state.packagingUpdateReducer.error,
-    errorPublish: state.packagingPublishReducer.error,
-  };
-};
-
 const mapDispatchToProps = (dispatch): IPathProps => ({
   put: (id, name, price) => dispatch(packagingActions.put(id, name, price)),
   publish: (id) => dispatch(packagingActions.post(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Packaging);
+export default connect(null, mapDispatchToProps)(Packaging);
