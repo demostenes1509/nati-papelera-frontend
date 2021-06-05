@@ -16,6 +16,7 @@ interface IPathProps {
 const Packaging = ({ pack, isAdmin, put, publish }: IProps & IPathProps) => {
   const [name, setName] = useState(pack.name);
   const [price, setPrice] = useState(Math.ceil(pack.price));
+  const [mlPublished, setmlPublished] = useState(pack.mlPublished);
   const [recordUpdated, setRecordUpdated] = useState(false);
 
   const onChangeProp = (setProperty, event, formatter) => {
@@ -59,9 +60,11 @@ const Packaging = ({ pack, isAdmin, put, publish }: IProps & IPathProps) => {
             Grabar
           </button>
         ) : null}
-        <button onClick={onPublish} className="small-form-btn">
-          Publicar
-        </button>
+        {!recordUpdated ? (
+          <button onClick={onPublish} className="small-form-btn">
+            {mlPublished ? 'Republicar' : 'Publicar'}
+          </button>
+        ) : null}
       </li>
     );
   } else {
