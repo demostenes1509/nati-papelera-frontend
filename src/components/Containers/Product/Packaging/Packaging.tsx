@@ -30,6 +30,7 @@ const Packaging = ({ pack, isAdmin, put, publish }: IProps & IPathProps) => {
   };
   const onPublish = () => {
     publish(pack.id);
+    setmlPublished(true);
   };
 
   if (isAdmin) {
