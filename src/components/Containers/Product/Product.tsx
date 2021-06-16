@@ -28,6 +28,8 @@ interface IStateProps {
   selectedPicture: IPicture;
   errorFetch: string;
   errorPut: string;
+  errorPackagingPut: string;
+  errorPackagingPublish: string;
 }
 
 const Product = ({
@@ -35,6 +37,8 @@ const Product = ({
   payload,
   errorFetch,
   errorPut,
+  errorPackagingPut,
+  errorPackagingPublish,
   fetch,
   selectPicture,
   put,
@@ -45,35 +49,24 @@ const Product = ({
   const { packaging, pictures } = payload;
 
   const [name, setName] = useState(payload.name);
-  const [nameColor, setNameColor] = useState('white');
   const [description, setDescription] = useState(payload.description);
-  const [descriptionColor, setDescriptionColor] = useState('white');
   const [mlCategoryId, setMLCategoryId] = useState(payload.mlCategoryId);
   const [mlCategoryName, setMLCategoryName] = useState(payload.mlCategoryName);
-  const [mlCategoryIdColor, setMLCategoryIdColor] = useState('white');
+  const [recordUpdated, setRecordUpdated] = useState(false);
 
-  const onChangeProp = (property, setProperty, setPropertyColor, event) => {
+  const onChangeProp = (setProperty, event) => {
     setProperty(event.target.value);
-    if (event.target.value.toString() !== payload[property].toString()) {
-      setPropertyColor('#ffcccb');
-    } else {
-      setPropertyColor('white');
-    }
+    setRecordUpdated(true);
   };
 
   const onChangeMlCategoryId = (value) => {
     setMLCategoryId(value);
-    if (value !== payload.mlCategoryId) {
-      setMLCategoryIdColor('#ffcccb');
-    } else {
-      setMLCategoryIdColor('white');
-    }
+    setRecordUpdated(true);
   };
 
   const update = () => {
     put(payload.id, name, description, mlCategoryId);
-    setNameColor('white');
-    setDescriptionColor('white');
+    setRecordUpdated(false);
   };
 
   useEffect(() => {
@@ -85,6 +78,7 @@ const Product = ({
     setDescription(payload.description);
     setMLCategoryId(payload.mlCategoryId);
     setMLCategoryName(payload.mlCategoryName);
+    setRecordUpdated(false);
   }, [payload]);
 
   const onClick = (event, pictureId: string) => {
@@ -120,26 +114,19 @@ const Product = ({
         </div>
       </section>
       <section className="product-details-col">
-        <H2OrInput
-          isAdmin={isAdmin}
-          name={name}
-          onChangeName={(event) => onChangeProp('name', setName, setNameColor, event)}
-          style={{ backgroundColor: nameColor }}
-        ></H2OrInput>
+        <H2OrInput isAdmin={isAdmin} name={name} onChangeName={(event) => onChangeProp(setName, event)}></H2OrInput>
         <ParOrInput
           isAdmin={isAdmin}
           description={description}
-          onChangeDescription={(event) => onChangeProp('description', setDescription, setDescriptionColor, event)}
-          style={{ backgroundColor: descriptionColor }}
+          onChangeDescription={(event) => onChangeProp(setDescription, event)}
         ></ParOrInput>
         <SelOrInput
           isAdmin={isAdmin}
           mlCategoryId={mlCategoryId}
           mlCategoryName={mlCategoryName}
           onChangeMLCategoryId={(value) => onChangeMlCategoryId(value)}
-          style={{ backgroundColor: mlCategoryIdColor }}
         ></SelOrInput>
-        {isAdmin ? (
+        {isAdmin && recordUpdated ? (
           <button onClick={update} className="form-btn">
             Grabar
           </button>
@@ -152,21 +139,23 @@ const Product = ({
               <Packaging key={pack.id} isAdmin={isAdmin} pack={pack} />
             ))}
           </ul>
+          {errorPackagingPut ? <Error error={errorPackagingPut} /> : null}
+          {errorPackagingPublish ? <Error error={errorPackagingPublish} /> : null}
         </div>
       </section>
     </section>
   );
 };
 
-const H2OrInput = ({ isAdmin, onChangeName, name, style }) => {
+const H2OrInput = ({ isAdmin, onChangeName, name }) => {
   if (isAdmin) {
-    return <input value={name} onChange={onChangeName} className="product-details-col-name" style={style}></input>;
+    return <input value={name} onChange={onChangeName} className="product-details-col-name"></input>;
   } else {
     return <h2>{name}</h2>;
   }
 };
 
-const ParOrInput = ({ isAdmin, onChangeDescription, description, style }) => {
+const ParOrInput = ({ isAdmin, onChangeDescription, description }) => {
   if (isAdmin) {
     return (
       <textarea
@@ -175,7 +164,6 @@ const ParOrInput = ({ isAdmin, onChangeDescription, description, style }) => {
         value={description}
         onChange={onChangeDescription}
         className="product-details-col-description"
-        style={style}
       ></textarea>
     );
   } else {
@@ -183,8 +171,7 @@ const ParOrInput = ({ isAdmin, onChangeDescription, description, style }) => {
   }
 };
 
-const SelOrInput = ({ isAdmin, onChangeMLCategoryId, mlCategoryId, mlCategoryName, style }) => {
-  console.log(style, 1);
+const SelOrInput = ({ isAdmin, onChangeMLCategoryId, mlCategoryId, mlCategoryName }) => {
   const fuzzySearch = (options: SelectSearchOption[]): ((query: string) => SelectSearchOption[]) => {
     return () => {
       return options;
@@ -278,6 +265,8 @@ const mapStateToProps = (state): IStateProps => {
     isAdmin: state.sessionReducer.isAdmin,
     refreshPage: state.productPictureDialogReducer.refreshPage,
     selectedPicture: state.productSelectPictureReducer.selectedPicture,
+    errorPackagingPut: state.packagingUpdateReducer.error,
+    errorPackagingPublish: state.packagingPublishReducer.error,
   };
 };
 

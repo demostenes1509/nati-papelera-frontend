@@ -34,4 +34,5 @@ export interface IPackaging {
   id: string;
   name: string;
   price: number;
+  mlPublished: boolean;
 }
