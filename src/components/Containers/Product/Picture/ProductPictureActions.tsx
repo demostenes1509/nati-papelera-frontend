@@ -10,7 +10,10 @@ export const ProductPictureDialogActions = {
   CLOSE_DIALOG: 'CLOSE_DIALOG_PRODUCT_PICTURE',
 };
 
-const post = (productId: string, file: File) => ({ type: ProductPictureSaveActions.POST, params: { productId, file } });
+const post = (productId: string, logoFile: File, nologoFile: File) => ({
+  type: ProductPictureSaveActions.POST,
+  params: { productId, logoFile, nologoFile },
+});
 const postWaiting = () => ({ type: ProductPictureSaveActions.POST_WAITING });
 const postSuccess = (response) => ({ type: ProductPictureSaveActions.POST_SUCCESS, response });
 const postError = (error) => ({ type: ProductPictureSaveActions.POST_ERROR, error });
