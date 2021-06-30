@@ -8,7 +8,7 @@ import {
 
 const initialFetchState = {
   loading: false,
-  payload: { name: '', description: '', packaging: [], pictures: [] },
+  payload: { name: '', description: '', mlCategoryId: '', packaging: [], pictures: [] },
   error: null,
 };
 

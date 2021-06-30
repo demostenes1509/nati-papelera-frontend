@@ -26,12 +26,15 @@ export interface IProduct {
   selected: boolean;
   packaging: Array<IPackaging>;
   pictures: Array<IPicture>;
+  mlCategoryId: string;
+  mlCategoryName: string;
 }
 
 export interface IPackaging {
   id: string;
   name: string;
   price: number;
+  mlPublished: boolean;
 }
 
 export interface IConfiguration {

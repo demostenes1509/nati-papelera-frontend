@@ -10,6 +10,7 @@ import AuthenticationActions from './AuthenticationActions';
 const FACEBOOK_APP_ID = getEnv('REACT_APP_FACEBOOK_APP_ID');
 const MERCADOLIBRE_APP_ID = getEnv('REACT_APP_MERCADOLIBRE_APP_ID');
 const API_URL = getEnv('REACT_APP_API_URL');
+
 interface IStateProps {
   isLoggedIn: boolean;
   error: string;
