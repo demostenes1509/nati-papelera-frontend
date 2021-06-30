@@ -9,6 +9,7 @@ import ProductPictureSagas from '../components/Containers/Product/Picture/Produc
 import ProductSagas from '../components/Containers/Product/ProductSagas';
 import ProductsListSagas from '../components/Containers/ProductsList/ProductsListSagas';
 import FetchSidebar from '../components/Containers/SideBar/SideBarSagas';
+import ConfigurationSagas from '../components/Containers/Admin/Configuration/ConfigurationSagas';
 
 export default function* rootSaga() {
   yield all([
@@ -30,5 +31,6 @@ export default function* rootSaga() {
     fork(ProductPictureSagas.watchProductPictureSaveSuccess),
     fork(ProviderSagas.watchProviderUpload),
     fork(ProviderSagas.watchProviderGetAll),
+    fork(ConfigurationSagas.watchConfigurationGet),
   ]);
 }

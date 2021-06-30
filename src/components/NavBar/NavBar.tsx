@@ -81,6 +81,9 @@ const NavVar = ({ isAdmin }: IStateProps) => {
                 </ul>
               ) : null}
             </li>
+            <li>
+              <Link to="/admin/configuration">Configuración</Link>
+            </li>
           </>
         ) : null}
 

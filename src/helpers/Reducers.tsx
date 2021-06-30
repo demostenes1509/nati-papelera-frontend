@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import CategoryReducer from '../components/Containers/Admin/Category/CategoryReducer';
 import MercadoLibreCategoryReducer from '../components/Containers/Admin/Category/MercadoLibreCategoryReducer';
+import ConfigurationReducer from '../components/Containers/Admin/Configuration/ConfigurationReducer';
 import ProviderReducer from '../components/Containers/Admin/Providers/ProviderReducer';
 import AuthenticationReducer from '../components/Containers/Authentication/AuthenticationReducer';
 import SessionReducer from '../components/Containers/Authentication/SessionReducer';
@@ -27,6 +28,7 @@ const rootReducers = combineReducers({
   categoryGetAllReducer: CategoryReducer.fetch,
   mercadoLibreCategoryGetAllReducer: MercadoLibreCategoryReducer.fetch,
   mercadoLibreCategoryUploadReducer: MercadoLibreCategoryReducer.upload,
+  configurationGetReducer: ConfigurationReducer.fetch,
 });
 
 export default rootReducers;
