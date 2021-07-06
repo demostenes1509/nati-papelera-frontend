@@ -29,6 +29,7 @@ const rootReducers = combineReducers({
   mercadoLibreCategoryGetAllReducer: MercadoLibreCategoryReducer.fetch,
   mercadoLibreCategoryUploadReducer: MercadoLibreCategoryReducer.upload,
   configurationGetReducer: ConfigurationReducer.fetch,
+  configurationPutReducer: ConfigurationReducer.put,
 });
 
 export default rootReducers;

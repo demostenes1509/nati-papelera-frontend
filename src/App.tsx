@@ -5,7 +5,7 @@ import Admin from './components/Containers/Admin/Admin';
 import CategoriesList from './components/Containers/Admin/Category/CategoriesList';
 //import ConfigurationList from './components/Containers/Admin/Configuration/ConfigurationList';
 import MercadoLibreCategoriesFileUpload from './components/Containers/Admin/Category/MercadoLibreCategoriesFileUpload';
-import Configuration from './components/Containers/Admin/configuration/Configuration';
+import Configuration from './components/Containers/Admin/Configuration/Configuration';
 import ProviderFileUpload from './components/Containers/Admin/Providers/ProviderFileUpload';
 import Authentication from './components/Containers/Authentication/Authentication';
 import sessionActions from './components/Containers/Authentication/SessionActions';
@@ -16,7 +16,6 @@ import Product from './components/Containers/Product/Product';
 import ProductsList from './components/Containers/ProductsList/ProductsList';
 import SideBar from './components/Containers/SideBar/SideBar';
 import Layout from './components/layouts/Layout';
-import Configuration from './components/Containers/Admin/Configuration/ConfigurationList';
 
 interface IPathProps {
   loggedIn(token: string);
@@ -44,7 +43,6 @@ const App = ({ isLoggedIn, loggedIn }: IStateProps & IPathProps) => {
         <Layout exact path="/admin" components={[Admin]} />
         <Layout exact path="/admin/configuration" components={[Configuration]} />
         <Layout exact path="/admin/categories/management" components={[CategoriesList]} />
-        <Layout exact path="/admin/configuration" components={[Configuration]} />
         <Layout exact path="/admin/categories/fileupload" components={[MercadoLibreCategoriesFileUpload]} />
         <Layout exact path="/admin/providers/fileupload" components={[ProviderFileUpload]} />
         <Layout exact path="/other/dataprotection" components={[SideBar, DataProtection]} />

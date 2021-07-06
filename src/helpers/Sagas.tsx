@@ -32,5 +32,6 @@ export default function* rootSaga() {
     fork(ProviderSagas.watchProviderUpload),
     fork(ProviderSagas.watchProviderGetAll),
     fork(ConfigurationSagas.watchConfigurationGet),
+    fork(ConfigurationSagas.watchConfigurationPut),
   ]);
 }

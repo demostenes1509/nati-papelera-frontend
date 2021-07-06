@@ -9,4 +9,12 @@ export default {
     };
     return request(config);
   },
+  put(data) {
+    const config: AxiosRequestConfig = {
+      url: '/configuration/update',
+      method: 'PUT',
+      data,
+    };
+    return request(config);
+  },
 };
