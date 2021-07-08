@@ -4,7 +4,6 @@ import { ConfigurationGetActions, ConfigurationPutActions } from './Configuratio
 
 const initialGetState = {
   loading: false,
-  //  payload: { configuration: { id: string } },
   payload: { configuration: {} },
   error: null,
 };

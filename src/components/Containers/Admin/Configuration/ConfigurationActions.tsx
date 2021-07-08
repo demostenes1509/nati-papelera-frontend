@@ -21,7 +21,6 @@ const put = (id, mlCommissionPercentage, mlGainPercentage) => ({
   type: ConfigurationPutActions.PUT,
   body: { id, mlCommissionPercentage, mlGainPercentage },
 });
-//'e3281d9c-9e30-4bbc-a2b4-d26c4341decf'
 const putWaiting = () => ({ type: ConfigurationPutActions.PUT_WAITING });
 const putSuccess = (response) => ({ type: ConfigurationPutActions.PUT_SUCCESS, response });
 const putError = (error) => ({ type: ConfigurationPutActions.PUT_ERROR, error });
