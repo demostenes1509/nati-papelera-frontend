@@ -21,7 +21,6 @@ const Packaging = ({ pack, isAdmin, put, publish }: IProps & IPathProps) => {
 
   const onChangeProp = (setProperty, event, formatter) => {
     setProperty(formatter(event.target.value));
-    setRecordUpdated(true);
   };
 
   const onUpdate = () => {

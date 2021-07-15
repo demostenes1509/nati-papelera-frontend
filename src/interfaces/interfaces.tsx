@@ -36,3 +36,9 @@ export interface IPackaging {
   price: number;
   mlPublished: boolean;
 }
+
+export interface IConfiguration {
+  id: string;
+  mlCommissionPercentage: number;
+  mlGainPercentage: number;
+}
